@@ -94,6 +94,10 @@
                 <li><a href="#blog">Blog</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
+            <button class="theme-toggle" id="themeToggle" aria-label="切换暗色模式" title="切换暗色模式">
+                <svg class="sun-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M12 7a5 5 0 100 10 5 5 0 000-10zM12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+                <svg class="moon-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" fill="currentColor"/></svg>
+            </button>
             <button class="nav-toggle" aria-label="打开导航菜单" aria-expanded="false">
                 <span></span><span></span><span></span>
             </button>
@@ -177,6 +181,39 @@
                             <span>英语六级 · 全英文汇报</span>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 岗位能力匹配 -->
+    <section id="career-fit" class="section">
+        <div class="container">
+            <h2 class="section-title">Career Fit</h2>
+            <div class="career-grid">
+                <div class="career-card">
+                    <div class="career-icon">🚦</div>
+                    <h3>交通工程</h3>
+                    <p>SUMO 微观仿真 · DUE 均衡 · 公交可达性 · 交通韧性评估</p>
+                    <span class="career-match">核心匹配</span>
+                </div>
+                <div class="career-card">
+                    <div class="career-icon">📐</div>
+                    <h3>有限元仿真</h3>
+                    <p>SAP2000 框架抗震 · ABAQUS 渗流/热传导 · 模型标定与缺陷溯源</p>
+                    <span class="career-match">强匹配</span>
+                </div>
+                <div class="career-card career-card-highlight">
+                    <div class="career-icon">📱</div>
+                    <h3>产品管理</h3>
+                    <p>PRD 撰写 · Axure 原型 · 竞品分析 · 用户画像 · 甘特图项目管控</p>
+                    <span class="career-match">3段实习</span>
+                </div>
+                <div class="career-card">
+                    <div class="career-icon">🔬</div>
+                    <h3>半导体工艺</h3>
+                    <p>DOE 实验 · 统计检验 · Python 数据挖掘 · 工艺SOP编写 · 精密测量</p>
+                    <span class="career-match">可迁移</span>
                 </div>
             </div>
         </div>
@@ -300,6 +337,9 @@
                     </div>
                     <h3>基于DEM-SUMO与LLM的多模式交通网络洪水韧性评估</h3>
                     <p class="project-affil">新加坡国立大学 CE5001</p>
+                    <div class="project-image">
+                        <img src="images/proj_ce5001_framework.jpg" alt="CE5001 HDLF五级决策框架架构图" loading="lazy" width="800" height="450">
+                    </div>
                     <div class="project-tech">
                         <span>Python</span><span>SUMO</span><span>LLM</span><span>Qwen</span><span>DeepSeek</span>
                     </div>
@@ -323,6 +363,9 @@
                     </div>
                     <h3>AYE高速公路交织瓶颈分析与优化</h3>
                     <p class="project-affil">新加坡国立大学 CE5203</p>
+                    <div class="project-image">
+                        <img src="images/proj_aye.jpg" alt="AYE高速公路仿真分析与匝道控制策略" loading="lazy" width="800" height="450">
+                    </div>
                     <div class="project-tech">
                         <span>YOLOv11</span><span>SUMO</span><span>Python</span>
                     </div>
@@ -341,6 +384,9 @@
                     </div>
                     <h3>基于三层LLM架构的多模式交通协调研究</h3>
                     <p class="project-affil">新加坡国立大学 CE5212</p>
+                    <div class="project-image">
+                        <img src="images/proj_llm.jpg" alt="三层LLM架构交通协调系统概述" loading="lazy" width="800" height="450">
+                    </div>
                     <div class="project-tech">
                         <span>LLM</span><span>SUMO</span><span>Python</span><span>TraCI</span>
                     </div>
@@ -359,6 +405,9 @@
                     </div>
                     <h3>钢筋混凝土框架结构 SAP2000 有限元分析</h3>
                     <p class="project-affil">新加坡国立大学 课程项目</p>
+                    <div class="project-image">
+                        <img src="images/proj_sap2000.jpg" alt="SAP2000三层框架有限元模型与应力分析" loading="lazy" width="800" height="450">
+                    </div>
                     <div class="project-tech">
                         <span>SAP2000</span><span>有限元</span><span>抗震设计</span>
                     </div>
@@ -582,6 +631,19 @@
     </footer>
 
     <script>
+        // === 暗色模式 ===
+        const themeToggle = document.getElementById('themeToggle');
+        const stored = localStorage.getItem('theme');
+        if (stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+        themeToggle.addEventListener('click', () => {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
+        });
+
         // 移动端导航切换
         const navToggle = document.querySelector('.nav-toggle');
         const navLinks = document.querySelector('.nav-links');

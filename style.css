@@ -963,6 +963,195 @@ p:last-child { margin-bottom: 0; }
     .project-featured { grid-column: 1 / -1; }
 }
 
+/* ---- 暗色模式切换按钮 ---- */
+.theme-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid var(--color-border);
+    background: transparent;
+    cursor: pointer;
+    color: var(--color-text-muted);
+    margin-left: 0.25rem;
+    transition: all var(--transition);
+}
+.theme-toggle:hover {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+}
+.theme-toggle .moon-icon { display: none; }
+.theme-toggle .sun-icon { display: block; }
+
+/* ---- 项目配图 ---- */
+.project-image {
+    margin-bottom: 0.85rem;
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    background: var(--color-bg-alt);
+}
+.project-image img {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    max-height: 320px;
+}
+.project-featured .project-image img {
+    max-height: 400px;
+}
+
+/* ---- 岗位能力匹配 ---- */
+.career-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+.career-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem;
+    transition: all var(--transition);
+    position: relative;
+}
+.career-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
+}
+.career-card-highlight {
+    border-left: 4px solid var(--color-accent);
+}
+.career-icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.4rem;
+}
+.career-card h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+}
+.career-card p {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    line-height: 1.55;
+    margin-bottom: 0.6rem;
+}
+.career-match {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 0.15rem 0.55rem;
+    border-radius: 12px;
+    background: var(--color-accent-subtle);
+    color: var(--color-accent);
+}
+
+@media (min-width: 640px) {
+    .career-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1024px) {
+    .career-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* ========================================
+   暗色模式 (data-theme="dark")
+   ======================================== */
+[data-theme="dark"] {
+    --color-bg: #0f1117;
+    --color-bg-alt: #161822;
+    --color-surface: #1c1f2d;
+    --color-text: #e4e4e7;
+    --color-text-muted: #a1a1aa;
+    --color-text-light: #71717a;
+    --color-accent: #3b82f6;
+    --color-accent-light: #60a5fa;
+    --color-accent-subtle: #1e293b;
+    --color-border: #27272a;
+    --color-tag-bg: #1e293b;
+    --color-tag-text: #94a3b8;
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.2);
+    --shadow: 0 1px 3px rgba(0,0,0,0.3);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+[data-theme="dark"] .hero {
+    background: linear-gradient(
+        180deg,
+        var(--color-bg) 0%,
+        var(--color-bg-alt) 50%,
+        var(--color-bg) 100%
+    );
+}
+
+[data-theme="dark"] .navbar {
+    background: rgba(15, 17, 23, 0.85);
+}
+
+[data-theme="dark"] .theme-toggle .sun-icon { display: none; }
+[data-theme="dark"] .theme-toggle .moon-icon { display: block; }
+
+[data-theme="dark"] .project-highlight {
+    background: #2d2410;
+    color: #fbbf24;
+}
+
+[data-theme="dark"] .project-card,
+[data-theme="dark"] .timeline-content,
+[data-theme="dark"] .blog-card,
+[data-theme="dark"] .campus-card,
+[data-theme="dark"] .skill-category,
+[data-theme="dark"] .career-card,
+[data-theme="dark"] .contact-item {
+    background: var(--color-surface);
+    border-color: var(--color-border);
+}
+
+[data-theme="dark"] .status-card {
+    background: var(--color-accent-subtle);
+    border-color: var(--color-accent);
+}
+
+[data-theme="dark"] .timeline-dot {
+    border-color: var(--color-bg);
+}
+[data-theme="dark"] .section-alt .timeline-dot {
+    border-color: var(--color-bg-alt);
+}
+
+[data-theme="dark"] .badge-pm { background: #1e293b; color: #60a5fa; }
+[data-theme="dark"] .badge-supply { background: #3b2008; color: #f59e0b; }
+
+[data-theme="dark"] .project-type {
+    background: var(--color-bg-alt);
+}
+
+[data-theme="dark"] .project-image {
+    border-color: var(--color-border);
+    background: var(--color-bg-alt);
+}
+
+[data-theme="dark"] .btn-primary {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+}
+[data-theme="dark"] .btn-outline {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+}
+
+[data-theme="dark"] img {
+    opacity: 0.9;
+}
+[data-theme="dark"] img:hover {
+    opacity: 1;
+}
+
 /* ---- 打印样式 ---- */
 @media print {
     .navbar, .hero-scroll, .nav-toggle { display: none !important; }
