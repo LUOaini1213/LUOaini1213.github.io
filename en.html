@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Wenjie Luo | NUS MSc Civil Engineering | AI Product · Multi-Agent Transport · Effect Evaluation">
+    <meta name="author" content="Wenjie Luo">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#1a5276">
+    <link rel="canonical" href="https://luoaini1213.github.io/en.html">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="alternate" hreflang="zh-CN" href="https://luoaini1213.github.io">
+    <link rel="alternate" hreflang="en" href="https://luoaini1213.github.io/en.html">
+    <title>Wenjie Luo — AI Product · Multi-Agent Transport</title>
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Wenjie Luo — AI Product · Multi-Agent Transport">
+    <meta property="og:description" content="NUS CEE MSc | AI agents, multi-agent traffic simulation, and end-to-end effect evaluation">
+    <meta property="og:url" content="https://luoaini1213.github.io/en.html">
+    <meta property="og:image" content="https://luoaini1213.github.io/images/og-preview.jpg">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Wenjie Luo">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Wenjie Luo — AI Product · Multi-Agent Transport">
+    <meta name="twitter:description" content="NUS CEE MSc | AI agents · intelligent transport · product">
+    <meta name="twitter:image" content="https://luoaini1213.github.io/images/og-preview.jpg">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to content</a>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#home" class="nav-logo">Wenjie Luo</a>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="index.html" class="nav-lang" hreflang="zh-CN" title="中文版">中文</a></li>
+            </ul>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+                <svg class="sun-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M12 7a5 5 0 100 10 5 5 0 000-10zM12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+                <svg class="moon-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" fill="currentColor"/></svg>
+            </button>
+            <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <header id="home" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-avatar">
+                    <img src="images/avatar.jpg" alt="Portrait of Wenjie Luo" width="120" height="120" onerror="var fb=this.parentElement.querySelector('.avatar-fallback');if(fb){this.style.display='none';fb.style.display='flex';}">
+                    <div class="avatar-fallback" style="display:none;">WL</div>
+                </div>
+                <h1 class="hero-name">Wenjie Luo<span class="hero-name-en">罗文杰</span></h1>
+                <p class="hero-tagline">
+                    NUS MSc Civil Engineering · AI Product / Multi-Agent Transport<br>
+                    Putting LLM agents into evaluable traffic-simulation loops
+                </p>
+                <div class="hero-cta">
+                    <a href="CV_LuoWenjie.pdf" class="btn btn-primary" download aria-label="Download AI Product CV PDF">Download CV</a>
+                    <a href="#projects" class="btn btn-outline">Featured Projects</a>
+                </div>
+                <p class="hero-cta-note">CV · AI Product track · EN</p>
+                <div class="hero-social">
+                    <a href="https://github.com/LUOaini1213" target="_blank" rel="noopener" title="GitHub" aria-label="GitHub">
+                        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" fill="currentColor"/></svg>
+                    </a>
+                    <a href="mailto:e1576499@u.nus.edu" title="Email" aria-label="Email">
+                        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" fill="currentColor"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="hero-scroll">
+            <span>Scroll</span>
+            <div class="scroll-indicator"></div>
+        </div>
+    </header>
+
+    <section class="metrics-section" aria-label="Key metrics">
+        <div class="container">
+            <div class="metrics-grid">
+                <div class="metric-item">
+                    <span class="metric-value">200</span>
+                    <span class="metric-label">paired experiments</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-value">97.7%</span>
+                    <span class="metric-label">LLM approval accuracy</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-value">62%</span>
+                    <span class="metric-label">congestion cut (dense CBD)</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-value">4</span>
+                    <span class="metric-label">cross-domain internships</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="section">
+        <div class="container" id="main-content">
+            <h2 class="section-title">About</h2>
+            <div class="about-grid">
+                <div class="about-text">
+                    <p>
+                        I am <strong>Wenjie Luo</strong>, an MSc student in Civil Engineering
+                        (Transport) at the <strong>National University of Singapore (NUS)</strong>.
+                        My focus is <strong>AI product and multi-agent transport</strong>:
+                        putting LLM agents, rule policies, and SUMO simulation into statistically testable evaluation loops.
+                    </p>
+                    <p>
+                        I care about LLM <strong>capability boundaries, safety, and latency</strong> in real-time systems,
+                        and I have product experience across PRD, prototyping, and VOC user research.
+                        An engineering background helps me ship verifiable data and deliverables—not just slides.
+                    </p>
+                    <p>
+                        Internships include China State Construction Far East (Singapore), Chery International,
+                        Colorful Clouds Tech, and Expeditors. Open to <strong>2026 full-time / long internships (≥6 months)</strong>;
+                        expected graduation <strong>Jan 2027</strong>.
+                    </p>
+                    <div class="about-quick-facts">
+                        <div class="fact"><span class="fact-icon">📍</span><span>Guangzhou · Singapore</span></div>
+                        <div class="fact"><span class="fact-icon">🎓</span><span>NUS MSc · 2027.01</span></div>
+                        <div class="fact"><span class="fact-icon">🤖</span><span>AI Agent · Product · Sim</span></div>
+                        <div class="fact"><span class="fact-icon">🌐</span><span>Full English academic env</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="section section-alt">
+        <div class="container">
+            <h2 class="section-title">Featured Projects</h2>
+            <div class="projects-grid">
+                <article class="project-card project-featured" id="proj-ce5001">
+                    <div class="project-card-header">
+                        <span class="project-year">2026</span>
+                        <span class="project-type">Independent research</span>
+                    </div>
+                    <h3>Flood Resilience of Multimodal Networks via DEM-SUMO &amp; LLM Agents</h3>
+                    <p class="project-affil">NUS CE5001</p>
+                    <div class="project-image">
+                        <img src="images/proj_ce5001_framework.jpg" alt="HDLF multi-level decision framework" loading="lazy" width="800" height="450">
+                    </div>
+                    <div class="project-tech">
+                        <span>Python</span><span>SUMO</span><span>LLM</span><span>Qwen</span><span>DeepSeek</span>
+                    </div>
+                    <ul class="project-details">
+                        <li>Designed 5 agent types with Function Calling tool chains (rules, persona-augmented, local Qwen2.5-3B, cloud DeepSeek)</li>
+                        <li>~3,500 lines / 10-module pipeline; OSM network + Copernicus DEM flood model</li>
+                        <li>200 paired experiments with Wilcoxon + Holm-Bonferroni evaluation</li>
+                        <li>LTA DataMall bus data (793 routes / 5,201 stops) for multimodal generalization</li>
+                    </ul>
+                    <div class="project-highlight">
+                        <span class="highlight-label">Key finding</span>
+                        <span>Rule agents cut RTA 62.2% in dense CBD (p&lt;0.01); LLM agents match impact with 4–13× fewer actions on sparse nets</span>
+                    </div>
+                    <div class="project-actions">
+                        <a href="files/CE5001_report.pdf" class="btn btn-sm btn-primary" target="_blank" rel="noopener">Report PDF</a>
+                        <a href="images/proj_ce5001_results.jpg" class="btn btn-sm btn-outline" target="_blank" rel="noopener">Results figure</a>
+                    </div>
+                </article>
+
+                <article class="project-card" id="proj-llm">
+                    <div class="project-card-header">
+                        <span class="project-year">2026</span>
+                        <span class="project-type">Personal project</span>
+                    </div>
+                    <h3>Three-Layer LLM Architecture for Multimodal Coordination</h3>
+                    <p class="project-affil">NUS CE5212</p>
+                    <div class="project-image">
+                        <img src="images/proj_llm.jpg" alt="Three-layer LLM traffic coordination overview" loading="lazy" width="800" height="450">
+                    </div>
+                    <div class="project-tech">
+                        <span>LLM</span><span>SUMO</span><span>Python</span><span>TraCI</span>
+                    </div>
+                    <ul class="project-details">
+                        <li>BehaviorModeler / Policy Optimizer / Coordinator covering 645 travelers end-to-end</li>
+                        <li>“Rule propose + LLM approve” hybrid coordinator: <strong>97.7%</strong> approval accuracy, avoids state hallucination</li>
+                        <li>1.4 km² custom network (MRT / bus / AV); 2,874 measured speeds; latency mitigations for real-time use</li>
+                    </ul>
+                    <div class="project-actions">
+                        <span class="project-meta-note">Course project · details on request</span>
+                    </div>
+                </article>
+
+                <article class="project-card" id="proj-aye">
+                    <div class="project-card-header">
+                        <span class="project-year">2026</span>
+                        <span class="project-type">Team lead</span>
+                    </div>
+                    <h3>AYE Expressway Weaving Bottleneck Analysis</h3>
+                    <p class="project-affil">NUS CE5203</p>
+                    <div class="project-image">
+                        <img src="images/proj_aye.jpg" alt="AYE weaving analysis and ramp metering" loading="lazy" width="800" height="450">
+                    </div>
+                    <div class="project-tech">
+                        <span>YOLOv11</span><span>SUMO</span><span>Python</span>
+                    </div>
+                    <ul class="project-details">
+                        <li>YOLOv11 counts from 103 min of video across 4 measurement points</li>
+                        <li>12 SUMO experiments: VSL, ramp metering (RM), VSL+RM</li>
+                        <li>RM cut peak total time loss by <strong>22.7%</strong></li>
+                    </ul>
+                    <div class="project-actions">
+                        <span class="project-meta-note">Course project · details on request</span>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <span class="contact-icon">📧</span>
+                        <div>
+                            <strong>Email</strong>
+                            <a href="mailto:e1576499@u.nus.edu">e1576499@u.nus.edu</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">📍</span>
+                        <div>
+                            <strong>Location</strong>
+                            <span>Guangzhou · Singapore</span>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">🐙</span>
+                        <div>
+                            <strong>GitHub</strong>
+                            <a href="https://github.com/LUOaini1213" target="_blank" rel="noopener">github.com/LUOaini1213</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">📄</span>
+                        <div>
+                            <strong>CV</strong>
+                            <a href="CV_LuoWenjie.pdf" download>CV_LuoWenjie.pdf (AI Product)</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-status">
+                    <div class="status-card">
+                        <span class="status-dot"></span>
+                        <p>📌 Open to 2026 full-time / 2027 cohort roles<br>
+                        Focus: AI Product Manager · Intelligent Transport · Multi-Agent Systems<br>
+                        <span class="status-meta">Grad. Jan 2027 · internship ≥6 months · phone via email</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <button class="back-to-top" id="backToTop" aria-label="Back to top" title="Back to top" tabindex="-1">
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z" fill="currentColor"/></svg>
+    </button>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Wenjie Luo. Built with HTML &amp; CSS.</p>
+            <p class="footer-sub">NUS · AI Product / Multi-Agent Transport · Last updated: 2026-07</p>
+            <p class="footer-sub"><a href="index.html">中文</a> · <a href="mailto:e1576499@u.nus.edu">Email</a></p>
+        </div>
+    </footer>
+
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const stored = localStorage.getItem('theme');
+        if (stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+        themeToggle.addEventListener('click', () => {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
+        });
+
+        const navToggle = document.querySelector('.nav-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        navToggle.addEventListener('click', () => {
+            const isOpen = navLinks.classList.toggle('active');
+            navToggle.classList.toggle('active');
+            navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (!href || href === '#') return;
+                const target = document.querySelector(href);
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    navLinks.classList.remove('active');
+                    navToggle.classList.remove('active');
+                    navToggle.setAttribute('aria-expanded', 'false');
+                }
+            });
+        });
+
+        const navbar = document.querySelector('.navbar');
+        const sectionIds = ['about', 'projects', 'contact'];
+        const navAnchors = Array.from(document.querySelectorAll('.nav-links a[href^="#"]'));
+        function updateNavActive() {
+            if (window.scrollY > 50) navbar.classList.add('scrolled');
+            else navbar.classList.remove('scrolled');
+            let current = '';
+            const offset = 120;
+            for (const id of sectionIds) {
+                const el = document.getElementById(id);
+                if (el && el.getBoundingClientRect().top - offset <= 0) current = id;
+            }
+            navAnchors.forEach(a => {
+                a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+            });
+        }
+        window.addEventListener('scroll', updateNavActive, { passive: true });
+        updateNavActive();
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        document.querySelectorAll('.project-card, .metric-item').forEach(el => {
+            el.classList.add('fade-in');
+            observer.observe(el);
+        });
+
+        const backToTop = document.getElementById('backToTop');
+        let ticking = false;
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    if (window.scrollY > 500) {
+                        backToTop.classList.add('visible');
+                        backToTop.setAttribute('tabindex', '0');
+                    } else {
+                        backToTop.classList.remove('visible');
+                        backToTop.setAttribute('tabindex', '-1');
+                    }
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        }, { passive: true });
+        backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    </script>
+</body>
+</html>
