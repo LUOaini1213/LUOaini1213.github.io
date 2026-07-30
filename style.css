@@ -484,6 +484,7 @@ p:last-child { margin-bottom: 0; }
 }
 .badge-pm { background: #e8f0f8; color: #1a5276; }
 .badge-supply { background: #fef3e2; color: #b45309; }
+.badge-eng { background: #e8f6ef; color: #1f9d6b; }
 
 .timeline-content h3 {
     font-size: 1.1rem;
@@ -1126,6 +1127,7 @@ p:last-child { margin-bottom: 0; }
 
 [data-theme="dark"] .badge-pm { background: #1e293b; color: #60a5fa; }
 [data-theme="dark"] .badge-supply { background: #3b2008; color: #f59e0b; }
+[data-theme="dark"] .badge-eng { background: #0c2a1e; color: #34d399; }
 
 [data-theme="dark"] .project-type {
     background: var(--color-bg-alt);
