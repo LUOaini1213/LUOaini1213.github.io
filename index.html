@@ -90,7 +90,6 @@
             <ul class="nav-links">
                 <li><a href="#about">About</a></li>
                 <li><a href="#experience">Experience</a></li>
-                <li><a href="#intern-work">Intern</a></li>
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#skills">Skills</a></li>
                 <li><a href="#contact">Contact</a></li>
@@ -292,40 +291,106 @@
         </div>
     </section>
 
-    <!-- 实习经历 -->
+    <!-- 实习经历（整合：方法 Grok/Rhino + 交付业务线 + 其他实习） -->
     <section id="experience" class="section">
         <div class="container">
             <h2 class="section-title">Experience</h2>
-            <div class="timeline">
-                <div class="timeline-item" id="exp-fareast">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content timeline-featured">
-                        <div class="timeline-header">
-                            <span class="timeline-date">2026.06.23 – 至今</span>
-                            <span class="timeline-badge badge-eng">工程 · 数字化</span>
-                            <span class="timeline-badge badge-live">新加坡 · 在岗</span>
+            <p class="section-lead">当前主线：新加坡幕墙项目数字化 · 用 Grok Build 落地工具，用 Rhino 做工程可视化</p>
+
+            <!-- 远东：完整整合块 -->
+            <article class="exp-integrated" id="exp-fareast">
+                <header class="exp-integrated-header">
+                    <div class="timeline-header">
+                        <span class="timeline-date">2026.06.23 – 至今</span>
+                        <span class="timeline-badge badge-eng">工程 · 数字化</span>
+                        <span class="timeline-badge badge-live">新加坡 · 在岗</span>
+                    </div>
+                    <h3>中建国际远东幕墙（新加坡） <span class="text-muted">| Engineering Intern</span></h3>
+                    <p class="timeline-degree">项目 SLTO / PD218 · 英文工作环境</p>
+                    <p class="exp-summary">
+                        在幕墙工程里同时做两件事：<strong>用 Agent 把重复事务做成可复用工具</strong>（邮件 / BI / 台账 / 签收系统），
+                        以及 <strong>用 Rhino 把模型变成可沟通的阴影与外观交付</strong>。
+                        业务上覆盖材料物流、E-Filing 合规与技术提交协同。
+                    </p>
+                    <div class="exp-tags">
+                        <span>Grok Build</span><span>Rhino 3D</span><span>Python</span>
+                        <span>React + Node</span><span>Playwright</span><span>Windchill</span>
+                        <span>BI</span><span>E-Filing</span>
+                    </div>
+                </header>
+
+                <!-- 方法层：Grok + Rhino -->
+                <div class="exp-layer">
+                    <h4 class="exp-layer-title"><span class="exp-layer-num">01</span> 方法与工具</h4>
+                    <p class="exp-layer-desc">两条能力线贯穿所有交付：左边写代码与自动化，右边做 3D 工程表达。</p>
+                    <div class="pillar-grid">
+                        <div class="pillar-card" id="ws-grok">
+                            <div class="pillar-top">
+                                <span class="workstream-icon">⚡</span>
+                                <div>
+                                    <span class="workstream-tag">Grok Build</span>
+                                    <h5>Agentic Coding 工作流</h5>
+                                </div>
+                            </div>
+                            <p>在真实 JOB / 追材料目录开会话：读代码、写脚本、跑验证、出交接。增量交付，并对结果做独立 re-verification。</p>
+                            <ul class="workstream-points">
+                                <li>按目录隔离：POR/VMU · Sika · BI 物料表 · VMU 排布</li>
+                                <li>产物：Python 脚本 · HTML/CSV · 可打包 exe · DEPLOY</li>
+                                <li>场景：拉邮件 · 台账同步 · BI 填数/清理 · PQP 批处理</li>
+                            </ul>
                         </div>
-                        <h3>中建国际远东幕墙（新加坡） <span class="text-muted">| Engineering Intern</span></h3>
-                        <p class="timeline-degree">项目 SLTO / PD218 · 英文工作环境 · 直属工程协同</p>
-                        <p class="exp-summary">
-                            在幕墙工程项目中并行推进 <strong>现场数字化、PLM/邮件与 BI 自动化、材料物流台账、E-Filing 合规、Rhino 工程可视化、技术提交协调</strong>。
-                            日常用 <strong>Grok Build</strong> 做 agentic 编程与交付验证，把重复人工动作变成可复用脚本与小工具。
-                        </p>
-                        <div class="exp-tags">
-                            <span>Grok Build</span><span>Rhino 3D</span><span>React + Node</span>
-                            <span>Python 自动化</span><span>Outlook / Playwright</span><span>Windchill PLM</span>
-                            <span>BI 联动</span><span>E-Filing</span><span>供应商协同</span>
+                        <div class="pillar-card" id="ws-rhino">
+                            <div class="pillar-top">
+                                <span class="workstream-icon">🦏</span>
+                                <div>
+                                    <span class="workstream-tag">Rhino</span>
+                                    <h5>VMU 模型 · 阴影 · 外观</h5>
+                                </div>
+                            </div>
+                            <p>基于项目 .3dm 做幕墙三维工作：阴影分析、颜色/外观审阅、布局识图，输出效果图服务方案与现场对齐。</p>
+                            <ul class="workstream-points">
+                                <li>多栋 VMU .3dm（Tower / Podium / FINS / Windows / Sailing…）</li>
+                                <li>场地语境下的 shadow analysis 交付包</li>
+                                <li>外观-only 审阅：聚焦观感与成本边界</li>
+                            </ul>
                         </div>
-                        <ul class="exp-list">
-                            <li><strong>Grok Build 工作流</strong>：在 JOB / 追材料等仓库内用终端 Agent 编写与验证脚本（邮件拉取、BI 填表、台账对账、签收系统与文档工具），增量交付 + 独立 re-verification</li>
-                            <li><strong>Rhino 工程可视化</strong>：基于 VMU .3dm 模型做幕墙 3D 阴影分析与外观审阅（多栋 VMU / 布局平面）；输出效果图支撑方案与业主沟通</li>
-                            <li><strong>货物签收全栈应用</strong>：React + Node + SQLite；物料主数据 CRUD、条码/QR、扫码预填、现场照片证据与消息通知</li>
-                            <li><strong>Windchill / POR·VMU + BI 自动化</strong>：Outlook + Playwright 拉 PromotionNotice；送工地/送工厂分类与完整性报告；邮件/表格联动 BI 自动填表（可打包 exe）</li>
-                            <li><strong>材料与物流台账</strong>：送工厂 / 送工地 Material Summary；船期与订舱跟踪；Sika 等供应商送样与性能测试送检</li>
-                            <li><strong>E-Filing · 文档 · 协同</strong>：命名/目录合规扫描；PQP 16:9 批量规范化；DOC→PDF 清晰度检查；技术提交催交与现场安全培训</li>
-                        </ul>
                     </div>
                 </div>
+
+                <!-- 交付层：业务线 -->
+                <div class="exp-layer">
+                    <h4 class="exp-layer-title"><span class="exp-layer-num">02</span> 交付业务线</h4>
+                    <p class="exp-layer-desc">Grok 写的工具主要落在前三条；Rhino 成果服务协同与方案表达；文档线两者都会用到。</p>
+                    <div class="deliver-grid">
+                        <div class="deliver-card">
+                            <h5>📦 货物签收系统</h5>
+                            <p>React + Node + SQLite · 物料主数据 / 条码 QR / 扫码预填 / 照片留证 · PRD 与安全加固</p>
+                            <span class="deliver-via">via Grok Build</span>
+                        </div>
+                        <div class="deliver-card">
+                            <h5>✉️ PLM 邮件 · POR/VMU · BI</h5>
+                            <p>Outlook + Playwright 拉附件 · 送工地/工厂分类 · 完整性报告 · BI 自动填表（exe）</p>
+                            <span class="deliver-via">via Grok Build</span>
+                        </div>
+                        <div class="deliver-card">
+                            <h5>🚢 材料 · 物流 · 供应商</h5>
+                            <p>双台账 Material Summary · 船期订舱 · Sika 等送样送检 · 英文供应商协同</p>
+                            <span class="deliver-via">业务 + 脚本辅助</span>
+                        </div>
+                        <div class="deliver-card">
+                            <h5>📁 E-Filing · PQP · 文档</h5>
+                            <p>命名/目录合规扫描 · PQP 16:9 批处理 · DOC→PDF/DPI · 技术提交与安全培训</p>
+                            <span class="deliver-via">Grok + 工程文档</span>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="workstream-footnote">工作日志 / Grok 会话 / Rhino 交付整合 · 内部路径与敏感联系人已脱敏</p>
+            </article>
+
+            <!-- 其他实习：紧凑时间线 -->
+            <h3 class="exp-subheading">其他实习</h3>
+            <div class="timeline timeline-compact">
                 <div class="timeline-item">
                     <div class="timeline-dot"></div>
                     <div class="timeline-content">
@@ -335,11 +400,8 @@
                         </div>
                         <h3>奇瑞国际 <span class="text-muted">| 产品经理实习生</span></h3>
                         <ul class="exp-list">
-                            <li>运用甘特图统筹KD地产化项目全周期进度，明确各阶段里程碑与关键路径</li>
-                            <li>完成新品样车试驾评估与配置核对，确保产品规格精准匹配市场需求</li>
-                            <li>独立制作进口资质申报材料，协助完成出口合规检查流程</li>
-                            <li>深度挖掘小红书VOC数据，构建15个目标用户画像，输出5份深度分析报告</li>
-                            <li>基于多维数据构建气泡图分析模型，追踪销量趋势并形成预测报告</li>
+                            <li>甘特图统筹 KD 地产化全周期；样车试驾与配置核对；进口资质与出口合规</li>
+                            <li>小红书 VOC → 15 个用户画像、5 份深度报告；气泡图销量趋势分析</li>
                         </ul>
                     </div>
                 </div>
@@ -352,10 +414,7 @@
                         </div>
                         <h3>彩讯科技 <span class="text-muted">| 产品经理实习生</span></h3>
                         <ul class="exp-list">
-                            <li>独立撰写3份PRD，覆盖功能定义、交互逻辑与验收标准，文档通过率100%</li>
-                            <li>运用Axure完成5个核心页面交互原型设计，方案获团队全量采纳</li>
-                            <li>负责核心功能模块测试验证，推动修复10+项潜在缺陷</li>
-                            <li>统筹协调前后端、测试及运维团队，推动产品按计划完成上线交付</li>
+                            <li>独立 3 份 PRD（通过率 100%）；Axure 5 页原型全量采纳；推动 10+ 缺陷修复与按期上线</li>
                         </ul>
                     </div>
                 </div>
@@ -366,132 +425,13 @@
                             <span class="timeline-date">2024.12 – 2025.05</span>
                             <span class="timeline-badge badge-supply">供应链</span>
                         </div>
-                        <h3>Expeditors (世界500强) <span class="text-muted">| 供应链助理实习生</span></h3>
+                        <h3>Expeditors <span class="text-muted">| 供应链助理实习生</span></h3>
                         <ul class="exp-list">
-                            <li>每日对接船公司、客户、报关行等多方主体，高效处理进出口物流数据</li>
-                            <li>独立完成报关单开具与审核，严格把控单证合规性</li>
-                            <li>运用Excel VLOOKUP、数据透视表优化处理流程，单据处理效率提升30%</li>
+                            <li>对接船公司 / 客户 / 报关行；报关单开具审核；Excel 流程优化，单据效率约 +30%</li>
                         </ul>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- 远东实习 · 工作线（WorkBuddy 沉淀） -->
-    <section id="intern-work" class="section section-alt">
-        <div class="container">
-            <h2 class="section-title">Internship Workstreams</h2>
-            <p class="section-lead">远东幕墙（新加坡）· WorkBuddy 日志 + Grok Build 会话 + Rhino 交付沉淀</p>
-
-            <div class="toolbelt" aria-label="核心工具">
-                <div class="toolbelt-item toolbelt-highlight">
-                    <span class="toolbelt-label">AI Coding</span>
-                    <strong>Grok Build</strong>
-                    <span class="toolbelt-desc">终端 Agent · 多仓库实战</span>
-                </div>
-                <div class="toolbelt-item toolbelt-highlight">
-                    <span class="toolbelt-label">3D / BIM</span>
-                    <strong>Rhino</strong>
-                    <span class="toolbelt-desc">.3dm · 阴影 · 外观</span>
-                </div>
-                <div class="toolbelt-item">
-                    <span class="toolbelt-label">Stack</span>
-                    <strong>Python · React</strong>
-                    <span class="toolbelt-desc">自动化 + 全栈</span>
-                </div>
-                <div class="toolbelt-item">
-                    <span class="toolbelt-label">Office</span>
-                    <strong>Outlook · BI</strong>
-                    <span class="toolbelt-desc">PLM / 填表联动</span>
-                </div>
-            </div>
-
-            <div class="workstream-grid">
-                <article class="workstream-card workstream-card-featured" id="ws-grok">
-                    <div class="workstream-icon">⚡</div>
-                    <div class="workstream-meta">
-                        <span class="workstream-tag">Grok Build</span>
-                        <span class="workstream-tag workstream-tag-alt">Agentic Coding</span>
-                    </div>
-                    <h3>Grok Build · 实习编程工作流</h3>
-                    <p>在真实 JOB / 追材料工作目录中，用 Grok Build 作为日常 coding agent：读仓库、写脚本、跑验证、出交接文档。覆盖邮件自动化、BI 联动填表、台账对账、签收系统与文档工具等多线任务。</p>
-                    <ul class="workstream-points">
-                        <li>多会话按项目目录隔离（POR/VMU、Sika、BI 物料表、VMU 排布等）</li>
-                        <li>增量交付 + 独立 re-verification（重跑测试 / 审 diff / 读磁盘）</li>
-                        <li>产物：.py 脚本、HTML/CSV 对照表、exe 打包、DEPLOY 说明</li>
-                        <li>典型场景：拉邮件、Material Summary 同步、BI 清空/填数、PQP 批处理</li>
-                    </ul>
-                </article>
-                <article class="workstream-card workstream-card-featured" id="ws-rhino">
-                    <div class="workstream-icon">🦏</div>
-                    <div class="workstream-meta">
-                        <span class="workstream-tag">Rhino</span>
-                        <span class="workstream-tag workstream-tag-alt">工程可视化</span>
-                    </div>
-                    <h3>Rhino · VMU 模型与阴影分析</h3>
-                    <p>基于项目 VMU / 布局 .3dm 模型开展幕墙三维工作：建筑阴影分析、外观与颜色审阅、平面布局识图，输出效果图与分析包，支撑方案评审与现场沟通。</p>
-                    <ul class="workstream-points">
-                        <li>VMU 多栋 .3dm（Tower / Podium / FINS / Windows / Sailing 等分批）</li>
-                        <li>阴影分析（含布局平面 / 场地语境下的 shadow analysis 交付）</li>
-                        <li>外观-only VR 审阅思路：聚焦颜色与观感，控制模型用途与成本</li>
-                        <li>与 PDF 布局图、安装平面联动，服务技术提交与内部对齐</li>
-                    </ul>
-                </article>
-                <article class="workstream-card">
-                    <div class="workstream-icon">📦</div>
-                    <div class="workstream-meta">
-                        <span class="workstream-tag">产品 + 全栈</span>
-                    </div>
-                    <h3>货物签收系统</h3>
-                    <p>工地材料收货数字化：系统物料代码、后台 CRUD、条码/QR 标签、扫码预填、照片留证与通知中心；部署说明与真机冒烟验证。</p>
-                    <ul class="workstream-points">
-                        <li>React + Node + SQLite</li>
-                        <li>Module A 主数据 · Module B 视觉扫码</li>
-                        <li>PRD / 架构 / 安全加固（含 SSRF 等）</li>
-                    </ul>
-                </article>
-                <article class="workstream-card">
-                    <div class="workstream-icon">✉️</div>
-                    <div class="workstream-meta">
-                        <span class="workstream-tag">自动化</span>
-                    </div>
-                    <h3>PLM 邮件 · POR/VMU · BI</h3>
-                    <p>Windchill PromotionNotice 批量拉附件与提料单；空主题转发解析；送工地/送工厂分类与完整性汇总；表格联动 BI 自动填表。</p>
-                    <ul class="workstream-points">
-                        <li>Outlook + Playwright · 可打包 exe</li>
-                        <li>邮件 → HTML/CSV KPI · 稳定去重</li>
-                        <li>BI 物料表填数 / 清理脚本</li>
-                    </ul>
-                </article>
-                <article class="workstream-card">
-                    <div class="workstream-icon">🚢</div>
-                    <div class="workstream-meta">
-                        <span class="workstream-tag">供应链</span>
-                    </div>
-                    <h3>材料 · 物流 · 供应商</h3>
-                    <p>VMU 分批物料跟踪；船期与订舱对照；密封胶/铝板/玻璃送样与实验室性能测试协同（含 Sika 送检）。</p>
-                    <ul class="workstream-points">
-                        <li>送工厂 / 送工地双台账</li>
-                        <li>船期与订舱规则落地</li>
-                        <li>多供应商英文协同</li>
-                    </ul>
-                </article>
-                <article class="workstream-card">
-                    <div class="workstream-icon">📁</div>
-                    <div class="workstream-meta">
-                        <span class="workstream-tag">合规 · 文档</span>
-                    </div>
-                    <h3>E-Filing · PQP · 文档工具</h3>
-                    <p>JOB 命名与目录合规审计；PQP 演示 16:9 批量规范化；DOC→PDF 与打印 DPI 自检；技术提交催交与现场安全培训协同。</p>
-                    <ul class="workstream-points">
-                        <li>命名规范扫描 · 类别缺口清单</li>
-                        <li>python-pptx 页眉页脚/页码批处理</li>
-                        <li>DOC→PDF · DPI 检查技能</li>
-                    </ul>
-                </article>
-            </div>
-            <p class="workstream-footnote">来源：WorkBuddy 工作日志 · Grok Build 项目会话 · Rhino/.3dm 交付 · 已脱敏内部路径与敏感联系人</p>
         </div>
     </section>
 
@@ -857,7 +797,7 @@
 
         // 滚动时导航阴影 + 当前 section 高亮
         const navbar = document.querySelector('.navbar');
-        const sectionIds = ['about', 'experience', 'intern-work', 'projects', 'skills', 'insights', 'contact'];
+        const sectionIds = ['about', 'experience', 'projects', 'skills', 'insights', 'contact'];
         const navAnchors = Array.from(document.querySelectorAll('.nav-links a[href^="#"]'));
 
         function updateNavActive() {
@@ -888,7 +828,7 @@
             });
         }, observerOptions);
 
-        document.querySelectorAll('.project-card, .blog-card, .campus-card, .timeline-item, .skill-category, .metric-item, .career-card, .workstream-card').forEach(el => {
+        document.querySelectorAll('.project-card, .blog-card, .campus-card, .timeline-item, .skill-category, .metric-item, .career-card, .pillar-card, .deliver-card, .exp-integrated').forEach(el => {
             el.classList.add('fade-in');
             observer.observe(el);
         });
