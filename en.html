@@ -39,6 +39,7 @@
             <a href="#home" class="nav-logo">Wenjie Luo</a>
             <ul class="nav-links">
                 <li><a href="#about">About</a></li>
+                <li><a href="#intern-work">Intern</a></li>
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#contact">Contact</a></li>
                 <li><a href="index.html" class="nav-lang" hreflang="zh-CN" title="中文版">中文</a></li>
@@ -126,9 +127,9 @@
                         An engineering background helps me ship verifiable data and deliverables—not just slides.
                     </p>
                     <p>
-                        Internships include China State Construction Far East (Singapore), Chery International,
-                        Colorful Clouds Tech, and Expeditors. Open to <strong>2026 full-time / long internships (≥6 months)</strong>;
-                        expected graduation <strong>Jan 2027</strong>.
+                        Currently interning at <strong>China State Construction Far East Facade (Singapore)</strong>
+                        (since 2026.06.23), with prior roles at Chery International, Colorful Clouds Tech, and Expeditors.
+                        Open to <strong>2026 full-time / long internships (≥6 months)</strong>; expected graduation <strong>Jan 2027</strong>.
                     </p>
                     <div class="about-quick-facts">
                         <div class="fact"><span class="fact-icon">📍</span><span>Guangzhou · Singapore</span></div>
@@ -141,7 +142,83 @@
         </div>
     </section>
 
-    <section id="projects" class="section section-alt">
+    <section id="intern-work" class="section section-alt">
+        <div class="container">
+            <h2 class="section-title">Internship Workstreams</h2>
+            <p class="section-lead">Far East Facade (Singapore) · recent delivery lines from the internship</p>
+            <div class="workstream-grid">
+                <article class="workstream-card">
+                    <div class="workstream-icon">📦</div>
+                    <div class="workstream-meta"><span class="workstream-tag">Product + Full-stack</span></div>
+                    <h3>Goods Receipt App</h3>
+                    <p>Digitized site material receiving: master data CRUD, barcode/QR labels, scan-to-fill, photo evidence and notifications; deploy notes and device smoke tests.</p>
+                    <ul class="workstream-points">
+                        <li>React + Node + SQLite</li>
+                        <li>Master data + vision scan modules</li>
+                        <li>PRD / architecture / hardening</li>
+                    </ul>
+                </article>
+                <article class="workstream-card">
+                    <div class="workstream-icon">✉️</div>
+                    <div class="workstream-meta"><span class="workstream-tag">Automation</span></div>
+                    <h3>PLM Mail &amp; POR/VMU Ledger</h3>
+                    <p>Batch-pull Windchill PromotionNotice attachments and material releases; parse forwards, classify site vs factory, integrity summary to HTML/CSV.</p>
+                    <ul class="workstream-points">
+                        <li>Outlook + Playwright · packable exe</li>
+                        <li>Mail parse → KPI tables</li>
+                        <li>Folder-tree scan · stable dedupe</li>
+                    </ul>
+                </article>
+                <article class="workstream-card">
+                    <div class="workstream-icon">🚢</div>
+                    <div class="workstream-meta"><span class="workstream-tag">Supply chain</span></div>
+                    <h3>Materials · Logistics · Suppliers</h3>
+                    <p>VMU batch tracking, sailing schedules and bookings; sealant/aluminium/glass samples and lab test coordination with suppliers.</p>
+                    <ul class="workstream-points">
+                        <li>Factory / site dual ledgers</li>
+                        <li>Shipping &amp; booking rules</li>
+                        <li>English supplier coordination</li>
+                    </ul>
+                </article>
+                <article class="workstream-card">
+                    <div class="workstream-icon">📁</div>
+                    <div class="workstream-meta"><span class="workstream-tag">Compliance</span></div>
+                    <h3>E-Filing &amp; Document Quality</h3>
+                    <p>Audit JOB folders and naming against project standards; gap lists for missing categories; DOC→PDF with print-DPI checks for submissions.</p>
+                    <ul class="workstream-points">
+                        <li>Naming compliance scanner</li>
+                        <li>Category gap checklists</li>
+                        <li>DOC→PDF · DPI inspection</li>
+                    </ul>
+                </article>
+                <article class="workstream-card">
+                    <div class="workstream-icon">🏗️</div>
+                    <div class="workstream-meta"><span class="workstream-tag">Visualization</span></div>
+                    <h3>Rhino · PQP · Delivery Packs</h3>
+                    <p>Curtain-wall 3D shadow studies; batch-normalize PQP decks to 16:9 with headers/footers and page numbers for reviews and client packs.</p>
+                    <ul class="workstream-points">
+                        <li>Rhino 3D shadow analysis</li>
+                        <li>python-pptx batch layout</li>
+                        <li>Reusable conversion scripts</li>
+                    </ul>
+                </article>
+                <article class="workstream-card">
+                    <div class="workstream-icon">🤝</div>
+                    <div class="workstream-meta"><span class="workstream-tag">Coordination</span></div>
+                    <h3>Technical Submissions &amp; Site</h3>
+                    <p>Chase critical technical submissions, align main-con and subcontractor milestones; safety briefings; concise English updates for Singapore stakeholders.</p>
+                    <ul class="workstream-points">
+                        <li>Submission chase &amp; logs</li>
+                        <li>Site safety coordination</li>
+                        <li>Bilingual communication</li>
+                    </ul>
+                </article>
+            </div>
+            <p class="workstream-footnote">Sourced from internship work logs · internal paths and contacts redacted</p>
+        </div>
+    </section>
+
+    <section id="projects" class="section">
         <div class="container">
             <h2 class="section-title">Featured Projects</h2>
             <div class="projects-grid">
@@ -276,7 +353,7 @@
     <footer class="footer">
         <div class="container">
             <p>&copy; 2026 Wenjie Luo. Built with HTML &amp; CSS.</p>
-            <p class="footer-sub">NUS · AI Product / Multi-Agent Transport · Last updated: 2026-07</p>
+            <p class="footer-sub">NUS · AI Product / Multi-Agent Transport · Last updated: 2026-08</p>
             <p class="footer-sub"><a href="index.html">中文</a> · <a href="mailto:e1576499@u.nus.edu">Email</a></p>
         </div>
     </footer>
@@ -318,7 +395,7 @@
         });
 
         const navbar = document.querySelector('.navbar');
-        const sectionIds = ['about', 'projects', 'contact'];
+        const sectionIds = ['about', 'intern-work', 'projects', 'contact'];
         const navAnchors = Array.from(document.querySelectorAll('.nav-links a[href^="#"]'));
         function updateNavActive() {
             if (window.scrollY > 50) navbar.classList.add('scrolled');
@@ -341,7 +418,7 @@
                 if (entry.isIntersecting) entry.target.classList.add('visible');
             });
         }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-        document.querySelectorAll('.project-card, .metric-item').forEach(el => {
+        document.querySelectorAll('.project-card, .metric-item, .workstream-card').forEach(el => {
             el.classList.add('fade-in');
             observer.observe(el);
         });

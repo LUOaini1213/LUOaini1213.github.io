@@ -90,9 +90,9 @@
             <ul class="nav-links">
                 <li><a href="#about">About</a></li>
                 <li><a href="#experience">Experience</a></li>
+                <li><a href="#intern-work">Intern</a></li>
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#skills">Skills</a></li>
-                <li><a href="#insights">Insights</a></li>
                 <li><a href="#contact">Contact</a></li>
                 <li><a href="en.html" class="nav-lang" hreflang="en" title="English version">EN</a></li>
             </ul>
@@ -184,7 +184,7 @@
                         帮助我把方案落到可验证的数据与交付物上。
                     </p>
                     <p>
-                        实习覆盖<strong>中建国际远东幕墙（新加坡）</strong>、奇瑞国际、彩讯科技、Expeditors。
+                        当前在<strong>中建国际远东幕墙（新加坡）</strong>实习（2026.06.23 起），同步有奇瑞国际、彩讯科技、Expeditors 经历。
                         正在寻找 <strong>2026 秋招 / 2027 届</strong>机会，可长期实习（≥6 个月），预计 2027.01 毕业。
                     </p>
                     <div class="about-quick-facts">
@@ -297,20 +297,32 @@
         <div class="container">
             <h2 class="section-title">Experience</h2>
             <div class="timeline">
-                <div class="timeline-item">
+                <div class="timeline-item" id="exp-fareast">
                     <div class="timeline-dot"></div>
-                    <div class="timeline-content">
+                    <div class="timeline-content timeline-featured">
                         <div class="timeline-header">
-                            <span class="timeline-date">2026.06 – 至今</span>
-                            <span class="timeline-badge badge-eng">工程</span>
+                            <span class="timeline-date">2026.06.23 – 至今</span>
+                            <span class="timeline-badge badge-eng">工程 · 数字化</span>
+                            <span class="timeline-badge badge-live">新加坡 · 在岗</span>
                         </div>
-                        <h3>中建国际远东幕墙（新加坡） <span class="text-muted">| 工程实习生</span></h3>
+                        <h3>中建国际远东幕墙（新加坡） <span class="text-muted">| Engineering Intern</span></h3>
+                        <p class="timeline-degree">项目 SLTO / PD218 · 英文工作环境 · 直属工程协同</p>
+                        <p class="exp-summary">
+                            在幕墙工程项目中并行推进 <strong>现场数字化工具、PLM/邮件自动化、材料与物流台账、E-Filing 合规、技术提交协调</strong>。
+                            用「能落地的小工具 + 可核对的数据表」把重复人工动作变成可复用流程。
+                        </p>
+                        <div class="exp-tags">
+                            <span>React + Node</span><span>Python 自动化</span><span>Outlook / Playwright</span>
+                            <span>Windchill PLM</span><span>E-Filing</span><span>Rhino</span>
+                            <span>供应商协同</span><span>QA/QC</span>
+                        </div>
                         <ul class="exp-list">
-                            <li>对接 4 家材料供应商（Sika 等）协调密封胶 / 铝板 / 玻璃送样与性能测试送检，制作采购展示页对齐需求（英文工作环境）</li>
-                            <li>独立开发货物签收全栈应用（React + Node + SQLite），实现工地材料收货台账的数字化登记与追溯</li>
-                            <li>开发 POR/VMU 邮件自动化脚本并打包为 Windows 免安装 exe，联动 BI 自动填表，提升日常办公效率</li>
-                            <li>编写 E-Filing 命名合规扫描器，自动校验 JOB 工程文件命名规范；与分包施工队组织安全培训并推进节点</li>
-                            <li>使用 Rhino 完成 VMU/Tuas 幕墙 3D 阴影分析与可视化交付，支撑工程方案评审</li>
+                            <li><strong>货物签收全栈应用</strong>：React + Node + SQLite；物料主数据 CRUD、条码/QR、扫码预填、现场照片证据与消息通知，支撑工地收货台账数字化</li>
+                            <li><strong>Windchill / POR·VMU 邮件自动化</strong>：Outlook + Playwright 拉取 PromotionNotice 附件；解析转发正文、送工地/送工厂分类、跨文件夹全量扫描与去重，输出 HTML/CSV 对照表</li>
+                            <li><strong>材料与物流台账</strong>：维护送工厂 / 送工地 Material Summary；跟踪 OOCL 船期与订舱；协调供应商送样（Sika 等）与性能测试送检</li>
+                            <li><strong>E-Filing 合规</strong>：按项目文档标准扫描命名与目录结构，补齐缺失类别，降低归档出错率</li>
+                            <li><strong>工程可视化与交付物</strong>：Rhino 幕墙 3D 阴影分析；PQP 演示文稿 16:9 批量规范化；DOC→PDF 清晰度检查等可复用脚本</li>
+                            <li><strong>跨职能协同</strong>：技术提交催交（如排烟天窗文件）、分包安全培训、现场节点推进；英文短讯对接新加坡干系人</li>
                         </ul>
                     </div>
                 </div>
@@ -366,8 +378,97 @@
         </div>
     </section>
 
+    <!-- 远东实习 · 工作线（WorkBuddy 沉淀） -->
+    <section id="intern-work" class="section section-alt">
+        <div class="container">
+            <h2 class="section-title">Internship Workstreams</h2>
+            <p class="section-lead">远东幕墙（新加坡）· 近期 intern 交付主线，按业务线整理</p>
+            <div class="workstream-grid">
+                <article class="workstream-card">
+                    <div class="workstream-icon">📦</div>
+                    <div class="workstream-meta">
+                        <span class="workstream-tag">产品 + 全栈</span>
+                    </div>
+                    <h3>货物签收系统</h3>
+                    <p>工地材料收货数字化：系统物料代码、后台 CRUD、条码/QR 标签、扫码预填、照片留证与通知中心；完成部署说明与真机冒烟验证。</p>
+                    <ul class="workstream-points">
+                        <li>React + Node + SQLite</li>
+                        <li>Module A 主数据 · Module B 视觉扫码</li>
+                        <li>PRD / 架构 / 安全加固</li>
+                    </ul>
+                </article>
+                <article class="workstream-card">
+                    <div class="workstream-icon">✉️</div>
+                    <div class="workstream-meta">
+                        <span class="workstream-tag">自动化</span>
+                    </div>
+                    <h3>PLM 邮件与 POR/VMU 台账</h3>
+                    <p>从 Windchill PromotionNotice 批量拉附件与提料单；支持空主题转发、正文提取、送工地/送工厂自动分类与完整性汇总报告。</p>
+                    <ul class="workstream-points">
+                        <li>Outlook + Playwright · 可打包 exe</li>
+                        <li>邮件解析 → HTML/CSV KPI 表</li>
+                        <li>跨文件夹扫描 · 稳定去重</li>
+                    </ul>
+                </article>
+                <article class="workstream-card">
+                    <div class="workstream-icon">🚢</div>
+                    <div class="workstream-meta">
+                        <span class="workstream-tag">供应链</span>
+                    </div>
+                    <h3>材料 · 物流 · 供应商</h3>
+                    <p>VMU 分批（Tower / Podium / FINS / Windows / Sailing）物料跟踪；船期与订舱对照；密封胶/铝板/玻璃送样与实验室性能测试协同。</p>
+                    <ul class="workstream-points">
+                        <li>送工厂 / 送工地双台账</li>
+                        <li>船期与订舱规则落地</li>
+                        <li>多供应商英文协同</li>
+                    </ul>
+                </article>
+                <article class="workstream-card">
+                    <div class="workstream-icon">📁</div>
+                    <div class="workstream-meta">
+                        <span class="workstream-tag">合规</span>
+                    </div>
+                    <h3>E-Filing 与文档质量</h3>
+                    <p>按项目文档标准审计 JOB 目录与命名；补齐缺失类别；Word/PDF 转档与打印清晰度检查，保障提交包可交付。</p>
+                    <ul class="workstream-points">
+                        <li>命名规范扫描器</li>
+                        <li>目录类别缺口清单</li>
+                        <li>DOC→PDF · DPI 自检</li>
+                    </ul>
+                </article>
+                <article class="workstream-card">
+                    <div class="workstream-icon">🏗️</div>
+                    <div class="workstream-meta">
+                        <span class="workstream-tag">工程可视化</span>
+                    </div>
+                    <h3>Rhino · PQP · 方案交付</h3>
+                    <p>幕墙 3D 阴影分析与外观可视化；PQP 演示文稿批量 16:9 规范化（页眉页脚、页码、版式钳制）；支撑方案评审与业主沟通。</p>
+                    <ul class="workstream-points">
+                        <li>Rhino 3D 阴影分析</li>
+                        <li>python-pptx 批量版式</li>
+                        <li>可复用转换脚本</li>
+                    </ul>
+                </article>
+                <article class="workstream-card">
+                    <div class="workstream-icon">🤝</div>
+                    <div class="workstream-meta">
+                        <span class="workstream-tag">项目协同</span>
+                    </div>
+                    <h3>技术提交与现场协同</h3>
+                    <p>催交关键技术文件、对接总包与分包节点；组织安全培训；用简洁英文短讯同步新加坡侧干系人，避免信息断层。</p>
+                    <ul class="workstream-points">
+                        <li>技术提交催交与台账</li>
+                        <li>现场安全培训协同</li>
+                        <li>中英双语境沟通</li>
+                    </ul>
+                </article>
+            </div>
+            <p class="workstream-footnote">内容来源：实习工作日志与交付物沉淀 · 已脱敏内部路径与敏感联系人</p>
+        </div>
+    </section>
+
     <!-- 项目经历 -->
-    <section id="projects" class="section section-alt">
+    <section id="projects" class="section">
         <div class="container">
             <h2 class="section-title">Featured Projects</h2>
             <div class="projects-grid">
@@ -680,7 +781,7 @@
     <footer class="footer">
         <div class="container">
             <p>&copy; 2026 罗文杰 (Wenjie Luo). Built with HTML &amp; CSS.</p>
-            <p class="footer-sub">NUS · AI Product / Multi-Agent Transport · Last updated: 2026-07</p>
+            <p class="footer-sub">NUS · AI Product / Multi-Agent Transport · Last updated: 2026-08</p>
             <p class="footer-sub"><a href="en.html">English</a> · <a href="mailto:e1576499@u.nus.edu">Email</a></p>
         </div>
     </footer>
@@ -726,7 +827,7 @@
 
         // 滚动时导航阴影 + 当前 section 高亮
         const navbar = document.querySelector('.navbar');
-        const sectionIds = ['about', 'experience', 'projects', 'skills', 'insights', 'contact'];
+        const sectionIds = ['about', 'experience', 'intern-work', 'projects', 'skills', 'insights', 'contact'];
         const navAnchors = Array.from(document.querySelectorAll('.nav-links a[href^="#"]'));
 
         function updateNavActive() {
@@ -757,7 +858,7 @@
             });
         }, observerOptions);
 
-        document.querySelectorAll('.project-card, .blog-card, .campus-card, .timeline-item, .skill-category, .metric-item, .career-card').forEach(el => {
+        document.querySelectorAll('.project-card, .blog-card, .campus-card, .timeline-item, .skill-category, .metric-item, .career-card, .workstream-card').forEach(el => {
             el.classList.add('fade-in');
             observer.observe(el);
         });
