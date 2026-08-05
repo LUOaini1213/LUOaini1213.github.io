@@ -145,13 +145,67 @@
     <section id="intern-work" class="section section-alt">
         <div class="container">
             <h2 class="section-title">Internship Workstreams</h2>
-            <p class="section-lead">Far East Facade (Singapore) · recent delivery lines from the internship</p>
+            <p class="section-lead">Far East Facade (Singapore) · WorkBuddy logs + Grok Build sessions + Rhino deliverables</p>
+
+            <div class="toolbelt" aria-label="Core tools">
+                <div class="toolbelt-item toolbelt-highlight">
+                    <span class="toolbelt-label">AI Coding</span>
+                    <strong>Grok Build</strong>
+                    <span class="toolbelt-desc">Terminal agent · multi-repo</span>
+                </div>
+                <div class="toolbelt-item toolbelt-highlight">
+                    <span class="toolbelt-label">3D / BIM</span>
+                    <strong>Rhino</strong>
+                    <span class="toolbelt-desc">.3dm · shadow · appearance</span>
+                </div>
+                <div class="toolbelt-item">
+                    <span class="toolbelt-label">Stack</span>
+                    <strong>Python · React</strong>
+                    <span class="toolbelt-desc">Automation + full-stack</span>
+                </div>
+                <div class="toolbelt-item">
+                    <span class="toolbelt-label">Office</span>
+                    <strong>Outlook · BI</strong>
+                    <span class="toolbelt-desc">PLM / form fill</span>
+                </div>
+            </div>
+
             <div class="workstream-grid">
+                <article class="workstream-card workstream-card-featured" id="ws-grok">
+                    <div class="workstream-icon">⚡</div>
+                    <div class="workstream-meta">
+                        <span class="workstream-tag">Grok Build</span>
+                        <span class="workstream-tag workstream-tag-alt">Agentic Coding</span>
+                    </div>
+                    <h3>Grok Build · Internship Coding Workflow</h3>
+                    <p>Day-to-day coding agent inside real JOB / material-tracking folders: read repos, write scripts, re-verify, hand off docs. Covers mail automation, BI form fill, ledger reconcile, receipt app and document tools.</p>
+                    <ul class="workstream-points">
+                        <li>Sessions scoped by project folder (POR/VMU, Sika, BI tables, VMU layout…)</li>
+                        <li>Incremental delivery + independent re-verification</li>
+                        <li>Outputs: .py scripts, HTML/CSV tables, packable exe, DEPLOY notes</li>
+                        <li>Typical: pull mail, Material Summary sync, BI clear/fill, PQP batch</li>
+                    </ul>
+                </article>
+                <article class="workstream-card workstream-card-featured" id="ws-rhino">
+                    <div class="workstream-icon">🦏</div>
+                    <div class="workstream-meta">
+                        <span class="workstream-tag">Rhino</span>
+                        <span class="workstream-tag workstream-tag-alt">Visualization</span>
+                    </div>
+                    <h3>Rhino · VMU Models &amp; Shadow Studies</h3>
+                    <p>Curtain-wall 3D work on project VMU / layout .3dm files: building shadow analysis, appearance/color review, plan reading; figures for design review and site alignment.</p>
+                    <ul class="workstream-points">
+                        <li>Multi-building VMU .3dm batches (Tower / Podium / FINS / Windows / Sailing…)</li>
+                        <li>Shadow analysis packages in site/layout context</li>
+                        <li>Appearance-only VR review mindset: color &amp; look, cost-aware scope</li>
+                        <li>Linked with PDF layouts and install plans for technical submissions</li>
+                    </ul>
+                </article>
                 <article class="workstream-card">
                     <div class="workstream-icon">📦</div>
                     <div class="workstream-meta"><span class="workstream-tag">Product + Full-stack</span></div>
                     <h3>Goods Receipt App</h3>
-                    <p>Digitized site material receiving: master data CRUD, barcode/QR labels, scan-to-fill, photo evidence and notifications; deploy notes and device smoke tests.</p>
+                    <p>Digitized site receiving: master data CRUD, barcode/QR, scan-to-fill, photo evidence and notifications; deploy notes and device smoke tests.</p>
                     <ul class="workstream-points">
                         <li>React + Node + SQLite</li>
                         <li>Master data + vision scan modules</li>
@@ -161,19 +215,19 @@
                 <article class="workstream-card">
                     <div class="workstream-icon">✉️</div>
                     <div class="workstream-meta"><span class="workstream-tag">Automation</span></div>
-                    <h3>PLM Mail &amp; POR/VMU Ledger</h3>
-                    <p>Batch-pull Windchill PromotionNotice attachments and material releases; parse forwards, classify site vs factory, integrity summary to HTML/CSV.</p>
+                    <h3>PLM Mail · POR/VMU · BI</h3>
+                    <p>Batch-pull Windchill PromotionNotice items; parse empty-subject forwards; site vs factory classification; integrity reports; table → BI auto-fill.</p>
                     <ul class="workstream-points">
                         <li>Outlook + Playwright · packable exe</li>
-                        <li>Mail parse → KPI tables</li>
-                        <li>Folder-tree scan · stable dedupe</li>
+                        <li>Mail → HTML/CSV KPI · stable dedupe</li>
+                        <li>BI material-table fill / clear scripts</li>
                     </ul>
                 </article>
                 <article class="workstream-card">
                     <div class="workstream-icon">🚢</div>
                     <div class="workstream-meta"><span class="workstream-tag">Supply chain</span></div>
                     <h3>Materials · Logistics · Suppliers</h3>
-                    <p>VMU batch tracking, sailing schedules and bookings; sealant/aluminium/glass samples and lab test coordination with suppliers.</p>
+                    <p>VMU batch tracking, sailings and bookings; sealant/aluminium/glass samples and lab tests (incl. Sika).</p>
                     <ul class="workstream-points">
                         <li>Factory / site dual ledgers</li>
                         <li>Shipping &amp; booking rules</li>
@@ -182,39 +236,17 @@
                 </article>
                 <article class="workstream-card">
                     <div class="workstream-icon">📁</div>
-                    <div class="workstream-meta"><span class="workstream-tag">Compliance</span></div>
-                    <h3>E-Filing &amp; Document Quality</h3>
-                    <p>Audit JOB folders and naming against project standards; gap lists for missing categories; DOC→PDF with print-DPI checks for submissions.</p>
+                    <div class="workstream-meta"><span class="workstream-tag">Compliance · Docs</span></div>
+                    <h3>E-Filing · PQP · Document Tools</h3>
+                    <p>JOB naming/folder audits; batch 16:9 PQP decks; DOC→PDF with print-DPI checks; submission chase and site safety coordination.</p>
                     <ul class="workstream-points">
-                        <li>Naming compliance scanner</li>
-                        <li>Category gap checklists</li>
+                        <li>Naming scanner · category gap lists</li>
+                        <li>python-pptx header/footer batch</li>
                         <li>DOC→PDF · DPI inspection</li>
                     </ul>
                 </article>
-                <article class="workstream-card">
-                    <div class="workstream-icon">🏗️</div>
-                    <div class="workstream-meta"><span class="workstream-tag">Visualization</span></div>
-                    <h3>Rhino · PQP · Delivery Packs</h3>
-                    <p>Curtain-wall 3D shadow studies; batch-normalize PQP decks to 16:9 with headers/footers and page numbers for reviews and client packs.</p>
-                    <ul class="workstream-points">
-                        <li>Rhino 3D shadow analysis</li>
-                        <li>python-pptx batch layout</li>
-                        <li>Reusable conversion scripts</li>
-                    </ul>
-                </article>
-                <article class="workstream-card">
-                    <div class="workstream-icon">🤝</div>
-                    <div class="workstream-meta"><span class="workstream-tag">Coordination</span></div>
-                    <h3>Technical Submissions &amp; Site</h3>
-                    <p>Chase critical technical submissions, align main-con and subcontractor milestones; safety briefings; concise English updates for Singapore stakeholders.</p>
-                    <ul class="workstream-points">
-                        <li>Submission chase &amp; logs</li>
-                        <li>Site safety coordination</li>
-                        <li>Bilingual communication</li>
-                    </ul>
-                </article>
             </div>
-            <p class="workstream-footnote">Sourced from internship work logs · internal paths and contacts redacted</p>
+            <p class="workstream-footnote">Sources: WorkBuddy logs · Grok Build sessions · Rhino/.3dm deliverables · paths/contacts redacted</p>
         </div>
     </section>
 

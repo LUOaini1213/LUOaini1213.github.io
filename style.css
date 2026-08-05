@@ -540,6 +540,44 @@ p:last-child { margin-bottom: 0; }
 }
 
 /* ---- 实习工作线 ---- */
+.toolbelt {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+    margin: 0 0 1.5rem;
+}
+.toolbelt-item {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: 0.85rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+.toolbelt-item.toolbelt-highlight {
+    border-color: var(--color-accent);
+    background: linear-gradient(135deg, var(--color-accent-subtle) 0%, var(--color-surface) 70%);
+}
+.toolbelt-label {
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-muted);
+}
+.toolbelt-item strong {
+    font-size: 1rem;
+    color: var(--color-text);
+}
+.toolbelt-desc {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+}
+@media (min-width: 640px) {
+    .toolbelt { grid-template-columns: repeat(4, 1fr); }
+}
+
 .workstream-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -558,6 +596,17 @@ p:last-child { margin-bottom: 0; }
 .workstream-card:hover {
     box-shadow: var(--shadow-md);
     transform: translateY(-2px);
+}
+.workstream-card-featured {
+    border-left: 4px solid var(--color-accent);
+}
+.workstream-card:target {
+    outline: 2px solid var(--color-accent-light);
+    outline-offset: 3px;
+}
+.workstream-tag-alt {
+    background: #eef2ff;
+    color: #4338ca;
 }
 .workstream-icon {
     font-size: 1.5rem;
@@ -623,9 +672,25 @@ p:last-child { margin-bottom: 0; }
 }
 @media (min-width: 640px) {
     .workstream-grid { grid-template-columns: repeat(2, 1fr); }
+    .workstream-card-featured { grid-column: span 1; }
 }
 @media (min-width: 1024px) {
     .workstream-grid { grid-template-columns: repeat(3, 1fr); }
+    .workstream-card-featured {
+        grid-column: span 1;
+        min-height: 100%;
+    }
+}
+[data-theme="dark"] .toolbelt-item.toolbelt-highlight {
+    background: linear-gradient(135deg, var(--color-accent-subtle) 0%, var(--color-surface) 75%);
+}
+[data-theme="dark"] .workstream-tag-alt {
+    background: #1e1b4b;
+    color: #a5b4fc;
+}
+[data-theme="dark"] .toolbelt-item {
+    background: var(--color-surface);
+    border-color: var(--color-border);
 }
 
 .timeline-content h3 {
