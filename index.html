@@ -69,7 +69,10 @@
         "Finite Element Analysis"
       ],
       "sameAs": [
-        "https://github.com/LUOaini1213"
+        "https://github.com/LUOaini1213",
+        "https://github.com/LUOaini1213/packing-agent",
+        "https://github.com/LUOaini1213/ce5203-aye-weaving",
+        "https://github.com/LUOaini1213/ai-product-portfolio"
       ],
       "address": {
         "@type": "PostalAddress",
@@ -451,7 +454,34 @@
     <section id="projects" class="section">
         <div class="container">
             <h2 class="section-title">Featured Projects</h2>
+            <p class="section-lead">开源仓库与课程/研究项目 · 可点击 GitHub 与报告</p>
             <div class="projects-grid">
+                <!-- packing-agent 开源 -->
+                <article class="project-card project-featured" id="proj-packing">
+                    <div class="project-card-header">
+                        <span class="project-year">2026</span>
+                        <span class="project-type">开源 · Agent Harness</span>
+                    </div>
+                    <h3>packing-agent · 智能装箱与拼柜工作台</h3>
+                    <p class="project-affil">公开仓库 · Multi-Agent / HITL / 影子评测</p>
+                    <div class="project-tech">
+                        <span>Python</span><span>Agent Harness</span><span>HITL</span><span>DeepSeek</span><span>FastAPI</span>
+                    </div>
+                    <ul class="project-details">
+                        <li>NL → 白名单 tools → HITL → 影子评测；硬数值只走工具，模型只做编排（与 Agentic Coding 同一边界）</li>
+                        <li>大 Team ⊃ 成箱 Team A + 拼柜 Team B；有界 critic、多容器策略与知识库/评测套件</li>
+                        <li>可一键 demo：<code>scripts/demo_one_shot.py</code>；UI 经 FastAPI gateway 提供</li>
+                    </ul>
+                    <div class="project-highlight">
+                        <span class="highlight-label">原则</span>
+                        <span>Tools compute numbers · the model only routes · geometry never free-written by LLM</span>
+                    </div>
+                    <div class="project-actions">
+                        <a href="https://github.com/LUOaini1213/packing-agent" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
+                        <a href="https://github.com/LUOaini1213/packing-agent#demo-one-shot最先跑这个" class="btn btn-sm btn-outline" target="_blank" rel="noopener">Demo 说明</a>
+                    </div>
+                </article>
+
                 <!-- 项目1: 洪水韧性 -->
                 <article class="project-card project-featured" id="proj-ce5001">
                     <div class="project-card-header">
@@ -486,23 +516,46 @@
                 <article class="project-card" id="proj-aye">
                     <div class="project-card-header">
                         <span class="project-year">2026</span>
-                        <span class="project-type">小组项目 · 组长</span>
+                        <span class="project-type">小组项目 · 公开仓库</span>
                     </div>
                     <h3>AYE高速公路交织瓶颈分析与优化</h3>
-                    <p class="project-affil">新加坡国立大学 CE5203</p>
+                    <p class="project-affil">新加坡国立大学 CE5203 · Group 12</p>
                     <div class="project-image">
                         <img src="images/proj_aye.jpg" alt="AYE高速公路仿真分析与匝道控制策略" loading="lazy" width="800" height="450">
                     </div>
                     <div class="project-tech">
-                        <span>YOLOv11</span><span>SUMO</span><span>Python</span>
+                        <span>YOLOv11</span><span>SUMO</span><span>Python</span><span>OpenVINO</span>
                     </div>
                     <ul class="project-details">
-                        <li>使用YOLOv11对103分钟交通视频逐帧车辆分类计数，4个测量点提取流量速度数据</li>
-                        <li>构建SUMO微观仿真路网，设计12组实验评估VSL、RM、VSLRM三种控制策略</li>
-                        <li>匝道控制（RM）将高峰网络总时间损失降低22.7%</li>
+                        <li>AYE 西向 Exit 9→11 交织段：YOLOv11 多断面计数/车速 → SUMO 标定 → VSL / RM / VSL+RM（12 组）</li>
+                        <li>匝道控制（RM）高峰网络总时间损失降低 <strong>22.7%</strong>；交织延误 −7.7%</li>
+                        <li>公开复现：网络、计数表、脚本与小组报告 PDF</li>
                     </ul>
                     <div class="project-actions">
-                        <span class="project-meta-note">课程项目 · 细节可邮件索取</span>
+                        <a href="https://github.com/LUOaini1213/ce5203-aye-weaving" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
+                        <a href="https://github.com/LUOaini1213/ce5203-aye-weaving/blob/main/docs/CE5203_Group12_Report.pdf" class="btn btn-sm btn-outline" target="_blank" rel="noopener">报告 PDF</a>
+                    </div>
+                </article>
+
+                <!-- 作品集包 -->
+                <article class="project-card" id="proj-portfolio">
+                    <div class="project-card-header">
+                        <span class="project-year">2026</span>
+                        <span class="project-type">作品集 · 投递包</span>
+                    </div>
+                    <h3>AI Product Portfolio</h3>
+                    <p class="project-affil">简历 + 项目一页纸 + 可下载 ZIP</p>
+                    <div class="project-tech">
+                        <span>Resumes</span><span>One-pagers</span><span>ZIP</span>
+                    </div>
+                    <ul class="project-details">
+                        <li>校招用中英文简历与 Agent 产品向项目说明（packing-agent · HDLF · 规则+LLM 审批）</li>
+                        <li>网申「作品集附件」可直接上传仓库内 ZIP</li>
+                        <li>与个人站、packing-agent 开源仓互链</li>
+                    </ul>
+                    <div class="project-actions">
+                        <a href="https://github.com/LUOaini1213/ai-product-portfolio" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
+                        <a href="https://github.com/LUOaini1213/ai-product-portfolio/tree/main/releases" class="btn btn-sm btn-outline" target="_blank" rel="noopener">下载 ZIP</a>
                     </div>
                 </article>
 

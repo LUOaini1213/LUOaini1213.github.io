@@ -288,7 +288,33 @@
     <section id="projects" class="section">
         <div class="container">
             <h2 class="section-title">Featured Projects</h2>
+            <p class="section-lead">Open-source repos and course/research projects · GitHub &amp; reports linked</p>
             <div class="projects-grid">
+                <article class="project-card project-featured" id="proj-packing">
+                    <div class="project-card-header">
+                        <span class="project-year">2026</span>
+                        <span class="project-type">Open source · Agent Harness</span>
+                    </div>
+                    <h3>packing-agent · Multi-agent packing workbench</h3>
+                    <p class="project-affil">Public repo · Multi-Agent / HITL / shadow eval</p>
+                    <div class="project-tech">
+                        <span>Python</span><span>Agent Harness</span><span>HITL</span><span>DeepSeek</span><span>FastAPI</span>
+                    </div>
+                    <ul class="project-details">
+                        <li>NL → whitelisted tools → HITL → shadow eval; hard numbers only via tools</li>
+                        <li>Big Team ⊃ crate Team A + load-plan Team B; bounded critic, multi-container strategies, KB/eval suites</li>
+                        <li>One-shot demo: <code>scripts/demo_one_shot.py</code>; UI via FastAPI gateway</li>
+                    </ul>
+                    <div class="project-highlight">
+                        <span class="highlight-label">Principle</span>
+                        <span>Tools compute numbers · the model only routes · geometry never free-written by LLM</span>
+                    </div>
+                    <div class="project-actions">
+                        <a href="https://github.com/LUOaini1213/packing-agent" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
+                        <a href="https://github.com/LUOaini1213/packing-agent#demo-one-shot最先跑这个" class="btn btn-sm btn-outline" target="_blank" rel="noopener">Demo</a>
+                    </div>
+                </article>
+
                 <article class="project-card project-featured" id="proj-ce5001">
                     <div class="project-card-header">
                         <span class="project-year">2026</span>
@@ -318,6 +344,51 @@
                     </div>
                 </article>
 
+                <article class="project-card" id="proj-aye">
+                    <div class="project-card-header">
+                        <span class="project-year">2026</span>
+                        <span class="project-type">Course · Public repo</span>
+                    </div>
+                    <h3>AYE Expressway Weaving Bottleneck Analysis</h3>
+                    <p class="project-affil">NUS CE5203 · Group 12</p>
+                    <div class="project-image">
+                        <img src="images/proj_aye.jpg" alt="AYE weaving analysis and ramp metering" loading="lazy" width="800" height="450">
+                    </div>
+                    <div class="project-tech">
+                        <span>YOLOv11</span><span>SUMO</span><span>Python</span><span>OpenVINO</span>
+                    </div>
+                    <ul class="project-details">
+                        <li>AYE WB Exit 9→11: YOLOv11 multi-line counts → SUMO calibration → VSL / RM / VSL+RM (12 runs)</li>
+                        <li>Ramp metering cut peak network total time loss by <strong>22.7%</strong></li>
+                        <li>Public mirror: networks, count tables, scripts, group report PDF</li>
+                    </ul>
+                    <div class="project-actions">
+                        <a href="https://github.com/LUOaini1213/ce5203-aye-weaving" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
+                        <a href="https://github.com/LUOaini1213/ce5203-aye-weaving/blob/main/docs/CE5203_Group12_Report.pdf" class="btn btn-sm btn-outline" target="_blank" rel="noopener">Report PDF</a>
+                    </div>
+                </article>
+
+                <article class="project-card" id="proj-portfolio">
+                    <div class="project-card-header">
+                        <span class="project-year">2026</span>
+                        <span class="project-type">Portfolio pack</span>
+                    </div>
+                    <h3>AI Product Portfolio</h3>
+                    <p class="project-affil">Resumes · one-pagers · downloadable ZIP</p>
+                    <div class="project-tech">
+                        <span>Resumes</span><span>One-pagers</span><span>ZIP</span>
+                    </div>
+                    <ul class="project-details">
+                        <li>Job-ready CVs and project one-pagers (packing-agent · HDLF · rule+LLM approve)</li>
+                        <li>Upload the repo ZIP as “portfolio attachment” on applications</li>
+                        <li>Cross-links to personal site and packing-agent</li>
+                    </ul>
+                    <div class="project-actions">
+                        <a href="https://github.com/LUOaini1213/ai-product-portfolio" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
+                        <a href="https://github.com/LUOaini1213/ai-product-portfolio/tree/main/releases" class="btn btn-sm btn-outline" target="_blank" rel="noopener">ZIP releases</a>
+                    </div>
+                </article>
+
                 <article class="project-card" id="proj-llm">
                     <div class="project-card-header">
                         <span class="project-year">2026</span>
@@ -333,31 +404,8 @@
                     </div>
                     <ul class="project-details">
                         <li>BehaviorModeler / Policy Optimizer / Coordinator covering 645 travelers end-to-end</li>
-                        <li>“Rule propose + LLM approve” hybrid coordinator: <strong>97.7%</strong> approval accuracy, avoids state hallucination</li>
-                        <li>1.4 km² custom network (MRT / bus / AV); 2,874 measured speeds; latency mitigations for real-time use</li>
-                    </ul>
-                    <div class="project-actions">
-                        <span class="project-meta-note">Course project · details on request</span>
-                    </div>
-                </article>
-
-                <article class="project-card" id="proj-aye">
-                    <div class="project-card-header">
-                        <span class="project-year">2026</span>
-                        <span class="project-type">Team lead</span>
-                    </div>
-                    <h3>AYE Expressway Weaving Bottleneck Analysis</h3>
-                    <p class="project-affil">NUS CE5203</p>
-                    <div class="project-image">
-                        <img src="images/proj_aye.jpg" alt="AYE weaving analysis and ramp metering" loading="lazy" width="800" height="450">
-                    </div>
-                    <div class="project-tech">
-                        <span>YOLOv11</span><span>SUMO</span><span>Python</span>
-                    </div>
-                    <ul class="project-details">
-                        <li>YOLOv11 counts from 103 min of video across 4 measurement points</li>
-                        <li>12 SUMO experiments: VSL, ramp metering (RM), VSL+RM</li>
-                        <li>RM cut peak total time loss by <strong>22.7%</strong></li>
+                        <li>“Rule propose + LLM approve” hybrid coordinator: <strong>97.7%</strong> approval accuracy</li>
+                        <li>1.4 km² custom network; latency mitigations for real-time use</li>
                     </ul>
                     <div class="project-actions">
                         <span class="project-meta-note">Course project · details on request</span>
