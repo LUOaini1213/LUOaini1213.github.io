@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Wenjie Luo | NUS MSc Civil Engineering | AI Product · Multi-Agent Transport · Effect Evaluation">
+    <meta name="description" content="Wenjie Luo | NUS MSc Civil Engineering | AI Product · packing-agent / Civil Buddy · eval gates">
     <meta name="author" content="Wenjie Luo">
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#1a5276">
@@ -11,11 +11,11 @@
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <link rel="alternate" hreflang="zh-CN" href="https://luoaini1213.github.io">
     <link rel="alternate" hreflang="en" href="https://luoaini1213.github.io/en.html">
-    <title>Wenjie Luo — AI Product · Multi-Agent Transport</title>
+    <title>Wenjie Luo — AI Product · Agent Harness</title>
 
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Wenjie Luo — AI Product · Multi-Agent Transport">
-    <meta property="og:description" content="NUS CEE MSc | AI agents, multi-agent traffic simulation, and end-to-end effect evaluation">
+    <meta property="og:title" content="Wenjie Luo — AI Product · Agent Harness">
+    <meta property="og:description" content="NUS CEE MSc | packing-agent / Civil Buddy · 128-run eval · HITL · tools compute, model routes">
     <meta property="og:url" content="https://luoaini1213.github.io/en.html">
     <meta property="og:image" content="https://luoaini1213.github.io/images/og-preview.jpg">
     <meta property="og:locale" content="en_US">
@@ -63,8 +63,8 @@
                 </div>
                 <h1 class="hero-name">Wenjie Luo<span class="hero-name-en">罗文杰</span></h1>
                 <p class="hero-tagline">
-                    NUS MSc Civil Engineering · AI Product / Multi-Agent Transport<br>
-                    Putting LLM agents into evaluable traffic-simulation loops
+                    NUS MSc Civil Engineering · AI Product / Agent Harness<br>
+                    Tools compute numbers · the model only routes · questions do not write
                 </p>
                 <div class="hero-cta">
                     <a href="CV_LuoWenjie.pdf" class="btn btn-primary" download aria-label="Download AI Product CV PDF">Download CV</a>
@@ -91,16 +91,16 @@
         <div class="container">
             <div class="metrics-grid">
                 <div class="metric-item">
-                    <span class="metric-value">200</span>
-                    <span class="metric-label">paired experiments</span>
+                    <span class="metric-value">128</span>
+                    <span class="metric-label">real pipeline evals</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-value">16</span>
+                    <span class="metric-label">parallel eval CI lanes</span>
                 </div>
                 <div class="metric-item">
                     <span class="metric-value">97.7%</span>
                     <span class="metric-label">LLM approval accuracy</span>
-                </div>
-                <div class="metric-item">
-                    <span class="metric-value">62%</span>
-                    <span class="metric-label">congestion cut (dense CBD)</span>
                 </div>
                 <div class="metric-item">
                     <span class="metric-value">4</span>
@@ -118,15 +118,16 @@
                     <p>
                         I am <strong>Wenjie Luo</strong>, an MSc student in Civil Engineering
                         (Transport) at the <strong>National University of Singapore (NUS)</strong>.
-                        My focus is <strong>AI product and multi-agent transport</strong>:
-                        putting LLM agents, rule policies, and SUMO simulation into statistically testable evaluation loops.
+                        My focus is <strong>AI product</strong>: turn messy workflows into a demoable, measurable agent with gates.
                     </p>
                     <p>
-                        At NUS I completed <strong>CEE5901QA/QB</strong> for systematic AI foundations:
-                        <em>Machine Learning Foundations for CEE</em> and <em>Advanced AI Methods for CEE</em> (Sem1, full English).
-                        On top of that I run a <strong>multi-model Agentic Coding</strong> workflow (Grok Build / Claude + DeepSeek API)
-                        and ship the public <a href="https://github.com/LUOaini1213/packing-agent" target="_blank" rel="noopener">packing-agent</a>
-                        product. I care about LLM <strong>capability boundaries, safety, and latency</strong>, with PRD / prototype / VOC product craft.
+                        The public work is now
+                        <a href="https://github.com/LUOaini1213/civil-buddy" target="_blank" rel="noopener">Civil Buddy</a>
+                        (formerly <a href="https://github.com/LUOaini1213/packing-agent" target="_blank" rel="noopener">packing-agent</a>):
+                        pack-ship engine + workbench; <strong>128</strong> real pipeline runs (16×8) plus <strong>16</strong> eval CI lanes;
+                        HITL; chat does not write, run uses exclusive tools. Same rule:
+                        <strong>tools compute, the model only routes</strong>.
+                        I also have NUS traffic-eval work (97.7% gate, 200 paired runs) and PRD / prototype / VOC craft.
                     </p>
                     <p>
                         Currently interning at <strong>China State Construction Far East Facade (Singapore)</strong>
@@ -188,7 +189,7 @@
                                 <li><strong>Model split</strong>: workbench orchestration (Grok Build / Claude) + DeepSeek API for inference &amp; tool-call; route by task for cost/quality</li>
                                 <li>Scoped by folder: POR/VMU · Sika · BI tables · VMU layout</li>
                                 <li>Outputs: Python · HTML/CSV · packable exe · DEPLOY; cases: mail · ledgers · BI · PQP</li>
-                                <li>Productized twin: public <a href="https://github.com/LUOaini1213/packing-agent" target="_blank" rel="noopener">packing-agent</a> (tool constraints · HITL · shadow eval · DeepSeek)</li>
+                                <li>Productized twin: public <a href="https://github.com/LUOaini1213/civil-buddy" target="_blank" rel="noopener">civil-buddy</a> / packing-agent (tool constraints · HITL · 128-run shadow eval)</li>
                             </ul>
                         </div>
                         <div class="pillar-card" id="ws-rhino">
@@ -295,23 +296,23 @@
                         <span class="project-year">2026</span>
                         <span class="project-type">Open source · Agent Harness</span>
                     </div>
-                    <h3>packing-agent · Multi-agent packing workbench</h3>
-                    <p class="project-affil">Public repo · Multi-Agent / HITL / shadow eval</p>
+                    <h3>Civil Buddy / packing-agent · pack-ship engine + workbench</h3>
+                    <p class="project-affil">Repo upgraded · packing engine plus Civil Buddy workbench</p>
                     <div class="project-tech">
-                        <span>Python</span><span>Agent Harness</span><span>HITL</span><span>DeepSeek</span><span>FastAPI</span>
+                        <span>Python</span><span>Harness</span><span>HITL</span><span>Eval CI</span><span>FastAPI</span>
                     </div>
                     <ul class="project-details">
                         <li>NL → whitelisted tools → HITL → shadow eval; hard numbers only via tools</li>
-                        <li>Big Team ⊃ crate Team A + load-plan Team B; bounded critic, multi-container strategies, KB/eval suites</li>
-                        <li>One-shot demo: <code>scripts/demo_one_shot.py</code>; UI via FastAPI gateway</li>
+                        <li>Public Aug 2026 eval: 128 real pipeline runs (16×8 fan-out) plus a mid-loop retune; 16 parallel eval CI lanes</li>
+                        <li>Bounded critic–planner before replan; NL-revise applies only supported changes; chat vs run (66 posts share one understand gate)</li>
                     </ul>
                     <div class="project-highlight">
                         <span class="highlight-label">Principle</span>
-                        <span>Tools compute numbers · the model only routes · geometry never free-written by LLM</span>
+                        <span>Tools compute numbers · the model only routes · questions do not write · not a statutory filing</span>
                     </div>
                     <div class="project-actions">
-                        <a href="https://github.com/LUOaini1213/packing-agent" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
-                        <a href="https://github.com/LUOaini1213/packing-agent#demo-one-shot最先跑这个" class="btn btn-sm btn-outline" target="_blank" rel="noopener">Demo</a>
+                        <a href="https://github.com/LUOaini1213/civil-buddy" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub · civil-buddy</a>
+                        <a href="https://github.com/LUOaini1213/packing-agent" class="btn btn-sm btn-outline" target="_blank" rel="noopener">packing-agent (redirect)</a>
                     </div>
                 </article>
 
@@ -430,10 +431,19 @@
                         </div>
                     </div>
                     <div class="contact-item">
+                        <span class="contact-icon">📞</span>
+                        <div>
+                            <strong>Phone</strong>
+                            <a href="tel:+6580848140">+65 8084 8140</a>
+                            <span class="text-muted"> · </span>
+                            <a href="tel:+8618319496086">+86 183 1949 6086</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
                         <span class="contact-icon">📍</span>
                         <div>
                             <strong>Location</strong>
-                            <span>Guangzhou · Singapore</span>
+                            <span>Singapore · Guangzhou</span>
                         </div>
                     </div>
                     <div class="contact-item">
@@ -454,9 +464,9 @@
                 <div class="contact-status">
                     <div class="status-card">
                         <span class="status-dot"></span>
-                        <p>📌 Open to 2026 full-time / 2027 cohort roles<br>
-                        Focus: AI Product · Agent platforms · Agentic Coding tools<br>
-                        <span class="status-meta">Grad. Jan 2027 · internship ≥6 months · phone via email</span></p>
+                        <p>📌 Open to 2027 campus AI Product roles<br>
+                        Focus: AI Product · Agent platforms · eval gates<br>
+                        <span class="status-meta">Grad. Jan 2027 · based in Singapore · +65 8084 8140</span></p>
                     </div>
                 </div>
             </div>
@@ -470,7 +480,7 @@
     <footer class="footer">
         <div class="container">
             <p>&copy; 2026 Wenjie Luo. Built with HTML &amp; CSS.</p>
-            <p class="footer-sub">NUS · AI Product / Multi-Agent Transport · Last updated: 2026-08</p>
+            <p class="footer-sub">NUS · AI Product / Agent Harness · Last updated: 2026-08-17</p>
             <p class="footer-sub"><a href="index.html">中文</a> · <a href="mailto:e1576499@u.nus.edu">Email</a></p>
         </div>
     </footer>
