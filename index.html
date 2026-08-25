@@ -71,6 +71,7 @@
       "sameAs": [
         "https://github.com/LUOaini1213",
         "https://github.com/LUOaini1213/civil-buddy",
+        "https://github.com/LUOaini1213/malaysia-auto-ask",
         "https://github.com/LUOaini1213/packing-agent",
         "https://github.com/LUOaini1213/ce5203-aye-weaving",
         "https://github.com/LUOaini1213/ai-product-portfolio"
@@ -128,7 +129,7 @@
                     <a href="CV_LuoWenjie.pdf" class="btn btn-primary" download aria-label="下载 AI Product 简历 PDF">下载简历</a>
                     <a href="#product" class="btn btn-outline">看开源产品怎么跑</a>
                 </div>
-                <p class="hero-cta-note">CV · 美团 AI产品经理 · 2 页 A4</p>
+                <p class="hero-cta-note">CV · 吉利 Data Agent AI产品 · 1 页 A4</p>
                 <div class="hero-social">
                     <a href="https://github.com/LUOaini1213" target="_blank" rel="noopener" title="GitHub" aria-label="GitHub">
                         <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" fill="currentColor"/></svg>
@@ -184,12 +185,12 @@
                         把模糊业务收成能演示、能量化、有门禁的 Agent。
                     </p>
                     <p>
-                        公开作品已从装箱引擎升级为
+                        问数演示仓
+                        <a href="https://github.com/LUOaini1213/malaysia-auto-ask" target="_blank" rel="noopener">malaysia-auto-ask</a>：
+                        马来西亚汽车市场，问句先弄清 TIV 还是上牌，再跑写死的 SQL；30 条题里 22 条出数都对，8 条按设计停下来问人。
+                        装箱开源
                         <a href="https://github.com/LUOaini1213/civil-buddy" target="_blank" rel="noopener">Civil Buddy</a>
-                        （原 <a href="https://github.com/LUOaini1213/packing-agent" target="_blank" rel="noopener">packing-agent</a>）：
-                        pack-ship 引擎 + 工作台；<strong>128</strong> 次真实 pipeline（16×8）+ <strong>16</strong> 路 eval CI；
-                        HITL；提问走 chat、执行走 run。原则不变：<strong>tools 算数，模型只调度</strong>。
-                        另有 NUS 交通仿真评测（97.7% 审批、200 组配对）与 PRD / 原型 / VOC 产品链路。
+                        （原 packing-agent）：硬数字走工具，模型只调度；成箱要人确认。
                     </p>
                     <p>
                         当前在<strong>中建国际远东幕墙（新加坡）</strong>做材料员（2026.06.01 起），岗位覆盖美光 fab 项目 <strong>PD218</strong> 与 LTA 大楼；同步有奇瑞国际、彩讯科技、Expeditors 经历。
@@ -286,8 +287,16 @@ uvicorn gateway.app:app --host 127.0.0.1 --port 8000</pre>
                 仓内演示用过 PD218 / VMU01 物料场景，是开源草稿，不是美光签认件。
                 <a href="https://github.com/LUOaini1213/civil-buddy/releases" target="_blank" rel="noopener">Releases 试用包</a>
                 ·
-                <a href="CV_LuoWenjie.pdf" download>2 页简历 PDF</a>
+                <a href="CV_LuoWenjie.pdf" download>1 页简历 PDF</a>
             </p>
+            <p class="section-lead" style="margin-top:1.5rem">
+                问数仓
+                <a href="https://github.com/LUOaini1213/malaysia-auto-ask" target="_blank" rel="noopener">malaysia-auto-ask</a>：
+                马来西亚汽车 TIV / 上牌。口径不清就停。30 条评测可复跑。
+            </p>
+            <pre class="run-box" tabindex="0">python scripts/seed.py
+python scripts/eval.py
+python scripts/serve.py                 # http://127.0.0.1:8766</pre>
         </div>
     </section>
 
@@ -458,8 +467,9 @@ uvicorn gateway.app:app --host 127.0.0.1 --port 8000</pre>
                         </div>
                         <h3>奇瑞国际 <span class="text-muted">| 产品经理实习生</span></h3>
                         <ul class="exp-list">
-                            <li>海外竞品战胜/战败与抱怨挖掘；15 个用户画像、5 份 VOC</li>
-                            <li>用车长/价格/注册量看区域销量；甘特图协助跟踪 KD。不是独立扛上市</li>
+                            <li>海外竞品战胜/战败和抱怨挖掘；15 个用户画像、5 份 VOC。还做市场分析和产品定义材料，不是独立定型</li>
+                            <li>用车长、价格、注册量看各区域怎么卖，做过气泡图</li>
+                            <li>甘特跟踪 KD 地产化：盯项目生产、物流、合规节点。不是独立扛上市</li>
                         </ul>
                     </div>
                 </div>
@@ -500,6 +510,29 @@ uvicorn gateway.app:app --host 127.0.0.1 --port 8000</pre>
             <h2 class="section-title">Featured Projects</h2>
             <p class="section-lead">开源仓库与课程/研究项目 · 可点击 GitHub 与报告</p>
             <div class="projects-grid">
+                <article class="project-card project-featured" id="proj-my-ask">
+                    <div class="project-card-header">
+                        <span class="project-year">2026.08</span>
+                        <span class="project-type">开源 · 问数</span>
+                    </div>
+                    <h3>malaysia-auto-ask · 马来西亚汽车问数</h3>
+                    <p class="project-affil">SQLite · 白名单 SQL · 口径字典 · 30 条评测</p>
+                    <div class="project-tech">
+                        <span>SQL</span><span>SQLite</span><span>HITL</span><span>Eval</span>
+                    </div>
+                    <ul class="project-details">
+                        <li>问句先弄清指标和时间，再跑写死的 SQL。库表：品牌 / 车型 / 区域 / 月。TIV 和上牌分两列</li>
+                        <li>「销量/卖得好」没说清批发还是上牌就停。口径写在 metric_dict（定义、owner、版本）</li>
+                        <li>30 条：该出数 22 条都对；人工干预 8/30。品牌全年锚定公开 TIV；月和区域是演示拆分，不是 MAA 原始明细</li>
+                    </ul>
+                    <div class="project-highlight">
+                        <span class="highlight-label">跑法</span>
+                        <span>python scripts/seed.py · python scripts/eval.py · python scripts/serve.py</span>
+                    </div>
+                    <div class="project-actions">
+                        <a href="https://github.com/LUOaini1213/malaysia-auto-ask" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub · malaysia-auto-ask</a>
+                    </div>
+                </article>
                 <!-- packing-agent 开源 -->
                 <article class="project-card project-featured" id="proj-packing">
                     <div class="project-card-header">
@@ -861,7 +894,7 @@ uvicorn gateway.app:app --host 127.0.0.1 --port 8000</pre>
                         <span class="contact-icon">📄</span>
                         <div>
                             <strong>简历</strong>
-                            <a href="CV_LuoWenjie.pdf" download>CV_LuoWenjie.pdf（美团 AI产品经理 · 2页）</a>
+                            <a href="CV_LuoWenjie.pdf" download>CV_LuoWenjie.pdf（吉利 Data Agent · 1页）</a>
                         </div>
                     </div>
                 </div>

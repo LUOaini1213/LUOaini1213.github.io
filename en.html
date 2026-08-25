@@ -71,7 +71,7 @@
                     <a href="CV_LuoWenjie.pdf" class="btn btn-primary" download aria-label="Download AI Product CV PDF">Download CV</a>
                     <a href="#product" class="btn btn-outline">How the open-source product runs</a>
                 </div>
-                <p class="hero-cta-note">CV · Meituan AI PM · 2-page A4</p>
+                <p class="hero-cta-note">CV · Geely Data Agent AI product · 1-page A4</p>
                 <div class="hero-social">
                     <a href="https://github.com/LUOaini1213" target="_blank" rel="noopener" title="GitHub" aria-label="GitHub">
                         <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" fill="currentColor"/></svg>
@@ -122,13 +122,13 @@
                         My focus is <strong>AI product</strong>: turn messy workflows into a demoable, measurable agent with gates.
                     </p>
                     <p>
-                        The public work is now
+                        Ask-data demo:
+                        <a href="https://github.com/LUOaini1213/malaysia-auto-ask" target="_blank" rel="noopener">malaysia-auto-ask</a>
+                        — Malaysia auto market; clarify TIV vs registrations first, then only whitelisted SQL.
+                        22 of 30 questions return numbers; 8 stop for a human by design.
+                        Packing open source:
                         <a href="https://github.com/LUOaini1213/civil-buddy" target="_blank" rel="noopener">Civil Buddy</a>
-                        (formerly <a href="https://github.com/LUOaini1213/packing-agent" target="_blank" rel="noopener">packing-agent</a>):
-                        pack-ship engine + workbench; <strong>128</strong> real pipeline runs (16×8) plus <strong>16</strong> eval CI lanes;
-                        HITL; chat does not write, run uses exclusive tools. Same rule:
-                        <strong>tools compute, the model only routes</strong>.
-                        I also have NUS traffic-eval work (97.7% gate, 200 paired runs) and PRD / prototype / VOC craft.
+                        (formerly packing-agent): tools compute numbers; pack confirmation is human.
                     </p>
                     <p>
                         Currently a <strong>materials officer</strong> at <strong>China State Construction Far East Facade (Singapore)</strong>
@@ -181,8 +181,16 @@ uvicorn gateway.app:app --host 127.0.0.1 --port 8000</pre>
                 In-repo demos used PD218 / VMU01 material scenes as drafts, not Micron sign-off.
                 <a href="https://github.com/LUOaini1213/civil-buddy/releases" target="_blank" rel="noopener">Releases</a>
                 ·
-                <a href="CV_LuoWenjie.pdf" download>2-page CV PDF</a>
+                <a href="CV_LuoWenjie.pdf" download>1-page CV PDF</a>
             </p>
+            <p class="section-lead" style="margin-top:1.5rem">
+                Ask-data repo
+                <a href="https://github.com/LUOaini1213/malaysia-auto-ask" target="_blank" rel="noopener">malaysia-auto-ask</a>:
+                Malaysia auto TIV vs plates. Ambiguous metric stops. 30-case eval is rerunnable.
+            </p>
+            <pre class="run-box" tabindex="0">python scripts/seed.py
+python scripts/eval.py
+python scripts/serve.py                 # http://127.0.0.1:8766</pre>
         </div>
     </section>
 
@@ -292,8 +300,9 @@ uvicorn gateway.app:app --host 127.0.0.1 --port 8000</pre>
                         </div>
                         <h3>Chery International <span class="text-muted">| PM Intern</span></h3>
                         <ul class="exp-list">
-                            <li>Overseas competitive win/loss and complaint mining; 15 personas, 5 VOC reports</li>
-                            <li>Regional sales by length/price/registrations; Gantt to track KD. Not independently owning launch</li>
+                            <li>Overseas win/loss and complaint mining; 15 personas, 5 VOC reports. Market analysis and product-definition notes; not independently signing the spec</li>
+                            <li>Regional sales by length, price, and registrations — bubble charts</li>
+                            <li>Gantt for KD localization: production, logistics, and compliance gates. Not independently owning launch</li>
                         </ul>
                     </div>
                 </div>
@@ -333,6 +342,29 @@ uvicorn gateway.app:app --host 127.0.0.1 --port 8000</pre>
             <h2 class="section-title">Featured Projects</h2>
             <p class="section-lead">Open-source repos and course/research projects · GitHub &amp; reports linked</p>
             <div class="projects-grid">
+                <article class="project-card project-featured" id="proj-my-ask">
+                    <div class="project-card-header">
+                        <span class="project-year">2026.08</span>
+                        <span class="project-type">Open source · ask-data</span>
+                    </div>
+                    <h3>malaysia-auto-ask · Malaysia auto Q&amp;A</h3>
+                    <p class="project-affil">SQLite · whitelist SQL · metric dictionary · 30 eval cases</p>
+                    <div class="project-tech">
+                        <span>SQL</span><span>SQLite</span><span>HITL</span><span>Eval</span>
+                    </div>
+                    <ul class="project-details">
+                        <li>Clarify metric and time, then run only templated SQL. Tables: brand / model / region / month. TIV and registrations stored apart</li>
+                        <li>“Sales / best-seller” with no TIV vs plates choice stops. Definitions live in metric_dict (owner, version)</li>
+                        <li>30 cases: 22 numeric answers all correct; 8/30 human stops. Brand-year totals follow public TIV; month×region is a demo split, not raw MAA files</li>
+                    </ul>
+                    <div class="project-highlight">
+                        <span class="highlight-label">Run</span>
+                        <span>python scripts/seed.py · python scripts/eval.py · python scripts/serve.py</span>
+                    </div>
+                    <div class="project-actions">
+                        <a href="https://github.com/LUOaini1213/malaysia-auto-ask" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub · malaysia-auto-ask</a>
+                    </div>
+                </article>
                 <article class="project-card project-featured" id="proj-packing">
                     <div class="project-card-header">
                         <span class="project-year">2026</span>
@@ -500,7 +532,7 @@ uvicorn gateway.app:app --host 127.0.0.1 --port 8000</pre>
                         <span class="contact-icon">📄</span>
                         <div>
                             <strong>CV</strong>
-                            <a href="CV_LuoWenjie.pdf" download>CV_LuoWenjie.pdf (Meituan AI PM, 2 pages)</a>
+                            <a href="CV_LuoWenjie.pdf" download>CV_LuoWenjie.pdf (Geely Data Agent, 1 page)</a>
                         </div>
                     </div>
                 </div>
