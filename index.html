@@ -363,8 +363,9 @@
                         <span>Python</span><span>HITL</span><span>Eval</span><span>FastAPI</span>
                     </div>
                     <ul class="project-details">
-                        <li>物料表或一句话进来，柜数和坐标由程序算，人确认后再拼柜、看重心。模型不写 xyz、不拍柜数。</li>
-                        <li>2026.08 仓内 128 次 pipeline、16 路评测 CI；无 Key 可冒烟。工作台另有 66 岗草稿，资格 / 废标须人确认。演示用过工地物料，<strong>不是美光签认件</strong>。</li>
+                        <li>情境：现场问「几个柜、坐标对不对」，模型容易直接写 xyz。任务：程序算数，人确认后再拼柜；签认 / 投标须人确认，不能代劳。</li>
+                        <li>行动：16 大类 / 66 岗走 SOP。装箱：一句话或物料表 → 工具算柜数和坐标 → 人点头 → 拼柜 / 3D。拒绝弹原因；同一任务对照大模型自己调工具，128 次 pipeline（16×8）。</li>
+                        <li>结果：本机能跑通成箱 → 确认 → 出图；Releases 有试用包。演示用过工地物料，<strong>不是美光签认件</strong>，不能写成可投标。</li>
                     </ul>
                     <div class="project-highlight">
                         <span class="highlight-label">原则</span>
@@ -414,8 +415,9 @@
                         <span>SUMO</span><span>LLM</span><span>评测</span>
                     </div>
                     <ul class="project-details">
-                        <li>规则代理、带画像的规则、本地小模型和云端模型对照。200 组配对实验。</li>
-                        <li>密集 CBD 里规则代理把相关出行时间降了 62.2%；稀疏路网上，LLM 代理用少得多的动作能打到接近的效果。</li>
+                        <li>情境：洪水下公交和私家车怎么走。任务：把 DEM、路网、需求和淹没耦合，对照不同代理，而不是默认上更大模型。</li>
+                        <li>行动：Python 约 3500 行 / 10 个模块。规则、带画像的规则、本地小模型、云端模型对照 <strong>200</strong> 组。对接公交 <strong>793</strong> 条线路、<strong>5201</strong> 个站点。</li>
+                        <li>结果：密市中心里规则代理把相关出行时间降了 <strong>62.2%</strong>；稀疏路网上，模型用更少动作打到接近的效果。有研究报告 PDF。</li>
                     </ul>
                     <div class="project-actions">
                         <a href="files/CE5001_report.pdf" class="btn btn-sm btn-primary" target="_blank" rel="noopener">报告 PDF</a>
@@ -437,8 +439,9 @@
                         <span>YOLOv11</span><span>SUMO</span>
                     </div>
                     <ul class="project-details">
-                        <li>西向 Exit 9→11：视频计数标定 SUMO，再比限速、匝道控制、两者组合。</li>
-                        <li>高峰网络总时间损失：匝道控制降 22.7%。</li>
+                        <li>情境：AYE 西向 Exit 9→11 交织段高峰堵。任务：用实测标定仿真，比较限速、匝道控制和组合。</li>
+                        <li>行动：高峰 <strong>43</strong> 分钟、平峰 <strong>60</strong> 分钟视频计数，<strong>4</strong> 个测点；SUMO 7 节点 6 边；<strong>12</strong> 组实验。交织段经验通行能力约 <strong>5,060</strong> veh/h。</li>
+                        <li>结果：匝道控制使高峰网络总时间损失降 <strong>22.7%</strong>、交织段平均延误降 <strong>7.7%</strong>，比只调限速更有效。</li>
                     </ul>
                     <div class="project-actions">
                         <a href="https://github.com/LUOaini1213/ce5203-aye-weaving" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
@@ -459,8 +462,9 @@
                         <span>LLM</span><span>SUMO</span>
                     </div>
                     <ul class="project-details">
-                        <li>规则改路，模型只回答同不同意，避免它直接写路段编号。</li>
-                        <li>课程记录：44 次里对了 43 次。触发设太低时调度会把辅路灌满——这是实验教训，不是生产 KPI。</li>
+                        <li>情境：让模型直接改路网会出现状态幻觉。任务：规则先提议，模型只做批 / 不批。</li>
+                        <li>行动：SUMO 路网 <strong>1.4</strong> km²，<strong>2,874</strong> 条实测车速标定；<strong>645</strong> 名通勤者全流程（时间敏感 35% / 价格敏感 40% / 信息不对称 25%）。</li>
+                        <li>结果：44 个候选里对了 43 个（<strong>97.7%</strong>）。模型直接发明决策会幻觉；同步调用会拖慢仿真，Bus 95 全程延误平均增加 <strong>2.2</strong> 分钟——课程实验，不是生产 KPI。</li>
                     </ul>
                 </article>
             </div>

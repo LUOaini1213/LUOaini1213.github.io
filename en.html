@@ -343,8 +343,9 @@
                         <span>Python</span><span>HITL</span><span>Eval</span><span>FastAPI</span>
                     </div>
                     <ul class="project-details">
-                        <li>A material table or a sentence in; programs compute counts and coordinates; a human confirms, then stow and CoG. The model does not write xyz.</li>
-                        <li>Aug 2026: 128 in-repo pipelines, 16 eval CI lanes; smoke without an API key. Workbench also drafts 66 job skills; eligibility needs a human yes. Site materials are demos, <strong>not Micron sign-off</strong>.</li>
+                        <li>Situation: “how many boxes, are the coordinates right?” — a model will free-write xyz. Task: programs compute; a human confirms before stow. Bid / sign-off stay human.</li>
+                        <li>Action: 16 domains / 66 job skills on a SOP. Packing: sentence or material table → tool counts and coordinates → human yes → stow / 3D. Refusals show why. Same task vs a model calling tools: 128 pipelines (16×8).</li>
+                        <li>Result: pack → confirm → figure runs locally; Releases has a trial build. Site materials are demos, <strong>not Micron sign-off</strong>, not bid-ready.</li>
                     </ul>
                     <div class="project-highlight">
                         <span class="highlight-label">Rule</span>
@@ -394,8 +395,9 @@
                         <span>SUMO</span><span>LLM</span><span>Eval</span>
                     </div>
                     <ul class="project-details">
-                        <li>Rule agents, persona-augmented rules, a local small model, and a cloud model. 200 paired runs.</li>
-                        <li>In a dense CBD, rule agents cut related travel time 62.2%. On sparse nets, LLM agents reached similar impact with far fewer actions.</li>
+                        <li>Situation: bus and car routing under flood. Task: couple DEM, network, demand and inundation, and compare agents instead of defaulting to a larger model.</li>
+                        <li>Action: ~3,500 lines / 10 modules. Rules, persona-augmented rules, a local small model, and a cloud model — <strong>200</strong> paired runs. Bus data: <strong>793</strong> routes, <strong>5,201</strong> stops.</li>
+                        <li>Result: in a dense CBD, rule agents cut related travel time <strong>62.2%</strong>; on sparse nets, the model reached similar impact with far fewer actions. Report PDF on this site.</li>
                     </ul>
                     <div class="project-actions">
                         <a href="files/CE5001_report.pdf" class="btn btn-sm btn-primary" target="_blank" rel="noopener">Report PDF</a>
@@ -417,8 +419,9 @@
                         <span>YOLOv11</span><span>SUMO</span>
                     </div>
                     <ul class="project-details">
-                        <li>Westbound Exit 9→11: video counts calibrate SUMO, then VSL, ramp metering, and both.</li>
-                        <li>Peak network total time loss fell 22.7% under ramp metering.</li>
+                        <li>Situation: AYE westbound Exit 9→11 weaving jams at peak. Task: calibrate on counted traffic, then compare VSL, ramp metering, and both.</li>
+                        <li>Action: <strong>43</strong> min peak and <strong>60</strong> min off-peak video at <strong>4</strong> stations; SUMO 7 nodes / 6 edges; <strong>12</strong> experiments. Weaving capacity ~<strong>5,060</strong> veh/h.</li>
+                        <li>Result: ramp metering cut peak network total time loss <strong>22.7%</strong> and weaving delay <strong>7.7%</strong> — more than speed limits alone.</li>
                     </ul>
                     <div class="project-actions">
                         <a href="https://github.com/LUOaini1213/ce5203-aye-weaving" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
@@ -439,8 +442,9 @@
                         <span>LLM</span><span>SUMO</span>
                     </div>
                     <ul class="project-details">
-                        <li>Rules change the network; the model only agrees or disagrees — it does not write link IDs.</li>
-                        <li>Course log: 43 of 44 right. If the trigger is too low, the dispatcher floods the collector — a lab lesson, not a production KPI.</li>
+                        <li>Situation: letting the model rewrite the network produced state hallucination. Task: rules propose; the model only approves or rejects.</li>
+                        <li>Action: SUMO net <strong>1.4</strong> km², calibrated on <strong>2,874</strong> measured speeds; <strong>645</strong> commuters (time-sensitive 35% / price-sensitive 40% / information-poor 25%).</li>
+                        <li>Result: 43 of 44 candidates right (<strong>97.7%</strong>). Direct invention hallucinated; sync calls slowed the sim — Bus 95 delay +<strong>2.2</strong> min. Course lab, not a production KPI.</li>
                     </ul>
                 </article>
             </div>
