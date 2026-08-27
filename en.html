@@ -156,6 +156,7 @@
                         packs with tools computing coordinates and counts, then a human yes;
                         <a href="https://github.com/LUOaini1213/malaysia-auto-ask" target="_blank" rel="noopener">malaysia-auto-ask</a>
                         stops if wholesale TIV versus registrations is unclear, and answers carry metric text plus table-level lineage.
+                        The overseas desk drafts a note that copies only after a human confirms.
                         Both are demoable and measurable — <strong>not a live production business</strong>.
                     </p>
                     <p>
@@ -353,6 +354,7 @@
                     </div>
                     <div class="project-actions">
                         <a href="https://github.com/LUOaini1213/civil-buddy" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
+                        <a href="https://github.com/LUOaini1213/civil-buddy/blob/main/docs/civil-buddy/user-flow.html" class="btn btn-sm btn-outline" target="_blank" rel="noopener">User path</a>
                         <a href="https://github.com/LUOaini1213/civil-buddy/releases" class="btn btn-sm btn-outline" target="_blank" rel="noopener">Releases</a>
                     </div>
                 </article>
@@ -370,11 +372,11 @@
                     <ul class="project-details">
                         <li>Situation: “sales” may mean wholesale TIV or registrations. Task: map the question to whitelisted SQL; stop if the metric is unclear.</li>
                         <li>Action: public year anchors in ODS, grain in DWD, brand totals in ADS. Definitions live in a metric dictionary. Glossary questions use token overlap (not a vector RAG). Answers carry SQL and table-level lineage.</li>
-                        <li>Result: 22 of 30 ask cases return numbers correctly; 8 stop by design; 8 retrieve cases hit the right doc or node. Month×region is a demo split — not MAA extracts, not Geely.</li>
+                        <li>Result: 22 of 30 ask cases return numbers correctly; 8 stop by design; 8 retrieve cases hit. `/desk` shows KPI cards; a note copies only after confirm. Month×region is a demo split — not MAA extracts, not Geely.</li>
                     </ul>
                     <div class="project-highlight">
                         <span class="highlight-label">Run locally</span>
-                        <span>python scripts/seed.py · eval.py · serve.py</span>
+                        <span>python scripts/serve.py · /desk</span>
                     </div>
                     <div class="project-actions">
                         <a href="https://github.com/LUOaini1213/malaysia-auto-ask" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>

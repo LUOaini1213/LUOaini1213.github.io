@@ -176,7 +176,7 @@
                         <a href="https://github.com/LUOaini1213/civil-buddy" target="_blank" rel="noopener">Civil Buddy</a>
                         做装箱——坐标和柜数由程序算，成箱要人确认；
                         <a href="https://github.com/LUOaini1213/malaysia-auto-ask" target="_blank" rel="noopener">malaysia-auto-ask</a>
-                        做问数——没说清批发还是上牌就停；出数带口径和表级血缘。都能演示、能量化，<strong>不是已经上线的业务</strong>。
+                        做问数——没说清批发还是上牌就停；出数带口径和表级血缘；一线工作台的说明草稿须人确认才能复制。都能演示、能量化，<strong>不是已经上线的业务</strong>。
                     </p>
                     <p>
                         奇瑞做过竞品战胜 / 战败和 VOC；彩讯写过带验收的 PRD。现场这几个月让我更清楚：Agent 要敢给人用，先把门禁写进产品。
@@ -373,6 +373,7 @@
                     </div>
                     <div class="project-actions">
                         <a href="https://github.com/LUOaini1213/civil-buddy" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
+                        <a href="https://github.com/LUOaini1213/civil-buddy/blob/main/docs/civil-buddy/user-flow.html" class="btn btn-sm btn-outline" target="_blank" rel="noopener">用户路径</a>
                         <a href="https://github.com/LUOaini1213/civil-buddy/releases" class="btn btn-sm btn-outline" target="_blank" rel="noopener">试用包</a>
                     </div>
                 </article>
@@ -390,11 +391,11 @@
                     <ul class="project-details">
                         <li>情境：业务口「销量」有时是批发（TIV），有时是上牌。任务：问句对到白名单 SQL 再出数；问不清就停。</li>
                         <li>行动：公开年锚 ODS → 明细 DWD → 汇总 ADS；口径写在指标字典；口径问句走词重叠检索（不是向量 RAG）。每次出数带 SQL 和表级血缘。</li>
-                        <li>结果：问数 30 条里 22 出数全对、8 条停问；检索 8 条命中。月×区域是演示拆分，不是 MAA 原始数，不是吉利业务。</li>
+                        <li>结果：问数 30 条里 22 出数全对、8 条停问；检索 8 条命中。`/desk` 看板 + 须确认才复制的说明草稿。月×区域是演示拆分，不是 MAA 原始数，不是吉利业务。</li>
                     </ul>
                     <div class="project-highlight">
                         <span class="highlight-label">本地跑</span>
-                        <span>python scripts/seed.py · eval.py · serve.py</span>
+                        <span>python scripts/serve.py · /desk</span>
                     </div>
                     <div class="project-actions">
                         <a href="https://github.com/LUOaini1213/malaysia-auto-ask" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
