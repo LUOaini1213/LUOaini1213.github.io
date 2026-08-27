@@ -365,18 +365,18 @@
                         <span class="project-type">Open source · ask-data</span>
                     </div>
                     <h3>malaysia-auto-ask · Malaysia auto Q&amp;A</h3>
-                    <p class="project-affil">SQLite · whitelisted SQL · ODS/DWD/ADS · 30+8 eval cases</p>
+                    <p class="project-affil">SQLite · fixed SQL templates · 30+8 eval cases</p>
                     <div class="project-tech">
                         <span>SQL</span><span>lineage</span><span>HITL</span><span>Eval</span>
                     </div>
                     <ul class="project-details">
-                        <li>Situation: “sales” may mean wholesale TIV or registrations. Task: map the question to whitelisted SQL; stop if the metric is unclear.</li>
-                        <li>Action: public year anchors in ODS, grain in DWD, brand totals in ADS. Definitions live in a metric dictionary. Glossary questions use token overlap (not a vector RAG). Answers carry SQL and table-level lineage.</li>
-                        <li>Result: 22 of 30 ask cases return numbers correctly; 8 stop by design; 8 retrieve cases hit. `/desk` shows KPI cards; a note copies only after confirm. Month×region is a demo split — not MAA extracts, not Geely.</li>
+                        <li>“Sales” may mean wholesale TIV or registrations. The question is mapped to a fixed SQL template; if the metric is unclear, it stops.</li>
+                        <li>Public year totals are split to months and brands. Definitions live in a dictionary. “What does this metric mean?” searches the docs — no vector database. Each answer shows the SQL and which table it came from.</li>
+                        <li>22 of 30 numeric cases are correct; 8 stop by design; 8 glossary cases hit. A desk page shows year cards; a note copies only after confirm. Month×region is a demo split, not MAA extracts, not Geely.</li>
                     </ul>
                     <div class="project-highlight">
                         <span class="highlight-label">Run locally</span>
-                        <span>python scripts/serve.py · /desk</span>
+                        <span>python scripts/serve.py · open the desk page</span>
                     </div>
                     <div class="project-actions">
                         <a href="https://github.com/LUOaini1213/malaysia-auto-ask" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>

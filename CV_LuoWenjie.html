@@ -57,15 +57,15 @@ body { font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif
     </div>
 
     <div class="sb-head">问数 / Agent</div>
-    <div class="sb-bul">• 马来西亚汽车问数：意图 → 白名单 SQL；全年走 ADS，带月/区域走 DWD。</div>
-    <div class="sb-bul">• 「销量」没说清 TIV 还是上牌就停；出数带口径和表级血缘。</div>
+    <div class="sb-bul">• 马来西亚汽车问数：先弄清批发还是上牌，再按写死的查询出表。</div>
+    <div class="sb-bul">• 没说清就停；出数带口径和来源表。</div>
     <div class="sb-bul">• 问数 30 条：22 出数全对，8 条停问；口径检索 8 条命中。</div>
     <div class="sb-bul">• civil-buddy：数字程序算，成箱后人确认。</div>
 
     <div class="sb-head">取数 / 分析</div>
     <div class="sb-bul">• 远东：15 种材料、5 家供应商；邮件里抽到货和检测，进台账。</div>
     <div class="sb-bul">• 奇瑞：车长、价格、注册量画区域销量气泡图；市场分析、产品定义。</div>
-    <div class="sb-bul">• SQL 多表 JOIN、聚合、同比、份额；演示 ODS / DWD / ADS。</div>
+    <div class="sb-bul">• SQL 多表关联、合计、同比、份额；年合计 / 月明细 / 品牌汇总。</div>
     <div class="sb-bul">• 没有企业数仓实习。问数仓是公开 TIV 演示，不是 Atlas。</div>
 
     <div class="sb-head">产品落地</div>
@@ -89,8 +89,8 @@ body { font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif
     <div class="m-head">项目</div>
     <div class="m-entry">
       <div class="m-title"><span>malaysia-auto-ask 马来西亚汽车问数</span><span class="m-date">2026.08</span></div>
-      <div class="m-bul">• 针对「销量」有批发（TIV）和上牌两套数，问句先收意图再走白名单 SQL。公开年锚 ODS → 明细 DWD → 汇总 ADS；口径问句走词重叠检索；出数带 SQL 和表级血缘。</div>
-      <div class="m-bul">• 没说清就停。/desk 说明草稿须确认才复制。问数 30 条：22 出数全对，8 条停问；检索 8 条命中。年锚公开 TIV（2025 年 820,752 / Perodua 359,904）。</div>
+      <div class="m-bul">• 「销量」有批发和上牌两套数。先弄清再按写死的查询出表。问「口径怎么算」去搜说明。出数带 SQL 和来源表。</div>
+      <div class="m-bul">• 没说清就停。给同事的说明要确认才复制。30 题：22 出数全对，8 停问；检索 8 命中。2025 年公开年销量 820,752 / Perodua 359,904。</div>
     </div>
     <div class="m-entry">
       <div class="m-title"><span>Civil Buddy（原 packing-agent 已并入）</span><span class="m-date">2026.07 – 至今</span></div>
