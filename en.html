@@ -333,6 +333,90 @@
             <h2 class="section-title">Projects</h2>
             <p class="section-lead">Public repos can be cloned and rerun. Course work is labelled as such.</p>
             <div class="projects-grid">
+                <article class="project-card project-featured" id="proj-tj1">
+                    <div class="project-card-header">
+                        <span class="project-year">2026.09</span>
+                        <span class="project-type">TechJam Track 1 · Agent middleware</span>
+                    </div>
+                    <h3>Glass Box — Agent observability plane</h3>
+                    <p class="project-affil">TypeScript / Fastify · 12 test files · results pending</p>
+                    <div class="project-tech">
+                        <span>OpenTelemetry</span><span>Tracing</span><span>Redaction</span><span>Policy gate</span>
+                    </div>
+                    <ul class="project-details">
+                        <li><strong>Problem</strong>　After an Agent Run you only see the final output. Which tools ran, which step failed, how many tokens it burned, whether a secret leaked — all invisible.</li>
+                        <li><strong>What it does</strong>　Turns every Run into a correlated span waterfall named per the OpenTelemetry GenAI conventions. One <code>GET /api/runs/:id/trace</code> returns the whole tree; a failed step is marked <code>error</code> and can be opened directly.</li>
+                        <li><strong>Secrets, while we are here</strong>　Key-shaped strings are redacted before they are persisted or sent over HTTP, so the web UI never receives the API key. Exfiltration prompts hit a policy deny, and each turn runs in a disposable container.</li>
+                        <li><strong>Scope</strong>　The Playground, Agent CRUD, Codex Runtime and ECS path come from the official starter; the observability plane is mine. Single-user proof of concept — an ordinary container is not multi-tenant isolation.</li>
+                    </ul>
+                    <div class="project-actions">
+                        <a href="https://github.com/LUOaini1213/track1" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
+                        <a href="https://youtu.be/ARw1wfMX-JU" class="btn btn-sm btn-outline" target="_blank" rel="noopener">3-min demo</a>
+                    </div>
+                </article>
+
+                <article class="project-card" id="proj-tj2">
+                    <div class="project-card-header">
+                        <span class="project-year">2026.09</span>
+                        <span class="project-type">TechJam Track 2 · Autonomous ML agent</span>
+                    </div>
+                    <h3>RecAgent — an agent that runs its own MLE loop</h3>
+                    <p class="project-affil">KuaiRand-Pure · official scoring protocol · results pending</p>
+                    <div class="project-tech">
+                        <span>LightGBM</span><span>AutoML</span><span>Ranking</span><span>0 manual edits</span>
+                    </div>
+                    <ul class="project-details">
+                        <li><strong>Problem</strong>　The track does not ask for a high-scoring model. It asks for an agent that inspects, engineers features, trains, evaluates and reflects on its own.</li>
+                        <li><strong>Result</strong>　Under the official protocol: test 0.6015 vs the FM baseline 0.5946, +0.0069 on the primary metric — in 23 scored iterations (cap 50), CPU-only, about 3.5 hours (cap 6 h).</li>
+                        <li><strong>The number I care about is the zero</strong>　Zero manual code changes. Half the budget unused and no intervention is what makes it an agent rather than me tuning parameters.</li>
+                    </ul>
+                    <div class="project-actions">
+                        <a href="https://github.com/LUOaini1213/recagent-techjam2026-track2" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
+                    </div>
+                </article>
+
+                <article class="project-card" id="proj-tj3">
+                    <div class="project-card-header">
+                        <span class="project-year">2026.09</span>
+                        <span class="project-type">TechJam Track 3 · GPU kernel</span>
+                    </div>
+                    <h3>Transformer forward-pass GPU kernel</h3>
+                    <p class="project-affil">13/13 gradeable shapes PASS · free cloud GPUs · results pending</p>
+                    <div class="project-tech">
+                        <span>FlashAttention</span><span>torch.compile</span><span>Numerical parity</span>
+                    </div>
+                    <ul class="project-details">
+                        <li><strong>Problem</strong>　The hardest shape, <code>seq_len=100000</code>, needs roughly 20.5 TB just for the baseline attention score matrix. Not a speed problem — it simply cannot run.</li>
+                        <li><strong>What it does</strong>　SDPA / FlashAttention replaces the O(S²) matrix with an O(S) fused kernel; the 100k shape is chunked into a preallocated output tensor. Every baseline submodule and parameter name is kept, so a strict weight copy still succeeds and the comparison stays apples-to-apples.</li>
+                        <li><strong>Result</strong>　13/13 gradeable shapes PASS, median speedup 2.07× (P100) / 2.28× (T4), up to 4.00×; the 100k shape completes inside 14.6 GB.</li>
+                        <li><strong>The trade-off</strong>　fp16 autocast doubles the median to 4.01×, but its worst absolute error has crossed <code>atol=0.002</code> and survives only on the relative branch. Shipped off — half the speedup, in exchange for a number that is not sitting on the tolerance line.</li>
+                    </ul>
+                    <div class="project-actions">
+                        <a href="https://github.com/LUOaini1213/tiktok-techjam-2026-track3" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
+                    </div>
+                </article>
+
+                <article class="project-card" id="proj-tj4">
+                    <div class="project-card-header">
+                        <span class="project-year">2026.09</span>
+                        <span class="project-type">TechJam Track 4 · Conversational search</span>
+                    </div>
+                    <h3>ByteSize — recommend only once the evidence is enough</h3>
+                    <p class="project-affil">50,000-item catalog · 0 tokens / $0 · results pending</p>
+                    <div class="project-tech">
+                        <span>Value of information</span><span>Late fusion</span><span>Fully offline</span>
+                    </div>
+                    <ul class="project-details">
+                        <li><strong>Problem</strong>　In multi-turn shopping dialogue the common failure is recommending as soon as the candidate pool gets small. A small pool does not mean the agent knows enough — it may just have guessed narrowly.</li>
+                        <li><strong>What it does</strong>　Every turn asks one explicit question: is the evidence sufficient? If yes, recommend; if not, ask once more. The controller reads scenario, disclosed slots and pool size — it never inspects the remaining turn budget and never changes the ranking function.</li>
+                        <li><strong>Result</strong>　On 800 ID-disjoint sessions it gains +60 rank-1 recommendations with zero Hit-rate loss and improves 8 of 8 shards; Hit@10 is 1.000 on the labelled public set. All of it at 0 tokens and $0.</li>
+                        <li><strong>Scope</strong>　The holdout and the 800 sessions are my own ID-disjoint splits, not an official leaderboard.</li>
+                    </ul>
+                    <div class="project-actions">
+                        <a href="https://github.com/LUOaini1213/track4" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
+                    </div>
+                </article>
+
                 <article class="project-card project-featured" id="proj-packing">
                     <div class="project-card-header">
                         <span class="project-year">2026</span>

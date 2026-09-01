@@ -351,6 +351,90 @@
             <h2 class="section-title">项目</h2>
             <p class="section-lead">开源仓可克隆复跑。课程项目单独标明。</p>
             <div class="projects-grid">
+                <article class="project-card project-featured" id="proj-tj1">
+                    <div class="project-card-header">
+                        <span class="project-year">2026.09</span>
+                        <span class="project-type">TechJam Track 1 · Agent 中间件</span>
+                    </div>
+                    <h3>Glass Box · Agent 可观测中间件</h3>
+                    <p class="project-affil">TypeScript / Fastify · 12 个测试 · 结果待评审</p>
+                    <div class="project-tech">
+                        <span>OpenTelemetry</span><span>Trace</span><span>Redaction</span><span>策略拦截</span>
+                    </div>
+                    <ul class="project-details">
+                        <li><strong>问题</strong>　Agent 跑完只看得到最后输出。中间调了什么工具、哪步失败、花了多少 token、有没有把密钥读出去，全是黑盒。</li>
+                        <li><strong>做什么</strong>　把每次 Run 变成关联 span 瀑布，按 OpenTelemetry GenAI 语义约定命名；一个 <code>GET /api/runs/:id/trace</code> 取出整棵树，失败 step 直接可跳。</li>
+                        <li><strong>顺手挡住密钥</strong>　落盘与 HTTP 前对 key 形态字符串做 redaction，Web UI 永远拿不到 API Key；越权取密提示词走策略拒绝，每轮对话起一次性容器。</li>
+                        <li><strong>边界</strong>　Playground / Agent CRUD / Codex Runtime / ECS 路径来自官方 starter，我加的是可观测层；单用户 PoC，容器不是多租户隔离。</li>
+                    </ul>
+                    <div class="project-actions">
+                        <a href="https://github.com/LUOaini1213/track1" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
+                        <a href="https://youtu.be/ARw1wfMX-JU" class="btn btn-sm btn-outline" target="_blank" rel="noopener">3 分钟 demo</a>
+                    </div>
+                </article>
+
+                <article class="project-card" id="proj-tj2">
+                    <div class="project-card-header">
+                        <span class="project-year">2026.09</span>
+                        <span class="project-type">TechJam Track 2 · 自主 ML Agent</span>
+                    </div>
+                    <h3>RecAgent · 自己跑 MLE 循环的 Agent</h3>
+                    <p class="project-affil">KuaiRand-Pure · 官方协议计分 · 结果待评审</p>
+                    <div class="project-tech">
+                        <span>LightGBM</span><span>AutoML</span><span>排序</span><span>0 次人工介入</span>
+                    </div>
+                    <ul class="project-details">
+                        <li><strong>问题</strong>　赛题要的不是我调出一个高分模型，而是一个能自己跑 inspect → feature → train → eval → reflect 的 agent。</li>
+                        <li><strong>结果</strong>　官方协议下 test 0.6015 vs FM 基线 0.5946，主指标 +0.0069；23 轮计分迭代（上限 50）、CPU-only、约 3.5 小时（上限 6 h）。</li>
+                        <li><strong>我更看重那个 0</strong>　全程 0 次人工改代码。预算只用一半、没伸手，才说明这是 agent 而不是我在调参。</li>
+                    </ul>
+                    <div class="project-actions">
+                        <a href="https://github.com/LUOaini1213/recagent-techjam2026-track2" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
+                    </div>
+                </article>
+
+                <article class="project-card" id="proj-tj3">
+                    <div class="project-card-header">
+                        <span class="project-year">2026.09</span>
+                        <span class="project-type">TechJam Track 3 · GPU kernel</span>
+                    </div>
+                    <h3>Transformer 前向 GPU kernel 优化</h3>
+                    <p class="project-affil">13/13 可评形状 PASS · 免费云 GPU · 结果待评审</p>
+                    <div class="project-tech">
+                        <span>FlashAttention</span><span>torch.compile</span><span>数值等价</span>
+                    </div>
+                    <ul class="project-details">
+                        <li><strong>问题</strong>　最狠的一档 seq_len=100000，基线光注意力分数矩阵就要约 20.5 TB 显存——不是快慢问题，是压根跑不起来。</li>
+                        <li><strong>做什么</strong>　用 SDPA/FlashAttention 把 O(S²) 换成 O(S) 融合核，再对 100k 那档做批分块写进预分配张量；保留全部基线子模块与参数名，只重写前向，保证权重严格拷贝可比。</li>
+                        <li><strong>结果</strong>　13/13 可评形状 PASS，中位加速 2.07×（P100）/ 2.28×（T4），最高 4.00×；100k 那档在 14.6 GB 内跑完。</li>
+                        <li><strong>取舍</strong>　fp16 能把中位加速翻到 4.01×，但最差绝对误差已越过 atol=0.002、只靠相对误差分支存活——默认关闭。少一倍加速，换一个不踩线的数。</li>
+                    </ul>
+                    <div class="project-actions">
+                        <a href="https://github.com/LUOaini1213/tiktok-techjam-2026-track3" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
+                    </div>
+                </article>
+
+                <article class="project-card" id="proj-tj4">
+                    <div class="project-card-header">
+                        <span class="project-year">2026.09</span>
+                        <span class="project-type">TechJam Track 4 · 对话式搜索</span>
+                    </div>
+                    <h3>ByteSize · 问够了才推荐</h3>
+                    <p class="project-affil">五万件目录 · 0 token / $0 · 结果待评审</p>
+                    <div class="project-tech">
+                        <span>信息价值停止</span><span>后融合排序</span><span>离线</span>
+                    </div>
+                    <ul class="project-details">
+                        <li><strong>问题</strong>　多轮购物对话里，agent 最容易犯的错是候选池一小就急着推荐。但池子小不等于信息够——可能只是被猜窄了。</li>
+                        <li><strong>做什么</strong>　每轮显式判断证据够不够：够就推荐，不够再问一轮。控制器只看场景、已披露槽位和池子大小，从不偷看剩余轮次预算，也不改排序函数。</li>
+                        <li><strong>结果</strong>　800 条 ID 隔离会话上多拿 +60 个 rank-1 且 Hit-rate 零损失，8/8 分片全部改善；公开标注集 Hit@10 1.000。全程 0 token、$0。</li>
+                        <li><strong>边界</strong>　holdout 与 800 条为自切的 ID 隔离切分，不是官方榜。</li>
+                    </ul>
+                    <div class="project-actions">
+                        <a href="https://github.com/LUOaini1213/track4" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
+                    </div>
+                </article>
+
                 <article class="project-card project-featured" id="proj-packing">
                     <div class="project-card-header">
                         <span class="project-year">2026</span>
