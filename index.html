@@ -351,6 +351,60 @@
             <h2 class="section-title">项目</h2>
             <p class="section-lead">开源仓可克隆复跑。课程项目单独标明。</p>
             <div class="projects-grid">
+                <article class="project-card project-featured" id="proj-packing">
+                    <div class="project-card-header">
+                        <span class="project-year">2026</span>
+                        <span class="project-type">开源 · 装箱</span>
+                    </div>
+                    <h3>Civil Buddy · 装箱引擎 + 工作台</h3>
+                    <p class="project-affil">Flagship · packing 引擎在仓内 · MIT</p>
+                    <div class="project-tech">
+                        <span>Python</span><span>HITL</span><span>Eval</span><span>FastAPI</span>
+                    </div>
+                    <ul class="project-details">
+                        <li>做成土木工作台：16 大类 / 66 岗 skill，任务走 SOP；硬数字由工具算，模型不写坐标、不拍柜数。</li>
+                        <li>装箱岗：一句话或物料表进来，程序算柜数和坐标，人点确认后再拼柜、出 3D。</li>
+                        <li>同一任务对照大模型自己调工具：128 次装箱评测跑次（16×8）。本机能跑通成箱 → 确认 → 出图。金线 E2E 8/8。</li>
+                    </ul>
+                    <div class="project-highlight">
+                        <span class="highlight-label">原则</span>
+                        <span>Tools compute numbers · the model only routes</span>
+                    </div>
+                    <div class="project-actions">
+                        <a href="https://github.com/LUOaini1213/civil-buddy" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
+                        <a href="https://github.com/LUOaini1213/civil-buddy/blob/main/docs/civil-buddy/user-flow.html" class="btn btn-sm btn-outline" target="_blank" rel="noopener">用户路径</a>
+                        <a href="https://github.com/LUOaini1213/civil-buddy/releases" class="btn btn-sm btn-outline" target="_blank" rel="noopener">试用包</a>
+                    </div>
+                </article>
+
+                <article class="project-card project-featured" id="proj-navsim">
+                    <div class="project-card-header">
+                        <span class="project-year">2026.08 – 2026.09</span>
+                        <span class="project-type">开源 · 智驾评测</span>
+                    </div>
+                    <h3>NAVSIM 能力阶梯 · 开环规划到底卡在哪</h3>
+                    <p class="project-affil">10 个 agent · 563 场同一 metric cache · 配对自助 CI</p>
+                    <div class="project-tech">
+                        <span>NAVSIM</span><span>消融</span><span>置信区间</span><span>失败归因</span>
+                    </div>
+                    <ul class="project-details">
+                        <li><strong>问题</strong>　分数是被什么卡住的：网络不够大，还是看不见该看的？跑一个基线看不出来。</li>
+                        <li><strong>做法</strong>　搭一条阶梯，每一级只多给一样信息（加速度 → 真值框 → 地图中心线 → 人类速度 → 人类轨迹），全部 563/563 跑同一 metric cache，再对每一级增益做配对自助 95% CI。</li>
+                        <li><strong>结论一</strong>　恒速的痛点主要是运动学：只加加速度和 command yaw，PDMS 0.233 → 0.580，NC 失败率 39% → 12%。</li>
+                        <li><strong>结论二</strong>　给真值检测框补不上差距，给地图才行：DAC 0.737 → 0.950。</li>
+                        <li><strong>结论三</strong>　我自己训了一个「能看地图」的模型做对照：同一份中心线特征，学出来的 0.527，手写规则 0.730（+0.203，CI [+0.118, +0.291]）。信息在特征里，模型没学会用。</li>
+                        <li><strong>诚实边界</strong>　mini 的 64 个 log 里 62 个就是评测 log，学习型 agent 在全量上是污染分；改为把 10 个 agent 全部限制到同一批 held-out 场景（n=135）重算，并把因此不再显著的结论逐条降级为「提示性」。特权 agent 用真值/地图，不可部署。不是 navtest 正式榜。</li>
+                    </ul>
+                    <div class="project-highlight">
+                        <span class="highlight-label">最想讲的</span>
+                        <span>模仿学得像，不等于开得安全——开环 L1 很低，仍有 90 场被 DAC 乘成 0。</span>
+                    </div>
+                    <div class="project-actions">
+                        <a href="https://github.com/LUOaini1213/navsim-ability-ladder" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
+                        <a href="https://github.com/LUOaini1213/navsim-ability-ladder/blob/main/results/clean_ladder.md" class="btn btn-sm btn-outline" target="_blank" rel="noopener">干净划分报告</a>
+                    </div>
+                </article>
+
                 <article class="project-card project-featured" id="proj-tj1">
                     <div class="project-card-header">
                         <span class="project-year">2026.09</span>
@@ -432,32 +486,6 @@
                     </ul>
                     <div class="project-actions">
                         <a href="https://github.com/LUOaini1213/track4" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
-                    </div>
-                </article>
-
-                <article class="project-card project-featured" id="proj-packing">
-                    <div class="project-card-header">
-                        <span class="project-year">2026</span>
-                        <span class="project-type">开源 · 装箱</span>
-                    </div>
-                    <h3>Civil Buddy · 装箱引擎 + 工作台</h3>
-                    <p class="project-affil">Flagship · packing 引擎在仓内 · MIT</p>
-                    <div class="project-tech">
-                        <span>Python</span><span>HITL</span><span>Eval</span><span>FastAPI</span>
-                    </div>
-                    <ul class="project-details">
-                        <li>做成土木工作台：16 大类 / 66 岗 skill，任务走 SOP；硬数字由工具算，模型不写坐标、不拍柜数。</li>
-                        <li>装箱岗：一句话或物料表进来，程序算柜数和坐标，人点确认后再拼柜、出 3D。</li>
-                        <li>同一任务对照大模型自己调工具：128 次装箱评测跑次（16×8）。本机能跑通成箱 → 确认 → 出图。金线 E2E 8/8。</li>
-                    </ul>
-                    <div class="project-highlight">
-                        <span class="highlight-label">原则</span>
-                        <span>Tools compute numbers · the model only routes</span>
-                    </div>
-                    <div class="project-actions">
-                        <a href="https://github.com/LUOaini1213/civil-buddy" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
-                        <a href="https://github.com/LUOaini1213/civil-buddy/blob/main/docs/civil-buddy/user-flow.html" class="btn btn-sm btn-outline" target="_blank" rel="noopener">用户路径</a>
-                        <a href="https://github.com/LUOaini1213/civil-buddy/releases" class="btn btn-sm btn-outline" target="_blank" rel="noopener">试用包</a>
                     </div>
                 </article>
 

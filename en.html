@@ -333,6 +333,60 @@
             <h2 class="section-title">Projects</h2>
             <p class="section-lead">Public repos can be cloned and rerun. Course work is labelled as such.</p>
             <div class="projects-grid">
+                <article class="project-card project-featured" id="proj-packing">
+                    <div class="project-card-header">
+                        <span class="project-year">2026</span>
+                        <span class="project-type">Open source · packing</span>
+                    </div>
+                    <h3>Civil Buddy · packing engine + workbench</h3>
+                    <p class="project-affil">packing-agent merged in · MIT</p>
+                    <div class="project-tech">
+                        <span>Python</span><span>HITL</span><span>Eval</span><span>FastAPI</span>
+                    </div>
+                    <ul class="project-details">
+                        <li>A civil-engineering workbench: 16 domains / 66 job skills, tasks follow an SOP. Hard numbers come from tools; the model does not write coordinates or invent container counts.</li>
+                        <li>Packing job: a sentence or material table comes in; a program computes container count and coordinates; a person confirms, then stow / 3D.</li>
+                        <li>Same task vs a model calling tools itself: 128 packing-eval runs (16×8). Locally it runs pack → confirm → figure. Golden-path E2E 8/8.</li>
+                    </ul>
+                    <div class="project-highlight">
+                        <span class="highlight-label">Rule</span>
+                        <span>Tools compute numbers · the model only routes</span>
+                    </div>
+                    <div class="project-actions">
+                        <a href="https://github.com/LUOaini1213/civil-buddy" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
+                        <a href="https://github.com/LUOaini1213/civil-buddy/blob/main/docs/civil-buddy/user-flow.html" class="btn btn-sm btn-outline" target="_blank" rel="noopener">User path</a>
+                        <a href="https://github.com/LUOaini1213/civil-buddy/releases" class="btn btn-sm btn-outline" target="_blank" rel="noopener">Releases</a>
+                    </div>
+                </article>
+
+                <article class="project-card project-featured" id="proj-navsim">
+                    <div class="project-card-header">
+                        <span class="project-year">2026.08 – 2026.09</span>
+                        <span class="project-type">Open source · AD evaluation</span>
+                    </div>
+                    <h3>NAVSIM ability ladder — what caps open-loop planning</h3>
+                    <p class="project-affil">10 agents · 563 scenes, one metric cache · paired bootstrap CIs</p>
+                    <div class="project-tech">
+                        <span>NAVSIM</span><span>Ablation</span><span>Confidence intervals</span><span>Failure attribution</span>
+                    </div>
+                    <ul class="project-details">
+                        <li><strong>Problem</strong>　What is the score actually limited by — model capacity, or missing inputs? One baseline cannot tell you.</li>
+                        <li><strong>Approach</strong>　Build a ladder where each rung adds exactly one input (acceleration, GT boxes, map centerline, human speed, logged path), score all of them on the same metric cache, then put a paired bootstrap 95% CI on every step.</li>
+                        <li><strong>Finding 1</strong>　Most of ConstantVelocity's pain is kinematics: adding acceleration and command yaw alone moves PDMS 0.233 → 0.580 and cuts NC failures from 39% to 12%.</li>
+                        <li><strong>Finding 2</strong>　Ground-truth detection boxes do not close the gap; the map does — DAC 0.737 → 0.950.</li>
+                        <li><strong>Finding 3</strong>　I trained a map-aware model as a control: on the identical centerline features it scores 0.527 against the hand rule's 0.730 (+0.203, CI [+0.118, +0.291]). The information is in the features; the model did not learn to use it.</li>
+                        <li><strong>Scope</strong>　62 of the 64 mini logs are the evaluation logs, so any learned agent is contaminated on the full split. Every agent is therefore re-scored on the same held-out scenes (n=135), and the effects that stop separating there are reported as suggestive. Privileged agents use ground truth or map access and are not deployable. This is not the official navtest leaderboard.</li>
+                    </ul>
+                    <div class="project-highlight">
+                        <span class="highlight-label">The point</span>
+                        <span>Imitating well is not driving safely — open-loop L1 is low and DAC still zeroes 90 of 563 scenes.</span>
+                    </div>
+                    <div class="project-actions">
+                        <a href="https://github.com/LUOaini1213/navsim-ability-ladder" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
+                        <a href="https://github.com/LUOaini1213/navsim-ability-ladder/blob/main/results/clean_ladder.md" class="btn btn-sm btn-outline" target="_blank" rel="noopener">Clean-split report</a>
+                    </div>
+                </article>
+
                 <article class="project-card project-featured" id="proj-tj1">
                     <div class="project-card-header">
                         <span class="project-year">2026.09</span>
@@ -414,32 +468,6 @@
                     </ul>
                     <div class="project-actions">
                         <a href="https://github.com/LUOaini1213/track4" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
-                    </div>
-                </article>
-
-                <article class="project-card project-featured" id="proj-packing">
-                    <div class="project-card-header">
-                        <span class="project-year">2026</span>
-                        <span class="project-type">Open source · packing</span>
-                    </div>
-                    <h3>Civil Buddy · packing engine + workbench</h3>
-                    <p class="project-affil">packing-agent merged in · MIT</p>
-                    <div class="project-tech">
-                        <span>Python</span><span>HITL</span><span>Eval</span><span>FastAPI</span>
-                    </div>
-                    <ul class="project-details">
-                        <li>A civil-engineering workbench: 16 domains / 66 job skills, tasks follow an SOP. Hard numbers come from tools; the model does not write coordinates or invent container counts.</li>
-                        <li>Packing job: a sentence or material table comes in; a program computes container count and coordinates; a person confirms, then stow / 3D.</li>
-                        <li>Same task vs a model calling tools itself: 128 packing-eval runs (16×8). Locally it runs pack → confirm → figure. Golden-path E2E 8/8.</li>
-                    </ul>
-                    <div class="project-highlight">
-                        <span class="highlight-label">Rule</span>
-                        <span>Tools compute numbers · the model only routes</span>
-                    </div>
-                    <div class="project-actions">
-                        <a href="https://github.com/LUOaini1213/civil-buddy" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
-                        <a href="https://github.com/LUOaini1213/civil-buddy/blob/main/docs/civil-buddy/user-flow.html" class="btn btn-sm btn-outline" target="_blank" rel="noopener">User path</a>
-                        <a href="https://github.com/LUOaini1213/civil-buddy/releases" class="btn btn-sm btn-outline" target="_blank" rel="noopener">Releases</a>
                     </div>
                 </article>
 
