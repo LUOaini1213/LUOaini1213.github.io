@@ -405,6 +405,67 @@
                     </div>
                 </article>
 
+                <article class="project-card project-featured" id="proj-cuda">
+                    <div class="project-card-header">
+                        <span class="project-year">2026.09</span>
+                        <span class="project-type">开源 · GPU kernel</span>
+                    </div>
+                    <h3>cuda-fused-layernorm · 手写 CUDA，输给了 Triton，写清为什么</h3>
+                    <p class="project-affil">CUDA C++ (NVRTC) · T4 同卡三方对照 · 12 组形状</p>
+                    <div class="project-tech">
+                        <span>CUDA C++</span><span>Triton</span><span>warp-shuffle</span><span>受控对照</span>
+                    </div>
+                    <ul class="project-details">
+                        <li><strong>做什么</strong>　把 Triton 版的 residual-add + LayerNorm 融合核用 CUDA C++ 重写：warp-shuffle + shared-memory 块规约，float64 参考的精度门，数值稳定性扫描。</li>
+                        <li><strong>结果</strong>　T4 单卡受控对照 12 组形状：Triton 对 eager 中位 1.341×，我的 CUDA 1.087×，CUDA 对 Triton <strong>0.812×</strong>——无一组胜出，最高 0.997×。</li>
+                        <li><strong>为什么</strong>　Triton 按形状自动调 num_warps 与 block 大小；本实现用固定启发式。此前跨卡参照给人的印象是"量级相当"，同卡一测结论相反——所以受控对照必须做。</li>
+                    </ul>
+                    <div class="project-actions">
+                        <a href="https://github.com/LUOaini1213/cuda-fused-layernorm" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
+                    </div>
+                </article>
+
+                <article class="project-card" id="proj-vllm">
+                    <div class="project-card-header">
+                        <span class="project-year">2026.09</span>
+                        <span class="project-type">开源 · 推理性能诊断</span>
+                    </div>
+                    <h3>vllm-sm75-throughput · 10× 吞吐塌陷归因到一条 GEMM 断崖</h3>
+                    <p class="project-affil">GTX 1650 (sm_75) · T4 受控反证 · fp16 GEMM</p>
+                    <div class="project-tech">
+                        <span>vLLM</span><span>cuBLAS</span><span>Tensor Core</span><span>归因实验</span>
+                    </div>
+                    <ul class="project-details">
+                        <li><strong>问题</strong>　vLLM 在 GTX 1650 上吞吐塌陷约 10×。表面上什么都可能是原因。</li>
+                        <li><strong>归因</strong>　fp16 GEMM 从 M=1 到 M=2 带宽 99.5 → <strong>4.3 GiB/s</strong>（0.04×）：sm_75 去掉 Tensor Core 后 cuBLAS 小 M 路径病态。</li>
+                        <li><strong>反证实验</strong>　同为 sm_75、同为 Turing、只多了 Tensor Core 的 T4 上重跑同一脚本：106.7 → 88.1 GiB/s（0.83×），三组形状一致。单变量、比值差 20 倍——归因成立。</li>
+                    </ul>
+                    <div class="project-actions">
+                        <a href="https://github.com/LUOaini1213/vllm-sm75-throughput" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
+                    </div>
+                </article>
+
+                <article class="project-card" id="proj-eda">
+                    <div class="project-card-header">
+                        <span class="project-year">2026.09</span>
+                        <span class="project-type">开源 · 流程问答</span>
+                    </div>
+                    <h3>EDA Copilot · OpenROAD 流程问答，口径不清就停下来问人</h3>
+                    <p class="project-affil">自己跑通 RTL→GDSII · 1215 块语料出处到行 · 停问消融</p>
+                    <div class="project-tech">
+                        <span>OpenROAD / ORFS</span><span>RAG</span><span>停问护栏</span><span>QoR</span>
+                    </div>
+                    <ul class="project-details">
+                        <li><strong>语料</strong>　用官方镜像跑通 nangate45/gcd 完整后端流程，把 46 个报告 / 日志 / 逐阶段指标与 31 个脚本文档切成 1215 块，出处精确到行。</li>
+                        <li><strong>停问护栏</strong>　7 类结构化原因码（双口径歧义、setup/hold 未指明、库外主题…）：12/12 该停的停住、原因码全对；关掉护栏后 12/12 强行作答且都带出处——带出处的错答更危险。</li>
+                        <li><strong>让评测定去留</strong>　混合检索起初无增益→关掉；语料加入运行产物后反超（Hit@5 0.957 vs 0.913）→改回。两组数都留在 README。从自己的报告里读出：TNS −7.18 / WNS −0.16，修时序 buffer 占标准单元面积 18.7% 而 WNS 未收敛。</li>
+                        <li><strong>边界</strong>　示例设计规模、开源 45nm 库、默认参数；读的是数字后端 QoR 报告，不是 fab 良率数据。</li>
+                    </ul>
+                    <div class="project-actions">
+                        <a href="https://github.com/LUOaini1213/eda-copilot" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
+                    </div>
+                </article>
+
                 <article class="project-card project-featured" id="proj-tj1">
                     <div class="project-card-header">
                         <span class="project-year">2026.09</span>
@@ -486,6 +547,28 @@
                     </ul>
                     <div class="project-actions">
                         <a href="https://github.com/LUOaini1213/track4" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
+                    </div>
+                </article>
+
+                <article class="project-card" id="proj-counterask">
+                    <div class="project-card-header">
+                        <span class="project-year">2026.09</span>
+                        <span class="project-type">WebMCP Challenge · 开源</span>
+                    </div>
+                    <h3>Counterask · 回答等于猜的时候，工具反问一句</h3>
+                    <p class="project-affil">9,901 件真实男装 · 单页无服务器 · 0 token</p>
+                    <div class="project-tech">
+                        <span>WebMCP</span><span>信息价值</span><span>类目树追问</span>
+                    </div>
+                    <ul class="project-details">
+                        <li><strong>做什么</strong>　一个男装店面，search_products 工具在"答了也是猜"时返回一个问题而不是半张排行榜。整店一页，无模型调用。</li>
+                        <li><strong>结果</strong>　800 句真实目录评测：Hit@10 关键词匹配 0.04 → 句子解析 <strong>0.34 ± 0.01</strong>（换一套措辞的 held-out 0.34）；把"不要 X"反转成"要 X"的错误 597 → 0；预算被突破 22 → 0。</li>
+                        <li><strong>追问值多少</strong>　从"shoes / clothing"起步的 600 会话：沿类目树逐层反问 Hit@10 0.31 vs 不问 0.16，配对 8/8 分片 +0.148 ± 0.048，候选池 597 → 121。</li>
+                        <li><strong>边界</strong>　天花板是属性覆盖率：材质只有 56% 的商品记录了，版型 8%——照实写。</li>
+                    </ul>
+                    <div class="project-actions">
+                        <a href="https://luoaini1213.github.io/counterask/" class="btn btn-sm btn-primary" target="_blank" rel="noopener">Live</a>
+                        <a href="https://github.com/LUOaini1213/counterask" class="btn btn-sm btn-outline" target="_blank" rel="noopener">GitHub</a>
                     </div>
                 </article>
 

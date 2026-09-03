@@ -387,6 +387,67 @@
                     </div>
                 </article>
 
+                <article class="project-card project-featured" id="proj-cuda">
+                    <div class="project-card-header">
+                        <span class="project-year">2026.09</span>
+                        <span class="project-type">Open source · GPU kernel</span>
+                    </div>
+                    <h3>cuda-fused-layernorm — hand-written CUDA that lost to Triton, and why</h3>
+                    <p class="project-affil">CUDA C++ (NVRTC) · same-card three-way comparison on a T4 · 12 shapes</p>
+                    <div class="project-tech">
+                        <span>CUDA C++</span><span>Triton</span><span>warp shuffle</span><span>Controlled comparison</span>
+                    </div>
+                    <ul class="project-details">
+                        <li><strong>What</strong>　The Triton fused residual-add + LayerNorm kernel rewritten in CUDA C++: warp-shuffle plus shared-memory block reduction, a float64-referenced accuracy gate, a numerical-stability sweep.</li>
+                        <li><strong>Result</strong>　On one T4 over 12 shapes: Triton 1.341× over eager, my CUDA 1.087×, CUDA vs Triton <strong>0.812×</strong> — it loses on every shape, best 0.997×.</li>
+                        <li><strong>Why</strong>　Triton autotunes num_warps and block size per shape; mine uses a fixed heuristic. An earlier cross-card comparison had suggested "about the same" — the same-card test reversed it, which is why the controlled comparison had to be run.</li>
+                    </ul>
+                    <div class="project-actions">
+                        <a href="https://github.com/LUOaini1213/cuda-fused-layernorm" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
+                    </div>
+                </article>
+
+                <article class="project-card" id="proj-vllm">
+                    <div class="project-card-header">
+                        <span class="project-year">2026.09</span>
+                        <span class="project-type">Open source · Inference diagnosis</span>
+                    </div>
+                    <h3>vllm-sm75-throughput — a 10× throughput collapse traced to one GEMM cliff</h3>
+                    <p class="project-affil">GTX 1650 (sm_75) · refutation experiment on a T4 · fp16 GEMM</p>
+                    <div class="project-tech">
+                        <span>vLLM</span><span>cuBLAS</span><span>Tensor Cores</span><span>Attribution</span>
+                    </div>
+                    <ul class="project-details">
+                        <li><strong>Problem</strong>　vLLM throughput collapses about 10× on a GTX 1650. On the surface anything could be the cause.</li>
+                        <li><strong>Attribution</strong>　fp16 GEMM bandwidth falls from 99.5 to <strong>4.3 GiB/s</strong> going from M=1 to M=2 (0.04×): with tensor cores removed from sm_75, the cuBLAS small-M path is pathological.</li>
+                        <li><strong>The experiment that could have refuted it</strong>　Same script on a T4 — same sm_75, same Turing, tensor cores kept: 106.7 → 88.1 GiB/s (0.83×), consistent over three shapes. One variable, a 20× difference in the ratio; the attribution holds.</li>
+                    </ul>
+                    <div class="project-actions">
+                        <a href="https://github.com/LUOaini1213/vllm-sm75-throughput" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
+                    </div>
+                </article>
+
+                <article class="project-card" id="proj-eda">
+                    <div class="project-card-header">
+                        <span class="project-year">2026.09</span>
+                        <span class="project-type">Open source · Flow Q&amp;A</span>
+                    </div>
+                    <h3>EDA Copilot — OpenROAD flow Q&amp;A that stops and asks when the metric is unclear</h3>
+                    <p class="project-affil">Ran RTL→GDSII myself · 1,215-chunk corpus with line-level provenance · stop-guard ablation</p>
+                    <div class="project-tech">
+                        <span>OpenROAD / ORFS</span><span>RAG</span><span>Stop guard</span><span>QoR</span>
+                    </div>
+                    <ul class="project-details">
+                        <li><strong>Corpus</strong>　Ran the full nangate45/gcd back-end flow in the official image and cut the 46 reports/logs/stage metrics plus 31 script docs into 1,215 chunks, each cited to the line.</li>
+                        <li><strong>Stop guard</strong>　Seven structured stop codes (ambiguous metric, setup/hold unspecified, out of scope, …): 12/12 should-stop questions stop with the right code. With the guard off, all 12 are answered anyway, each with a citation — the cited wrong answer is the dangerous kind.</li>
+                        <li><strong>Evaluation decides</strong>　Hybrid retrieval showed no gain and was switched off; once run artifacts made the corpus heterogeneous it won (Hit@5 0.957 vs 0.913) and was switched back on. Both numbers stay in the README. From my own QoR report: TNS −7.18 vs WNS −0.16, timing buffers at 18.7% of standard-cell area with WNS still unconverged.</li>
+                        <li><strong>Scope</strong>　Example-scale design, open 45 nm library, default parameters; a digital back-end QoR report, not fab yield data.</li>
+                    </ul>
+                    <div class="project-actions">
+                        <a href="https://github.com/LUOaini1213/eda-copilot" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
+                    </div>
+                </article>
+
                 <article class="project-card project-featured" id="proj-tj1">
                     <div class="project-card-header">
                         <span class="project-year">2026.09</span>
@@ -468,6 +529,28 @@
                     </ul>
                     <div class="project-actions">
                         <a href="https://github.com/LUOaini1213/track4" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
+                    </div>
+                </article>
+
+                <article class="project-card" id="proj-counterask">
+                    <div class="project-card-header">
+                        <span class="project-year">2026.09</span>
+                        <span class="project-type">WebMCP Challenge · Open source</span>
+                    </div>
+                    <h3>Counterask — when answering would be a guess, the tool asks back</h3>
+                    <p class="project-affil">9,901 real menswear products · one page, no server · 0 tokens</p>
+                    <div class="project-tech">
+                        <span>WebMCP</span><span>Value of information</span><span>Category-tree questions</span>
+                    </div>
+                    <ul class="project-details">
+                        <li><strong>What</strong>　A menswear storefront whose search_products tool returns a question instead of half a ranking whenever answering would be a guess. The whole store is one page; no model call.</li>
+                        <li><strong>Result</strong>　800 sentences on the real catalog: Hit@10 0.04 with a keyword matcher → <strong>0.34 ± 0.01</strong> with the sentence parser (0.34 on held-out phrasings); refusals wrongly inverted into requirements 597 → 0; budget broken in the top 10 22 → 0.</li>
+                        <li><strong>What asking is worth</strong>　600 sessions starting from "shoes" or "clothing": asking down the category tree Hit@10 0.31 vs 0.16 without, paired +0.148 ± 0.048 on 8/8 shards, candidate pool 597 → 121.</li>
+                        <li><strong>Scope</strong>　Coverage is the ceiling and is reported as such: material is recorded on 56% of products, fit on 8%.</li>
+                    </ul>
+                    <div class="project-actions">
+                        <a href="https://luoaini1213.github.io/counterask/" class="btn btn-sm btn-primary" target="_blank" rel="noopener">Live</a>
+                        <a href="https://github.com/LUOaini1213/counterask" class="btn btn-sm btn-outline" target="_blank" rel="noopener">GitHub</a>
                     </div>
                 </article>
 
