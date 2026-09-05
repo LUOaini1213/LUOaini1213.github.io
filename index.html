@@ -439,6 +439,7 @@
                         <li><strong>问题</strong>　vLLM 在 GTX 1650 上吞吐塌陷约 10×。表面上什么都可能是原因。</li>
                         <li><strong>归因</strong>　fp16 GEMM 从 M=1 到 M=2 带宽 99.5 → <strong>4.3 GiB/s</strong>（0.04×）：sm_75 去掉 Tensor Core 后 cuBLAS 小 M 路径病态。</li>
                         <li><strong>反证实验</strong>　同为 sm_75、同为 Turing、只多了 Tensor Core 的 T4 上重跑同一脚本：106.7 → 88.1 GiB/s（0.83×），三组形状一致。单变量、比值差 20 倍——归因成立。</li>
+                        <li><strong>上报</strong>　根因报到 PyTorch（issue #195716），部署陷阱与告警建议报到 vLLM（issue #54950：--dtype half 在无 Tensor Core 的 Turing 卡上是性能陷阱），两条均已开出。</li>
                     </ul>
                     <div class="project-actions">
                         <a href="https://github.com/LUOaini1213/vllm-sm75-throughput" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
@@ -516,13 +517,14 @@
                     <h3>Transformer 前向 GPU kernel 优化</h3>
                     <p class="project-affil">13/13 可评形状 PASS · 免费云 GPU · 结果待评审</p>
                     <div class="project-tech">
-                        <span>FlashAttention</span><span>torch.compile</span><span>数值等价</span>
+                        <span>SDPA 融合注意力</span><span>torch.compile</span><span>数值等价</span>
                     </div>
                     <ul class="project-details">
                         <li><strong>问题</strong>　最狠的一档 seq_len=100000，基线光注意力分数矩阵就要约 20.5 TB 显存——不是快慢问题，是压根跑不起来。</li>
-                        <li><strong>做什么</strong>　用 SDPA/FlashAttention 把 O(S²) 换成 O(S) 融合核，再对 100k 那档做批分块写进预分配张量；保留全部基线子模块与参数名，只重写前向，保证权重严格拷贝可比。</li>
-                        <li><strong>结果</strong>　13/13 可评形状 PASS，中位加速 2.07×（P100）/ 2.28×（T4），最高 4.00×；100k 那档在 14.6 GB 内跑完。</li>
+                        <li><strong>做什么</strong>　用 SDPA 融合注意力（memory-efficient 后端）把 O(S²) 换成 O(S) 融合核，再对 100k 那档做批分块写进预分配张量；保留全部基线子模块与参数名，只重写前向，保证权重严格拷贝可比。</li>
+                        <li><strong>结果</strong>　13/13 可评形状 PASS，最差绝对误差 1.9e-6；中位加速 2.29×（T4，三次独立跑的逐形状中位数）/ 2.07×（P100）；100k 那档在 14.6 GB 内跑完。</li>
                         <li><strong>取舍</strong>　fp16 能把中位加速翻到 4.01×，但最差绝对误差已越过 atol=0.002、只靠相对误差分支存活——默认关闭。少一倍加速，换一个不踩线的数。</li>
+                        <li><strong>自审</strong>　对自己的说法做了一轮对抗审计，撤回 4 条——包括「用了 FlashAttention」：后端探针证明 P100 和 T4 都跑不了它，探针入库作证。两个手写 Triton kernel（融合 add+LayerNorm、拆操作数的注意力核）都测了、都没上。</li>
                     </ul>
                     <div class="project-actions">
                         <a href="https://github.com/LUOaini1213/tiktok-techjam-2026-track3" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
@@ -556,19 +558,19 @@
                         <span class="project-type">WebMCP Challenge · 开源</span>
                     </div>
                     <h3>Counterask · 回答等于猜的时候，工具反问一句</h3>
-                    <p class="project-affil">9,901 件真实男装 · 单页无服务器 · 0 token</p>
+                    <p class="project-affil">9,901 件真实男装（Amazon Reviews 2023）· 单页无服务器 · 0 token</p>
                     <div class="project-tech">
-                        <span>WebMCP</span><span>信息价值</span><span>类目树追问</span>
+                        <span>WebMCP</span><span>句子解析</span><span>期望存活数停问</span><span>类目树追问</span>
                     </div>
                     <ul class="project-details">
-                        <li><strong>做什么</strong>　一个男装店面，search_products 工具在"答了也是猜"时返回一个问题而不是半张排行榜。整店一页，无模型调用。</li>
-                        <li><strong>结果</strong>　800 句真实目录评测：Hit@10 关键词匹配 0.04 → 句子解析 <strong>0.34 ± 0.01</strong>（换一套措辞的 held-out 0.34）；把"不要 X"反转成"要 X"的错误 597 → 0；预算被突破 22 → 0。</li>
-                        <li><strong>追问值多少</strong>　从"shoes / clothing"起步的 600 会话：沿类目树逐层反问 Hit@10 0.31 vs 不问 0.16，配对 8/8 分片 +0.148 ± 0.048，候选池 597 → 121。</li>
-                        <li><strong>边界</strong>　天花板是属性覆盖率：材质只有 56% 的商品记录了，版型 8%——照实写。</li>
+                        <li><strong>做什么</strong>　男装店面，search_products 在「答了也是猜」时返回一个问题而不是半张排行榜；answer_question 只在有问题挂着时注册、答完即注销；结账是声明式表单，agent 能填，下单键只有人能按。整店一页、无服务器、无模型调用。在开了 WebMCP 旗标的 Chrome 152 上直接驱动 document.modelContext 验证过：11 个命令式工具加结账表单全部出现在 getTools()，answer_question 原生进出工具列表，checkout 填好停在下单键前、什么都没提交。</li>
+                        <li><strong>听懂整句</strong>　agent 转述的是「要一条皮带，别带按扣，不超过 50 美元」，不是搜索框里的两个词：预算、否定、已说明的属性、「随便都行」按固定顺序解析，读过的词不再二读。800 句由真实商品记录生成的句子：关键词匹配 Hit@10 0.793 → 句子解析 <strong>0.999</strong>（现行索引 0.993，换一套没调过的措辞 0.991），否定被反转成要求 100% → 0，预算被突破 31% → 0。61 条手写用例加 4,000 句模糊测试进 npm test。</li>
+                        <li><strong>何时该问</strong>　不用熵——多值属性下份额不是概率分布——按「期望清掉多少候选」定问不问；缺数据不算不匹配，覆盖率低于 45% 的属性不问；清不掉 10 个就不值一轮。「领先者够清楚就停」建了两次删了两次，一步前瞻建了、测了、关着：都是量出来说不。</li>
+                        <li><strong>边界与协作</strong>　模拟顾客秒答且只说真话，两套基准都测不出人的耐心和缺失属性的代价；属性覆盖是天花板，索引重建后材质 56% → 69%、版型仍只有 9%。队友 Cui Zixuan 另写了一版独立实现（counterask 仓 cuizi-rewrite 分支），其中 5 个想法回收进本仓。</li>
                     </ul>
                     <div class="project-actions">
-                        <a href="https://luoaini1213.github.io/counterask/" class="btn btn-sm btn-primary" target="_blank" rel="noopener">Live</a>
-                        <a href="https://github.com/LUOaini1213/counterask" class="btn btn-sm btn-outline" target="_blank" rel="noopener">GitHub</a>
+                        <a href="https://luoaini1213.github.io/counterask-webmcp/" class="btn btn-sm btn-primary" target="_blank" rel="noopener">Live</a>
+                        <a href="https://github.com/LUOaini1213/counterask-webmcp" class="btn btn-sm btn-outline" target="_blank" rel="noopener">GitHub</a>
                     </div>
                 </article>
 

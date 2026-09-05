@@ -421,6 +421,7 @@
                         <li><strong>Problem</strong>　vLLM throughput collapses about 10× on a GTX 1650. On the surface anything could be the cause.</li>
                         <li><strong>Attribution</strong>　fp16 GEMM bandwidth falls from 99.5 to <strong>4.3 GiB/s</strong> going from M=1 to M=2 (0.04×): with tensor cores removed from sm_75, the cuBLAS small-M path is pathological.</li>
                         <li><strong>The experiment that could have refuted it</strong>　Same script on a T4 — same sm_75, same Turing, tensor cores kept: 106.7 → 88.1 GiB/s (0.83×), consistent over three shapes. One variable, a 20× difference in the ratio; the attribution holds.</li>
+                        <li><strong>Reported upstream</strong>　The root cause is filed against PyTorch (issue #195716) and the deployment trap, with a warning proposal, against vLLM (issue #54950: --dtype half is a performance trap on tensor-core-less Turing cards); both are open.</li>
                     </ul>
                     <div class="project-actions">
                         <a href="https://github.com/LUOaini1213/vllm-sm75-throughput" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
@@ -498,13 +499,14 @@
                     <h3>Transformer forward-pass GPU kernel</h3>
                     <p class="project-affil">13/13 gradeable shapes PASS · free cloud GPUs · results pending</p>
                     <div class="project-tech">
-                        <span>FlashAttention</span><span>torch.compile</span><span>Numerical parity</span>
+                        <span>Fused SDPA</span><span>torch.compile</span><span>Numerical parity</span>
                     </div>
                     <ul class="project-details">
                         <li><strong>Problem</strong>　The hardest shape, <code>seq_len=100000</code>, needs roughly 20.5 TB just for the baseline attention score matrix. Not a speed problem — it simply cannot run.</li>
-                        <li><strong>What it does</strong>　SDPA / FlashAttention replaces the O(S²) matrix with an O(S) fused kernel; the 100k shape is chunked into a preallocated output tensor. Every baseline submodule and parameter name is kept, so a strict weight copy still succeeds and the comparison stays apples-to-apples.</li>
-                        <li><strong>Result</strong>　13/13 gradeable shapes PASS, median speedup 2.07× (P100) / 2.28× (T4), up to 4.00×; the 100k shape completes inside 14.6 GB.</li>
+                        <li><strong>What it does</strong>　Fused SDPA (the memory-efficient backend) replaces the O(S²) matrix with an O(S) kernel; the 100k shape is chunked into a preallocated output tensor. Every baseline submodule and parameter name is kept, so a strict weight copy still succeeds and the comparison stays apples-to-apples.</li>
+                        <li><strong>Result</strong>　13/13 gradeable shapes PASS at a worst absolute error of 1.9e-6; median speedup 2.29× on a T4 (per-shape median of three independent runs) / 2.07× on a P100; the 100k shape completes inside 14.6 GB.</li>
                         <li><strong>The trade-off</strong>　fp16 autocast doubles the median to 4.01×, but its worst absolute error has crossed <code>atol=0.002</code> and survives only on the relative branch. Shipped off — half the speedup, in exchange for a number that is not sitting on the tolerance line.</li>
+                        <li><strong>Self-audit</strong>　An adversarial audit of our own claims found four wrong ones, "FlashAttention" among them: a backend probe showed neither GPU could run it, and the probe is committed as evidence. Two hand-written Triton kernels (a fused add+LayerNorm and a split-operand attention kernel) were measured and both left off.</li>
                     </ul>
                     <div class="project-actions">
                         <a href="https://github.com/LUOaini1213/tiktok-techjam-2026-track3" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
@@ -538,19 +540,19 @@
                         <span class="project-type">WebMCP Challenge · Open source</span>
                     </div>
                     <h3>Counterask — when answering would be a guess, the tool asks back</h3>
-                    <p class="project-affil">9,901 real menswear products · one page, no server · 0 tokens</p>
+                    <p class="project-affil">9,901 real menswear products (Amazon Reviews 2023) · one page, no server · 0 tokens</p>
                     <div class="project-tech">
-                        <span>WebMCP</span><span>Value of information</span><span>Category-tree questions</span>
+                        <span>WebMCP</span><span>Sentence parsing</span><span>Expected-survivors stopping</span><span>Category-tree questions</span>
                     </div>
                     <ul class="project-details">
-                        <li><strong>What</strong>　A menswear storefront whose search_products tool returns a question instead of half a ranking whenever answering would be a guess. The whole store is one page; no model call.</li>
-                        <li><strong>Result</strong>　800 sentences on the real catalog: Hit@10 0.04 with a keyword matcher → <strong>0.34 ± 0.01</strong> with the sentence parser (0.34 on held-out phrasings); refusals wrongly inverted into requirements 597 → 0; budget broken in the top 10 22 → 0.</li>
-                        <li><strong>What asking is worth</strong>　600 sessions starting from "shoes" or "clothing": asking down the category tree Hit@10 0.31 vs 0.16 without, paired +0.148 ± 0.048 on 8/8 shards, candidate pool 597 → 121.</li>
-                        <li><strong>Scope</strong>　Coverage is the ceiling and is reported as such: material is recorded on 56% of products, fit on 8%.</li>
+                        <li><strong>What</strong>　A menswear storefront whose search_products tool returns a question instead of half a ranking whenever answering would be a guess; answer_question is registered only while a question is open and unregistered once it is answered; checkout is a declarative form an agent can fill but only a person can submit. One page, no server, no model call. Verified on Chrome 152 with the WebMCP flag, driving document.modelContext directly: all eleven imperative tools plus the checkout form show up in getTools(), answer_question comes and goes natively, and checkout stops in front of the Place-order button with nothing submitted.</li>
+                        <li><strong>Reading a whole sentence</strong>　An agent relays "a leather belt, nothing with a snap, not over $50", not two search-box words. Budget, refusals, stated attributes and "any is fine" are parsed in a fixed order, each claimed span blanked so no word is read twice. On 800 sentences generated from real product records: Hit@10 0.793 with a keyword matcher → <strong>0.999</strong> with the parser (0.993 on the rebuilt index, 0.991 under phrasings it was never tuned on); refusals inverted into requirements 100% → 0, budget broken in the top 10 31% → 0. 61 hand-written cases and a 4,000-sentence fuzzer run in npm test.</li>
+                        <li><strong>When to ask</strong>　Not entropy — with multi-valued attributes the shares are not a distribution — but expected candidates removed; missing data is not a mismatch, attributes recorded on under 45% of the pool are never asked about, and a question that clears fewer than 10 candidates is not worth a turn. A "clear leader, stop asking" rule was built twice and removed twice; one step of lookahead was built, measured and left off. Each time the measurement said no.</li>
+                        <li><strong>Scope and credit</strong>　The simulated shopper answers instantly and only tells the truth, so neither benchmark prices a person's patience or a missing attribute; coverage is the ceiling — after the index rebuild, material is recorded on 69% of products (from 56%), fit still on 9%. Teammate Cui Zixuan built an independent implementation of the same design (the cuizi-rewrite branch of the counterask repo); five of its ideas were folded back into this one.</li>
                     </ul>
                     <div class="project-actions">
-                        <a href="https://luoaini1213.github.io/counterask/" class="btn btn-sm btn-primary" target="_blank" rel="noopener">Live</a>
-                        <a href="https://github.com/LUOaini1213/counterask" class="btn btn-sm btn-outline" target="_blank" rel="noopener">GitHub</a>
+                        <a href="https://luoaini1213.github.io/counterask-webmcp/" class="btn btn-sm btn-primary" target="_blank" rel="noopener">Live</a>
+                        <a href="https://github.com/LUOaini1213/counterask-webmcp" class="btn btn-sm btn-outline" target="_blank" rel="noopener">GitHub</a>
                     </div>
                 </article>
 
