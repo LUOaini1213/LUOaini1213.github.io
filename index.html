@@ -577,6 +577,27 @@
                     </div>
                 </article>
 
+                <article class="project-card" id="proj-repostguard">
+                    <div class="project-card-header">
+                        <span class="project-year">2026.08 – 2026.09</span>
+                        <span class="project-type">开源 · 图像取证</span>
+                    </div>
+                    <h3>RepostGuard · 在转发后的图上判 AI 生成，而不是在原图上</h3>
+                    <p class="project-affil">冻结 CLIP + DINOv2 + 28 维取证特征 · 纯 CPU 约 110M · 15 种变换全评</p>
+                    <div class="project-tech">
+                        <span>图像取证</span><span>鲁棒性评测</span><span>自助置信区间</span><span>泄漏对照</span>
+                    </div>
+                    <ul class="project-details">
+                        <li><strong>为什么这么定题</strong>　平台上流转的从来不是原图，是被 JPEG 压过、缩略过、加过噪的转发版。多数检测器报的是干净图上的分数，一到转发链路就掉。所以评测直接在转发后的图上打分。</li>
+                        <li><strong>结果</strong>　在 SID-Set 的 <strong>1,400</strong> 张 held-out 切片上评测<strong>全部 15 种</strong>真实转发变换，带自助置信区间：干净 AUC <strong>0.981</strong>、14 种变换均值 <strong>0.977</strong>、最差一档（0.25× 缩略）0.968；跨源未见过的生成器族（WildFake）干净 0.966。</li>
+                        <li><strong>最想讲的一条</strong>　取证分支既是跨源泛化的<strong>全部</strong>来源（只用 CLIP 的探针在未见过生成器的缩略图上只有 0.54，随机是 0.50；加上取证分支到 0.79），<strong>又是噪声下崩掉的原因</strong>（σ=0.10 时 0.925 → 0.810）。单独看任一项都会得出错误结论——必须配一个噪声训练视图才安全：两者单独只值 −0.006 和 +0.004，合起来 +0.014。</li>
+                        <li><strong>证明不是在作弊</strong>　把两类图用同样方式重编码，每个头的 AUC 变化都 ≤ +0.0009；单独一个块效应标量只能把两类分到 0.586——说明它不是在读 JPEG 压缩历史。多裁剪 TTA 实现了、测了 15 个条件均值 −0.0039，<strong>没上</strong>，单独出 A/B 报告。</li>
+                        <li><strong>边界</strong>　<strong>照 TikTok TechJam Track 5 的赛题自己做的项目，没有提交 Devpost，不是参赛作品、不主张任何名次。</strong>只在 SID-Set 上训练，未知商用生成器仍会偏移；15 个受测族里 crop 是唯一还没进训练视图的。一台没有 GPU 的笔记本上约 4 天做完。</li>
+                    </ul>
+                    <div class="project-actions">
+                        <a href="https://github.com/LUOaini1213/tiktok-techjam-2026-track5" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
+                    </div>
+                </article>
                 <article class="project-card project-featured" id="proj-my-ask">
                     <div class="project-card-header">
                         <span class="project-year">2026.08</span>
@@ -601,6 +622,48 @@
                     </div>
                 </article>
 
+                <article class="project-card" id="proj-lpmip">
+                    <div class="project-card-header">
+                        <span class="project-year">2026.09</span>
+                        <span class="project-type">开源 · 运筹优化</span>
+                    </div>
+                    <h3>LP / MIP 从零实现 · 建模比换求解器重要</h3>
+                    <p class="project-affil">两阶段单纯形 + 分支定界 + 真 Gomory 割 · 逐实例与 HiGHS 交叉验证 · 29 测试</p>
+                    <div class="project-tech">
+                        <span>线性规划</span><span>整数规划</span><span>单纯形</span><span>割平面</span>
+                    </div>
+                    <ul class="project-details">
+                        <li><strong>主力结论</strong>　同一个「给定时刻表求最少车辆数」问题：指派型写法的约束矩阵<strong>全幺模</strong>，线性松弛天然整数，分支定界<strong>只用 1 个节点</strong>；big-M 写法答案一模一样，但松弛界从 3.0 塌到 <strong>1.0</strong>、要探 <strong>21–31 个节点</strong>。<strong>代价差一个数量级，差在建模不在求解器。</strong></li>
+                        <li><strong>big-M 是可测的决定</strong>　固定成本生产计划里把 M 从 10000 收紧到「该变量自己的产能上限」：松弛界 1086.54 → <strong>970.51</strong>、节点数 19 → <strong>5</strong>，最优值 953 一动不动。</li>
+                        <li><strong>教科书警告是真的</strong>　Beale 1955 的退化例子上，Dantzig 主元规则<strong>循环、203 步仍未终止</strong>；Bland 规则 <strong>9 步</strong>收敛。默认配置做成「Dantzig + 迭代上限，撞上限自动重启 Bland」，并用测试锁住这个行为。Klee–Minty 立方体上 Dantzig 的迭代数正好是 2ⁿ−1（n=3..7 为 7 / 15 / 31 / 63 / 127），一步不差。</li>
+                        <li><strong>两个负结果才是重点</strong>　一，<strong>割平面不是免费的</strong>：三个背包节点数 17/27/35 → 1，但 <strong>n=12 是反例</strong>——界确实抬高（163.44 → 160.33），节点数反而 29 → <strong>31</strong>。二，割的有效性不靠读代码，靠<strong>枚举全部 5,376 个 0/1 点</strong>断言没有可行整数解被切掉，第一版那个假割在这条测试上当场失败。</li>
+                        <li><strong>边界</strong>　<strong>2026-09-08 当天新写的项目，不对应任何过往经历。</strong>最大实例只到 80×120 稠密 LP、14 个 0/1 变量、8 班次 MDVSP，稠密表格单纯形，规模一大就吃力；<strong>列生成没实现</strong>（查资料时读过，那才是解大规模的主流路线，读过不等于做过）。「比 HiGHS 慢」在小实例上是假的，到 80×120 才有 32 倍。</li>
+                    </ul>
+                    <div class="project-actions">
+                        <a href="https://github.com/LUOaini1213/lp-mip-from-scratch" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
+                    </div>
+                </article>
+                <article class="project-card" id="proj-campusbus">
+                    <div class="project-card-header">
+                        <span class="project-year">2026.09</span>
+                        <span class="project-type">开源 · 分时路由</span>
+                    </div>
+                    <h3>校园班车分时路由 · 把一句无法证伪的话拿去单独测</h3>
+                    <p class="project-affil">23 节点 / 58 有向边动态图 · 四求解器 600 组交叉验证 · 37 测试</p>
+                    <div class="project-tech">
+                        <span>分时最短路</span><span>交叉验证</span><span>尾延迟</span><span>地图匹配</span>
+                    </div>
+                    <ul class="project-details">
+                        <li><strong>正确性不靠单个求解器</strong>　二叉堆 Dijkstra、A*、标签修正、穷举枚举四条路跑 <strong>600</strong> 组交叉验证，答案全一致；A* 少展开 42.48%、上界剪枝再省 20.41%，<strong>600/600</strong> 无损最优。穷举是唯一独立真值——另两个求解器共享同一假设，在构造的非 FIFO 网上<strong>一起错了 38 分钟</strong>。</li>
+                        <li><strong>隔离变量再下结论</strong>　「二叉堆把复杂度优化到 O(|E|+|V|log|V|)」这句话在 23 节点上<strong>根本无法证伪</strong>（总共才展开十来个节点）。所以把「堆」这一个变量隔离到确定性生成的网格路网上单独测：加速比随规模从 <strong>1.56×</strong>（100 节点）长到 <strong>17.03×</strong>（4,900 节点），A* 的收益同步 20.0% → 38.3%。<strong>小图上那句话没有支撑，万级节点才成立。</strong></li>
+                        <li><strong>「&lt; 50 ms」必须连测法一起讲</strong>　同一份代码：复用连接时 p99 是 <strong>0.44 ms</strong>（并发 1）与 <strong>17.7 ms</strong>（并发 16），每请求新建 TCP 时 p99 变成 <strong>515 ms</strong>——差 29 倍，差别全在连接建立，求解本身 p99 只有 0.035 ms。而且 <strong>p50 会骗人</strong>：新建连接那行 p50 反而更好看，尾部已到秒级。</li>
+                        <li><strong>车队规模不是连续量</strong>　它是天花板函数 ceil((环线运行时间+折返)/发车间隔)，一级一级掉：早高峰环线 26.81 min、间隔 4 min、折返 3 min → 8 辆，<strong>少一辆需要周期时间降 6.75%</strong>，降 6% 一辆不少。「行程时间降 x%」和「少几辆车」是两件事。</li>
+                        <li><strong>边界</strong>　<strong>这是 2026 年 9 月重建的实现，不是 2024 年那次课程实践的原件</strong>；原始北斗轨迹与代码没留档，本仓<strong>刻意不复现</strong>当年那几个数字。路网与速度历史都是<strong>合成的</strong>，不是真实观测。重建的是方法与可核验性：被追问「98.7% 的分母是什么」「50 ms 怎么测的」，答案在仓里。</li>
+                    </ul>
+                    <div class="project-actions">
+                        <a href="https://github.com/LUOaini1213/campus-bus-routing" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
+                    </div>
+                </article>
                 <article class="project-card project-featured" id="proj-ce5001">
                     <div class="project-card-header">
                         <span class="project-year">2026</span>

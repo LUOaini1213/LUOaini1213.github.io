@@ -559,6 +559,27 @@
                     </div>
                 </article>
 
+                <article class="project-card" id="proj-repostguard">
+                    <div class="project-card-header">
+                        <span class="project-year">2026.08 – 2026.09</span>
+                        <span class="project-type">Open source · Image forensics</span>
+                    </div>
+                    <h3>RepostGuard — detect AI-generated images on the repost, not the original</h3>
+                    <p class="project-affil">Frozen CLIP + DINOv2 + a 28-D forensic vector · ~110M, CPU-only · all 15 transforms</p>
+                    <div class="project-tech">
+                        <span>Image forensics</span><span>Robustness</span><span>Bootstrap CIs</span><span>Leakage control</span>
+                    </div>
+                    <ul class="project-details">
+                        <li><strong>Why framed this way</strong>　What circulates on a platform is never the original: it has been JPEG-compressed, thumbnailed and noised. Most detectors report a clean-image number and lose it on the repost chain, so this one is scored on the transformed image.</li>
+                        <li><strong>Result</strong>　On a held-out <strong>1,400</strong>-image slice of SID-Set, across <strong>all 15</strong> real repost transforms with bootstrap intervals: clean AUC <strong>0.981</strong>, mean over 14 transforms <strong>0.977</strong>, worst case (0.25x thumbnail) 0.968; on an unseen generator family (WildFake) 0.966 clean.</li>
+                        <li><strong>The finding worth reading</strong>　The forensic branch is <strong>the entire</strong> cross-source generalisation — a CLIP-only probe scores 0.54 on thumbnails from an unseen generator, where chance is 0.50, and the branch lifts it to 0.79 — and it is <strong>also what collapses under noise</strong> (0.925 to 0.810 at sigma 0.10). Either half alone gives the wrong conclusion: the branch and a noise training view are worth -0.006 and +0.004 separately, and +0.014 together.</li>
+                        <li><strong>Showing it is not cheating</strong>　Re-encoding both classes identically moves every head by at most +0.0009 AUC, and a bare blockiness scalar separates them at only 0.586 — so it is not reading JPEG history. Multi-crop TTA was implemented, measured at -0.0039 mean AUC over 15 conditions, and <strong>left off</strong>, reported as its own A/B.</li>
+                        <li><strong>Scope</strong>　<strong>Built against the TikTok TechJam Track 5 brief and never submitted to Devpost — not a competition entry, no placement claimed.</strong> Trained on SID-Set only, so unknown commercial generators still shift the features; crop is the one scored family not yet a training view. About four days on a laptop with no GPU.</li>
+                    </ul>
+                    <div class="project-actions">
+                        <a href="https://github.com/LUOaini1213/tiktok-techjam-2026-track5" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
+                    </div>
+                </article>
                 <article class="project-card project-featured" id="proj-my-ask">
                     <div class="project-card-header">
                         <span class="project-year">2026.08</span>
@@ -583,6 +604,48 @@
                     </div>
                 </article>
 
+                <article class="project-card" id="proj-lpmip">
+                    <div class="project-card-header">
+                        <span class="project-year">2026.09</span>
+                        <span class="project-type">Open source · Operations research</span>
+                    </div>
+                    <h3>LP / MIP from scratch — the model matters more than the solver</h3>
+                    <p class="project-affil">Two-phase simplex + branch and bound + real Gomory cuts · cross-checked against HiGHS · 29 tests</p>
+                    <div class="project-tech">
+                        <span>Linear programming</span><span>Integer programming</span><span>Simplex</span><span>Cutting planes</span>
+                    </div>
+                    <ul class="project-details">
+                        <li><strong>The main result</strong>　One problem — minimum fleet size for a fixed timetable — written two ways. The assignment formulation has a <strong>totally unimodular</strong> constraint matrix, so the LP relaxation is integral and branch and bound closes in <strong>a single node</strong>. The big-M formulation gives the identical answer but its bound collapses from 3.0 to <strong>1.0</strong> and it explores <strong>21 to 31 nodes</strong>. An order of magnitude, decided at modelling time.</li>
+                        <li><strong>How big should big-M be</strong>　A measurable decision, not a habit: tightening M from 10000 to each variable's own capacity moves the relaxation bound 1086.54 to <strong>970.51</strong> and the node count 19 to <strong>5</strong>, with the optimum unchanged at 953.</li>
+                        <li><strong>The textbook warning is real</strong>　On Beale's 1955 degenerate example, Dantzig pricing <strong>cycles and has not terminated after 203 iterations</strong>; Bland's rule converges in <strong>9</strong>. The shipped default is Dantzig with an iteration cap that restarts under Bland, locked by a test. On the Klee-Minty cube, Dantzig takes exactly 2^n - 1 iterations (7 / 15 / 31 / 63 / 127 for n=3..7), to the step.</li>
+                        <li><strong>Two negative results carry it</strong>　First, <strong>cuts are not free</strong>: three knapsacks go 17/27/35 nodes to 1, but <strong>n=12 is the counterexample</strong> — the bound does improve (163.44 to 160.33) and the tree still grows from 29 to <strong>31</strong>. Second, cut validity is checked against the definition rather than by reading the code: <strong>enumerate all 5,376 integer points</strong> and assert none was cut off. An earlier fake cut failed exactly that test.</li>
+                        <li><strong>Scope</strong>　<strong>Written on 2026-09-08; it corresponds to no past coursework or job.</strong> The largest instances are an 80x120 dense LP, 14 binaries and an 8-trip multi-depot problem, on a dense tableau simplex that does not scale; <strong>column generation is not implemented</strong> — I read about it, which is not the same as having done it. "Slower than HiGHS" is false on small instances and only reaches 32x at 80x120.</li>
+                    </ul>
+                    <div class="project-actions">
+                        <a href="https://github.com/LUOaini1213/lp-mip-from-scratch" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
+                    </div>
+                </article>
+                <article class="project-card" id="proj-campusbus">
+                    <div class="project-card-header">
+                        <span class="project-year">2026.09</span>
+                        <span class="project-type">Open source · Time-dependent routing</span>
+                    </div>
+                    <h3>Campus shuttle routing — testing a claim that could not be falsified where it was made</h3>
+                    <p class="project-affil">23 nodes / 58 directed edges, time-dependent · four solvers cross-checked over 600 queries · 37 tests</p>
+                    <div class="project-tech">
+                        <span>Time-dependent shortest path</span><span>Cross-validation</span><span>Tail latency</span><span>Map matching</span>
+                    </div>
+                    <ul class="project-details">
+                        <li><strong>Correctness does not rest on one solver</strong>　A binary-heap Dijkstra, A*, a label-correcting reference and brute-force enumeration agree across <strong>600</strong> cross-checked queries; A* expands 42.48% fewer nodes and upper-bound pruning saves another 20.41%, staying optimal on <strong>600/600</strong>. Brute force is the only independent oracle — the other two share an assumption and, on a constructed non-FIFO network, <strong>were wrong together by 38 minutes</strong>.</li>
+                        <li><strong>Isolate the variable before concluding</strong>　"A binary heap brings this to O(|E| + |V| log |V|)" <strong>cannot be falsified</strong> on 23 nodes, where barely a dozen get expanded. So the heap was isolated on deterministically generated grid networks: its speedup grows from <strong>1.56x</strong> at 100 nodes to <strong>17.03x</strong> at 4,900, with A*'s saving rising from 20.0% to 38.3%. <strong>The claim has no support at the size it was made; it holds at ten thousand nodes.</strong></li>
+                        <li><strong>"Under 50 ms" needs its method attached</strong>　Same code: with connection reuse the p99 is <strong>0.44 ms</strong> at concurrency 1 and <strong>17.7 ms</strong> at 16; with a fresh TCP connection per request it becomes <strong>515 ms</strong> — 29x worse, and all of it in connection setup, since solving itself has a p99 of 0.035 ms. <strong>The p50 lies</strong>: the fresh-connection row has the better p50 while its tail is already in seconds.</li>
+                        <li><strong>Fleet size is not continuous</strong>　It is a ceiling function of cycle time over headway, so it drops in steps: a 26.81 min peak loop on a 4 min headway with a 3 min turnaround needs 8 vehicles, and <strong>removing one requires a 6.75% cut in cycle time</strong> — a 6% cut removes none. "Travel time down x%" and "n fewer vehicles" are separate claims.</li>
+                        <li><strong>Scope</strong>　<strong>This is a September 2026 rebuild, not the original 2024 coursework.</strong> The original traces and code were never archived, so this repo <strong>deliberately does not reproduce</strong> the figures quoted from it. The network and the speed history are <strong>synthetic</strong>. What is rebuilt is the method and its checkability: when asked what the denominator of that 98.7% was, or how the 50 ms was measured, the answer is here.</li>
+                    </ul>
+                    <div class="project-actions">
+                        <a href="https://github.com/LUOaini1213/campus-bus-routing" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
+                    </div>
+                </article>
                 <article class="project-card project-featured" id="proj-ce5001">
                     <div class="project-card-header">
                         <span class="project-year">2026</span>
