@@ -137,9 +137,9 @@
                         <div class="sub">CE5001 · 规则 vs LLM</div>
                     </div>
                     <div class="tile">
-                        <div class="lbl">审批</div>
-                        <div class="val">43<span class="val-split">/44</span></div>
-                        <div class="sub">CE5212 · 模型只批不批</div>
+                        <div class="lbl">快路径</div>
+                        <div class="val">76<span class="val-split">%</span></div>
+                        <div class="sub">CE5212 · 180 tick 中 137 次不调模型</div>
                     </div>
                 </div>
                 <div class="console-chat">
@@ -206,7 +206,7 @@
                 <a href="#proj-llm" class="blog-card insight-card">
                     <div class="blog-card-date">CE5212 · 课程实验</div>
                     <h3>实时系统里，LLM 更适合当审批者</h3>
-                    <p>规则先提议，模型只答同不同意。课程实验里 44 次里对了 43 次（约 97.7%），比让它直接改路网更稳。</p>
+                    <p>规则先提议，模型只答同不同意。课程实验一次全程仿真 180 个协调 tick，其中 137 次（76%）没有候选动作、根本不调模型；触发的 43 次模型全部通过。比让它直接改路网更稳，也更省。</p>
                     <div class="blog-card-tags"><span>LLM</span><span>审批</span></div>
                     <span class="insight-link">看实验 →</span>
                 </a>
@@ -662,7 +662,7 @@
                     <ul class="project-details">
                         <li>情境：让模型直接改路网会出现状态幻觉。任务：规则先提议，模型只做批 / 不批。</li>
                         <li>行动：SUMO 路网 <strong>1.4</strong> km²，<strong>2,874</strong> 条实测车速标定；<strong>645</strong> 名通勤者全流程（时间敏感 35% / 价格敏感 40% / 信息不对称 25%）。</li>
-                        <li>结果：44 个候选里对了 43 个（<strong>97.7%</strong>）。模型直接发明决策会幻觉；同步调用会拖慢仿真，Bus 95 全程延误平均增加 <strong>2.2</strong> 分钟——课程实验，不是生产 KPI。</li>
+                        <li>结果：180 个协调 tick 里 <strong>137</strong> 个（<strong>76%</strong>）无候选、不触发模型；触发的 <strong>43</strong> 次模型全部通过、0 否决——这版数据里模型没挡下过任何动作，所以只能说「四分之三的决策不需要它」。模型直接发明决策会幻觉；同步调用会拖慢仿真，Bus 95 全程延误平均增加 <strong>2.2</strong> 分钟——课程实验，不是生产 KPI。</li>
                     </ul>
                 </article>
             </div>

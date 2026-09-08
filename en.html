@@ -113,9 +113,9 @@
                         <div class="sub">CE5001 · rules vs LLM</div>
                     </div>
                     <div class="tile">
-                        <div class="lbl">Approvals</div>
-                        <div class="val">43<span class="val-split">/44</span></div>
-                        <div class="sub">CE5212 · yes/no only</div>
+                        <div class="lbl">Fast path</div>
+                        <div class="val">76<span class="val-split">%</span></div>
+                        <div class="sub">CE5212 · 137 of 180 ticks skip the model</div>
                     </div>
                 </div>
                 <div class="console-chat">
@@ -189,7 +189,7 @@
                 <a href="#proj-llm" class="blog-card insight-card">
                     <div class="blog-card-date">CE5212 · course lab</div>
                     <h3>In real time, LLMs are better as approvers</h3>
-                    <p>Rules propose; the model only says yes or no. In the course log, 43 of 44 approvals were right (~97.7%) — stabler than letting it rewrite the network.</p>
+                    <p>Rules propose; the model only says yes or no. Over one full run of 180 coordination ticks, 137 (76%) had no candidate at all and never called the model; the 43 that did were all approved. Stabler than letting it rewrite the network, and cheaper.</p>
                     <div class="blog-card-tags"><span>LLM</span><span>Approve</span></div>
                     <span class="insight-link">See the lab →</span>
                 </a>
@@ -644,7 +644,7 @@
                     <ul class="project-details">
                         <li>Situation: letting the model rewrite the network produced state hallucination. Task: rules propose; the model only approves or rejects.</li>
                         <li>Action: SUMO net <strong>1.4</strong> km², calibrated on <strong>2,874</strong> measured speeds; <strong>645</strong> commuters (time-sensitive 35% / price-sensitive 40% / information-poor 25%).</li>
-                        <li>Result: 43 of 44 candidates right (<strong>97.7%</strong>). Direct invention hallucinated; sync calls slowed the sim — Bus 95 delay +<strong>2.2</strong> min. Course lab, not a production KPI.</li>
+                        <li>Result: of 180 coordination ticks, <strong>137</strong> (<strong>76%</strong>) never reached the model; the <strong>43</strong> that did were all approved, none rejected — so the honest claim is &ldquo;three quarters of the decisions do not need it&rdquo;, not that the model caught anything. Direct invention hallucinated; sync calls slowed the sim — Bus 95 delay +<strong>2.2</strong> min. Course lab, not a production KPI.</li>
                     </ul>
                 </article>
             </div>
