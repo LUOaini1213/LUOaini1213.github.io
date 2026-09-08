@@ -455,7 +455,7 @@
                         <span class="project-type">TechJam Track 1 · Agent middleware</span>
                     </div>
                     <h3>Glass Box — Agent observability plane</h3>
-                    <p class="project-affil">TypeScript / Fastify · 12 test files · results pending</p>
+                    <p class="project-affil">TypeScript / Fastify · 12 test files · did not place</p>
                     <div class="project-tech">
                         <span>OpenTelemetry</span><span>Tracing</span><span>Redaction</span><span>Policy gate</span>
                     </div>
@@ -477,7 +477,7 @@
                         <span class="project-type">TechJam Track 2 · Autonomous ML agent</span>
                     </div>
                     <h3>RecAgent — an agent that runs its own MLE loop</h3>
-                    <p class="project-affil">KuaiRand-Pure · official scoring protocol · results pending</p>
+                    <p class="project-affil">KuaiRand-Pure · official scoring protocol · did not place</p>
                     <div class="project-tech">
                         <span>LightGBM</span><span>AutoML</span><span>Ranking</span><span>0 manual edits</span>
                     </div>
@@ -497,19 +497,20 @@
                         <span class="project-type">TechJam Track 3 · GPU kernel</span>
                     </div>
                     <h3>Transformer forward-pass GPU kernel</h3>
-                    <p class="project-affil">13/13 gradeable shapes PASS · free cloud GPUs · results pending</p>
+                    <p class="project-affil">13/13 gradeable shapes PASS · free cloud GPUs · did not place</p>
                     <div class="project-tech">
                         <span>Fused SDPA</span><span>torch.compile</span><span>Numerical parity</span>
                     </div>
                     <ul class="project-details">
                         <li><strong>Problem</strong>　The hardest shape, <code>seq_len=100000</code>, needs roughly 20.5 TB just for the baseline attention score matrix. Not a speed problem — it simply cannot run.</li>
                         <li><strong>What it does</strong>　Fused SDPA (the memory-efficient backend) replaces the O(S²) matrix with an O(S) kernel; the 100k shape is chunked into a preallocated output tensor. Every baseline submodule and parameter name is kept, so a strict weight copy still succeeds and the comparison stays apples-to-apples.</li>
-                        <li><strong>Result</strong>　13/13 gradeable shapes PASS at a worst absolute error of 1.9e-6; median speedup 2.29× on a T4 (per-shape median of three independent runs) / 2.07× on a P100; the 100k shape completes inside 14.6 GB.</li>
-                        <li><strong>The trade-off</strong>　fp16 autocast doubles the median to 4.01×, but its worst absolute error has crossed <code>atol=0.002</code> and survives only on the relative branch. Shipped off — half the speedup, in exchange for a number that is not sitting on the tolerance line.</li>
-                        <li><strong>Self-audit</strong>　An adversarial audit of our own claims found four wrong ones, "FlashAttention" among them: a backend probe showed neither GPU could run it, and the probe is committed as evidence. Two hand-written Triton kernels (a fused add+LayerNorm and a split-operand attention kernel) were measured and both left off.</li>
+                        <li><strong>Result</strong>　13/13 gradeable shapes PASS at a worst absolute error of 9.5e-6 against a 2e-3 gate; median speedup <strong>2.83×</strong> on a T4 (per-shape median of three independent runs, range 1.57×–5.22×) / 2.07× on a P100; the 100k shape completes inside 14.2 GB (184 s on the T4).</li>
+                        <li><strong>Where the speed comes from</strong>　A hand-written <strong>fp16x3</strong> linear layer: each operand is split into an fp16 hi + lo pair and fed to one cuBLAS tensor-core GEMM with K tripled — <strong>fp32-class accuracy on the fp16 tensor cores</strong>. The GEMM-bound shape goes 1.09× → 1.57×, the median 2.30× → 2.83×. Not accuracy traded for speed.</li>
+                        <li><strong>The trade-off</strong>　fp16 storage autocast reaches 4.01×, but its worst absolute error of 2.04e-3 has crossed <code>atol=0.002</code>. Shipped off — half the speedup, in exchange for a number that is not sitting on the tolerance line.</li>
+                        <li><strong>Self-audit</strong>　An adversarial audit of our own claims found <strong>five</strong> wrong ones, "FlashAttention" among them (a backend probe showed neither GPU could run it, and the probe is committed as evidence), including our own sweep script silently dropping <code>torch.compile</code> from the fifth shape on and under-reporting three shapes. <strong>Three hand-written kernel families were all measured; one ships</strong>: fp16x3. A fused add+LayerNorm matched Inductor without beating it, and a split-operand attention kernel reached fp32-class accuracy but lost on speed — both left off.</li>
                     </ul>
                     <div class="project-actions">
-                        <a href="https://github.com/LUOaini1213/tiktok-techjam-2026-track3" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
+                        <a href="https://github.com/LUOaini1213/fp16x3-transformer" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
                     </div>
                 </article>
 
@@ -519,7 +520,7 @@
                         <span class="project-type">TechJam Track 4 · Conversational search</span>
                     </div>
                     <h3>ByteSize — recommend only once the evidence is enough</h3>
-                    <p class="project-affil">50,000-item catalog · 0 tokens / $0 · results pending</p>
+                    <p class="project-affil">50,000-item catalog · 0 tokens / $0 · did not place</p>
                     <div class="project-tech">
                         <span>Value of information</span><span>Late fusion</span><span>Fully offline</span>
                     </div>
