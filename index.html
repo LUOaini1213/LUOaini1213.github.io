@@ -383,21 +383,22 @@
                         <span class="project-type">开源 · 智驾评测</span>
                     </div>
                     <h3>NAVSIM 能力阶梯 · 开环规划到底卡在哪</h3>
-                    <p class="project-affil">10 个 agent · 563 场同一 metric cache · 配对自助 CI</p>
+                    <p class="project-affil">navtest 全量 12,146 场 / 136 log · navtrain 103,288 场训练 · 每格三种子</p>
                     <div class="project-tech">
-                        <span>NAVSIM</span><span>消融</span><span>置信区间</span><span>失败归因</span>
+                        <span>NAVSIM</span><span>消融</span><span>置信区间</span><span>结论反转</span>
                     </div>
                     <ul class="project-details">
                         <li><strong>问题</strong>　分数是被什么卡住的：网络不够大，还是看不见该看的？跑一个基线看不出来。</li>
-                        <li><strong>做法</strong>　搭一条阶梯，每一级只多给一样信息（加速度 → 真值框 → 地图中心线 → 人类速度 → 人类轨迹），全部 563/563 跑同一 metric cache，再对每一级增益做配对自助 95% CI。</li>
-                        <li><strong>结论一</strong>　恒速的痛点主要是运动学：只加加速度和 command yaw，PDMS 0.233 → 0.580，NC 失败率 39% → 12%。</li>
-                        <li><strong>结论二</strong>　给真值检测框补不上差距，给地图才行：DAC 0.737 → 0.950。</li>
-                        <li><strong>结论三</strong>　自己训学习型模型做对照：让它画整条线只有 0.527（手写规则 0.730）；改成规则画线、模型只定速，到 0.763，与手写持平、DAC 失败更低。正则化和训更久都把开环 L1 压低了，闭环分数反而变差。</li>
-                        <li><strong>诚实边界</strong>　mini 的 64 个 log 里 62 个就是评测 log，学习型 agent 在全量上是污染分；改为把 10 个 agent 全部限制到同一批 held-out 场景（n=135）重算，并把因此不再显著的结论逐条降级为「提示性」。特权 agent 用真值/地图，不可部署。不是 navtest 正式榜。</li>
+                        <li><strong>做法</strong>　搭一条阶梯，每一级只多给一样信息（加速度 → 真值框 → 地图中心线 → 人类速度 → 人类轨迹），全部 12,146 场跑同一 metric cache，每级增益配对自助 95% CI。管线复现了公开基线：恒速 20.7（论文 20.6）、官方 EgoStatusMLP 65.5 / 67.4 / 66.3（论文 66.4±0.9）、Human 94.6（论文 94.8）。</li>
+                        <li><strong>结论一</strong>　地图的价值约是真值检测框的 <strong>7 倍</strong>：在运动学那级加在途中心线 +0.296［+0.288, +0.305］，加真值框与刹车只有 +0.040［+0.035, +0.044］。</li>
+                        <li><strong>结论二</strong>　剩下的空间在速度不在几何：路径固定为中心线时换成人类速度 +0.049；速度固定时把中心线换成记录轨迹只有 +0.010。</li>
+                        <li><strong>结论三</strong>　真值感知不是白给的输入：模型已经有地图后再喂 8 个真值框，<strong>三个种子全部显著变差</strong>（−0.044 / −0.031 / −0.047），而开环 L1 几乎不动（0.290 → 0.295）——训练目标完全看不见这件事。</li>
+                        <li><strong>我推翻了自己</strong>　563 场那版结论是「给了模型地图它也用不起来」（0.527 对手写 0.730），我据此归因到归纳偏置。跑到 12,146 场后<strong>反转成 0.823 对 0.785</strong>——旧结论其实是在讲样本量（当时只有约 3,000 个训练样本），却被我写成了在讲方法。</li>
+                        <li><strong>诚实边界</strong>　PDM 是非反应式仿真、不是闭环，其它车回放日志不响应；特权级（真值地图 / 真值框）不可部署，是分析工具不是成果；官方 EgoStatusMLP 均值 0.664 高于我对应的那一格 0.642，训练配方不同且我没调参；TransFuser 未跑，论文值只引用。</li>
                     </ul>
                     <div class="project-highlight">
                         <span class="highlight-label">最想讲的</span>
-                        <span>模仿学得像，不等于开得安全——开环 L1 很低，仍有 90 场被 DAC 乘成 0。</span>
+                        <span>一条结论随样本量反转，而反转本身才是结果——旧结论是在讲样本量，被我写成了在讲方法。</span>
                     </div>
                     <div class="project-actions">
                         <a href="https://github.com/LUOaini1213/navsim-ability-ladder" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>

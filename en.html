@@ -365,21 +365,22 @@
                         <span class="project-type">Open source · AD evaluation</span>
                     </div>
                     <h3>NAVSIM ability ladder — what caps open-loop planning</h3>
-                    <p class="project-affil">10 agents · 563 scenes, one metric cache · paired bootstrap CIs</p>
+                    <p class="project-affil">Full navtest: 12,146 scenes / 136 logs · trained on navtrain (103,288 scenes) · three seeds per cell</p>
                     <div class="project-tech">
-                        <span>NAVSIM</span><span>Ablation</span><span>Confidence intervals</span><span>Failure attribution</span>
+                        <span>NAVSIM</span><span>Ablation</span><span>Confidence intervals</span><span>Reversed conclusion</span>
                     </div>
                     <ul class="project-details">
                         <li><strong>Problem</strong>　What is the score actually limited by — model capacity, or missing inputs? One baseline cannot tell you.</li>
-                        <li><strong>Approach</strong>　Build a ladder where each rung adds exactly one input (acceleration, GT boxes, map centerline, human speed, logged path), score all of them on the same metric cache, then put a paired bootstrap 95% CI on every step.</li>
-                        <li><strong>Finding 1</strong>　Most of ConstantVelocity's pain is kinematics: adding acceleration and command yaw alone moves PDMS 0.233 → 0.580 and cuts NC failures from 39% to 12%.</li>
-                        <li><strong>Finding 2</strong>　Ground-truth detection boxes do not close the gap; the map does — DAC 0.737 → 0.950.</li>
-                        <li><strong>Finding 3</strong>　Learned controls: a model asked to draw the whole line scores 0.527 (hand rule 0.730); let the rule draw the line and the model only pace it, and it reaches 0.763 — on par with the rule, with fewer DAC failures. Regularising and training longer both lowered open-loop L1 and lowered the closed-loop score.</li>
-                        <li><strong>Scope</strong>　62 of the 64 mini logs are the evaluation logs, so any learned agent is contaminated on the full split. Every agent is therefore re-scored on the same held-out scenes (n=135), and the effects that stop separating there are reported as suggestive. Privileged agents use ground truth or map access and are not deployable. This is not the official navtest leaderboard.</li>
+                        <li><strong>Approach</strong>　Build a ladder where each rung adds exactly one input (acceleration, GT boxes, map centerline, human speed, logged path), score all of them on the same metric cache over 12,146 scenes, and put a paired bootstrap interval on every gain. The pipeline reproduces the published baselines: ConstantVelocity 20.7 (paper 20.6), the official EgoStatusMLP checkpoints 65.5 / 67.4 / 66.3 (paper 66.4±0.9), Human 94.6 (paper 94.8).</li>
+                        <li><strong>Finding 1</strong>　The map is worth about <strong>seven times</strong> what ground-truth boxes are worth: on the kinematic rung the on-route centerline is +0.296 [+0.288, +0.305]; GT boxes plus a brake are +0.040 [+0.035, +0.044].</li>
+                        <li><strong>Finding 2</strong>　The remaining headroom is speed, not geometry: with the path fixed to the centerline, the human speed profile is +0.049; with the speed fixed, the logged path is only +0.010.</li>
+                        <li><strong>Finding 3</strong>　Ground-truth perception is not a free input. Once the model already has the map, adding eight GT boxes is <strong>significantly negative in all three seeds</strong> (−0.044 / −0.031 / −0.047) while the open-loop loss barely moves (0.290 → 0.295) — the training objective cannot see this at all.</li>
+                        <li><strong>I refuted myself</strong>　The 563-scene version concluded that a learned model given the map still cannot use it (0.527 against the hand rule's 0.730), and I attributed that to inductive bias. On 12,146 scenes it <strong>reverses to 0.823 against 0.785</strong>. The old conclusion was a statement about sample size (about 3,000 training samples), written as if it were a statement about the method.</li>
+                        <li><strong>Scope</strong>　The PDM score is non-reactive simulation, not closed loop — other agents replay their logs. The privileged rungs (GT map, GT boxes) are analysis instruments, not deployable results. The official EgoStatusMLP averages 0.664 against my matching cell at 0.642; the recipes differ and I did not tune. TransFuser was not run; its published number is quoted only.</li>
                     </ul>
                     <div class="project-highlight">
                         <span class="highlight-label">The point</span>
-                        <span>Imitating well is not driving safely — open-loop L1 is low and DAC still zeroes 90 of 563 scenes.</span>
+                        <span>A conclusion reversed when the sample grew — and the reversal is the result. The old claim was about sample size, written as if it were about the method.</span>
                     </div>
                     <div class="project-actions">
                         <a href="https://github.com/LUOaini1213/navsim-ability-ladder" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
