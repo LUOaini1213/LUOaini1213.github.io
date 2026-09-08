@@ -367,7 +367,7 @@
                     <h3>NAVSIM ability ladder — what caps open-loop planning</h3>
                     <p class="project-affil">Full navtest: 12,146 scenes / 136 logs · trained on navtrain (103,288 scenes) · three seeds per cell</p>
                     <div class="project-tech">
-                        <span>NAVSIM</span><span>Ablation</span><span>Confidence intervals</span><span>Reversed conclusion</span>
+                        <span>NAVSIM</span><span>Ablation</span><span>Confidence intervals</span><span>Baseline reproduction</span>
                     </div>
                     <ul class="project-details">
                         <li><strong>Problem</strong>　What is the score actually limited by — model capacity, or missing inputs? One baseline cannot tell you.</li>
@@ -375,12 +375,13 @@
                         <li><strong>Finding 1</strong>　The map is worth about <strong>seven times</strong> what ground-truth boxes are worth: on the kinematic rung the on-route centerline is +0.296 [+0.288, +0.305]; GT boxes plus a brake are +0.040 [+0.035, +0.044].</li>
                         <li><strong>Finding 2</strong>　The remaining headroom is speed, not geometry: with the path fixed to the centerline, the human speed profile is +0.049; with the speed fixed, the logged path is only +0.010.</li>
                         <li><strong>Finding 3</strong>　Ground-truth perception is not a free input. Once the model already has the map, adding eight GT boxes is <strong>significantly negative in all three seeds</strong> (−0.044 / −0.031 / −0.047) while the open-loop loss barely moves (0.290 → 0.295) — the training objective cannot see this at all.</li>
-                        <li><strong>I refuted myself</strong>　The 563-scene version concluded that a learned model given the map still cannot use it (0.527 against the hand rule's 0.730), and I attributed that to inductive bias. On 12,146 scenes it <strong>reverses to 0.823 against 0.785</strong>. The old conclusion was a statement about sample size (about 3,000 training samples), written as if it were a statement about the method.</li>
-                        <li><strong>Scope</strong>　The PDM score is non-reactive simulation, not closed loop — other agents replay their logs. The privileged rungs (GT map, GT boxes) are analysis instruments, not deployable results. The official EgoStatusMLP averages 0.664 against my matching cell at 0.642; the recipes differ and I did not tune. TransFuser was not run; its published number is quoted only.</li>
+                        <li><strong>Calibrating the instrument, not just the subject</strong>　Before any of the above: the pipeline reproduces the published baselines on the same cache — ConstantVelocity 20.7 (paper 20.6), the official EgoStatusMLP checkpoints 65.5 / 67.4 / 66.3 (paper 66.4±0.9), Human 94.6 (paper 94.8). If the pipeline does not line up, none of the findings are worth reading.</li>
+                        <li><strong>The usual metric cannot select a model</strong>　Open-loop L1 correlates with PDMS at −0.83 in rank, which looks usable. Across the <strong>seven genuinely competitive runs</strong> it falls to <strong>−0.64 and inverts in places</strong>: dropout 0.2 fits better (ADE 0.768 vs 0.820) and scores worse (0.805 vs 0.818). Within a run, per-scene correlation never exceeds 0.38 in magnitude. <strong>It screens out broken models; it does not pick good ones.</strong></li>
+                        <li><strong>Scope</strong>　Sample size changes the answer: the same architecture loses to the hand rule on 563 scenes (0.527 vs 0.730) and wins on 12,146 (0.823 vs 0.785), so only the full-split numbers are quoted here. The PDM score is non-reactive simulation, not closed loop — other agents replay their logs. The privileged rungs (GT map, GT boxes) are analysis instruments, not deployable results. The official EgoStatusMLP averages 0.664 against my matching cell at 0.642; the recipes differ and I did not tune. TransFuser was not run; its published number is quoted only.</li>
                     </ul>
                     <div class="project-highlight">
                         <span class="highlight-label">The point</span>
-                        <span>A conclusion reversed when the sample grew — and the reversal is the result. The old claim was about sample size, written as if it were about the method.</span>
+                        <span>Open-loop loss screens out models that regularisation broke, but cannot pick the good ones — across the competitive runs its rank correlation falls to −0.64 and inverts.</span>
                     </div>
                     <div class="project-actions">
                         <a href="https://github.com/LUOaini1213/navsim-ability-ladder" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>

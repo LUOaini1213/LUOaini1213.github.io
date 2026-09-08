@@ -385,7 +385,7 @@
                     <h3>NAVSIM 能力阶梯 · 开环规划到底卡在哪</h3>
                     <p class="project-affil">navtest 全量 12,146 场 / 136 log · navtrain 103,288 场训练 · 每格三种子</p>
                     <div class="project-tech">
-                        <span>NAVSIM</span><span>消融</span><span>置信区间</span><span>结论反转</span>
+                        <span>NAVSIM</span><span>消融</span><span>置信区间</span><span>基线复现</span>
                     </div>
                     <ul class="project-details">
                         <li><strong>问题</strong>　分数是被什么卡住的：网络不够大，还是看不见该看的？跑一个基线看不出来。</li>
@@ -393,12 +393,13 @@
                         <li><strong>结论一</strong>　地图的价值约是真值检测框的 <strong>7 倍</strong>：在运动学那级加在途中心线 +0.296［+0.288, +0.305］，加真值框与刹车只有 +0.040［+0.035, +0.044］。</li>
                         <li><strong>结论二</strong>　剩下的空间在速度不在几何：路径固定为中心线时换成人类速度 +0.049；速度固定时把中心线换成记录轨迹只有 +0.010。</li>
                         <li><strong>结论三</strong>　真值感知不是白给的输入：模型已经有地图后再喂 8 个真值框，<strong>三个种子全部显著变差</strong>（−0.044 / −0.031 / −0.047），而开环 L1 几乎不动（0.290 → 0.295）——训练目标完全看不见这件事。</li>
-                        <li><strong>我推翻了自己</strong>　563 场那版结论是「给了模型地图它也用不起来」（0.527 对手写 0.730），我据此归因到归纳偏置。跑到 12,146 场后<strong>反转成 0.823 对 0.785</strong>——旧结论其实是在讲样本量（当时只有约 3,000 个训练样本），却被我写成了在讲方法。</li>
-                        <li><strong>诚实边界</strong>　PDM 是非反应式仿真、不是闭环，其它车回放日志不响应；特权级（真值地图 / 真值框）不可部署，是分析工具不是成果；官方 EgoStatusMLP 均值 0.664 高于我对应的那一格 0.642，训练配方不同且我没调参；TransFuser 未跑，论文值只引用。</li>
+                        <li><strong>量具本身也要校准</strong>　先证明这条管线是对的：同一 cache 上复现公开基线——恒速 20.7（论文 20.6）、官方 EgoStatusMLP 65.5 / 67.4 / 66.3（论文 66.4±0.9）、Human 94.6（论文 94.8）。管线对不齐，后面每个结论都不用看。</li>
+                        <li><strong>常用指标选不出模型</strong>　开环 L1 与 PDMS 的排序相关是 −0.83，看着能用；但只看 <strong>7 个真正有竞争力</strong>的跑次就掉到 <strong>−0.64 并局部反号</strong>——dropout 0.2 开环拟合更好（ADE 0.768 vs 0.820），分数反而更差（0.805 vs 0.818）。跑内逐场景相关的绝对值从未超过 0.38。<strong>它能筛掉坏模型，选不出好模型。</strong></li>
+                        <li><strong>诚实边界</strong>　样本量会改结论：同一架构在 563 场上输给手写规则（0.527 对 0.730）、在 12,146 场上反过来（0.823 对 0.785），所以本页只引用全量口径。PDM 是非反应式仿真、不是闭环，其它车回放日志不响应；特权级（真值地图 / 真值框）不可部署，是分析工具不是成果；官方 EgoStatusMLP 均值 0.664 高于我对应的那一格 0.642，训练配方不同且我没调参；TransFuser 未跑，论文值只引用。</li>
                     </ul>
                     <div class="project-highlight">
                         <span class="highlight-label">最想讲的</span>
-                        <span>一条结论随样本量反转，而反转本身才是结果——旧结论是在讲样本量，被我写成了在讲方法。</span>
+                        <span>开环损失能筛掉被正则化搞坏的模型，却选不出好模型——在有竞争力的区间里排序相关掉到 −0.64 并反号。</span>
                     </div>
                     <div class="project-actions">
                         <a href="https://github.com/LUOaini1213/navsim-ability-ladder" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
