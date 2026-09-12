@@ -524,9 +524,9 @@
                     <ul class="project-details">
                         <li><strong>问题</strong>　最狠的一档 seq_len=100000，基线光注意力分数矩阵就要约 20.5 TB 显存——不是快慢问题，是压根跑不起来。</li>
                         <li><strong>做什么</strong>　用 SDPA 融合注意力（memory-efficient 后端）把 O(S²) 换成 O(S) 融合核，再对 100k 那档做批分块写进预分配张量；保留全部基线子模块与参数名，只重写前向，保证权重严格拷贝可比。</li>
-                        <li><strong>结果</strong>　13/13 可评形状 PASS，最差绝对误差 9.5e-6（门限 2e-3）；中位加速 <strong>2.83×</strong>（T4，逐形状三次独立跑的中位，区间 1.57×–5.22×）/ 2.07×（P100）；100k 那档在 14.2 GB 内跑完（T4 上 184 s）。</li>
+                        <li><strong>结果</strong>　13/13 可评形状 PASS，最差绝对误差 9.5e-6（门限 2e-3）；相对 FP32 参考实现中位加速 <strong>2.83×</strong>（T4，逐形状三次独立跑的中位，区间 1.57×–5.22×）/ 2.07×（P100）。另以 FP16 完成 100k 序列前向，T4 峰值显存 14.2 GB、耗时 184 s；该档无完整 FP32 基线，不计入上述加速统计，精度在截短序列上以 FP32 验证。</li>
                         <li><strong>真正的加速</strong>　自写 <strong>fp16x3</strong> 线性层：操作数拆成 fp16 hi + lo 一对，送一次 K 三倍的 cuBLAS 张量核 GEMM——<strong>在 fp16 张量核上拿到 fp32 级精度</strong>，GEMM 受限那一档 1.09× → 1.57×，中位 2.30× → 2.83×。不是拿精度换速度。</li>
-                        <li><strong>取舍</strong>　fp16 存储 autocast 能到 4.01×，但最差绝对误差 2.04e-3 已越过 atol=0.002——默认关闭。少一半加速，换一个不踩线的数。</li>
+                        <li><strong>取舍</strong>　在可评形状中，fp16 存储 autocast 能到 4.01×，但最差绝对误差 2.04e-3 已越过 atol=0.002，因此默认关闭；这些形状采用通过精度校验的 fp16x3 路径。</li>
                         <li><strong>自审</strong>　对自己的说法做了对抗审计，<strong>撤回 5 条</strong>——包括「用了 FlashAttention」（后端探针证明 P100 和 T4 都跑不了它，探针入库作证），以及自己的扫描脚本从第 5 个形状起静默丢了 <code>torch.compile</code>、少报三个形状。<strong>三个手写核家族全部实测，只上了一个</strong>：fp16x3 上线，融合 add+LayerNorm 打平 Inductor 但没打赢、拆操作数的注意力核精度到 fp32 级却输速度，两个都默认关。</li>
                     </ul>
                     <div class="project-actions">
