@@ -101,7 +101,7 @@
                     <a href="CV_LuoWenjie.pdf" class="btn btn-primary" download aria-label="下载一页简历 PDF">下载简历</a>
                     <a href="https://github.com/LUOaini1213/civil-buddy" class="btn btn-outline" target="_blank" rel="noopener">Civil Buddy</a>
                 </div>
-                <p class="hero-cta-note">一页 PDF · 预计 2027.01 毕业 · 新加坡 · <a href="resumes/">六赛道中英文简历</a></p>
+                <p class="hero-cta-note">一页 PDF · 预计 2027.01 毕业 · 新加坡 · <a href="resumes/">七赛道中英文简历</a></p>
                 <div class="hero-social">
                     <a href="https://github.com/LUOaini1213" target="_blank" rel="noopener" title="GitHub" aria-label="GitHub">
                         <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" fill="currentColor"/></svg>
@@ -153,7 +153,7 @@
                                 <span class="c-head"><span class="code">civil-buddy</span> 66 岗 · HITL · 16×8 评测</span>
                             </a>
                             <a class="cite" href="files/CE5001_report.pdf" target="_blank" rel="noopener">
-                                <span class="c-head"><span class="code">CE5001</span> 200 组对照 · 评测不是套壳</span>
+                                <span class="c-head"><span class="code">CE5001</span> 200 次仿真 · 配对种子对照</span>
                             </a>
                         </div>
                     </div>
@@ -680,8 +680,8 @@
                     <ul class="project-details">
                         <li><strong>情境</strong>　洪水下公交和私家车怎么走。路网、出行需求和淹没不在一张图上；默认上更大模型，也不知道密城区和稀疏路是不是同一套答案。</li>
                         <li><strong>任务</strong>　做成可对照的评估管线：地形、路网、需求和淹没接到一起；公交和私家车分开仿真；用实验决定规则够不够、何时上模型。</li>
-                        <li><strong>行动</strong>　Python 约 3500 行 / 10 个模块。规则、带习惯的规则、本地小模型、云端模型对照 <strong>200</strong> 组。对接公交 <strong>793</strong> 条线路、<strong>5201</strong> 个站点。</li>
-                        <li><strong>结果</strong>　密市中心里规则方案把相关出行时间降了 <strong>62.2%</strong>；稀疏路网上，模型用更少动作打到接近的效果。有研究报告 PDF。</li>
+                        <li><strong>行动</strong>　Python 约 3500 行 / 10 个模块。规则、带习惯的规则、本地小模型、云端模型对照 <strong>200</strong> 次仿真，使用配对种子。对接公交 <strong>793</strong> 个线路方向组合、<strong>5201</strong> 个站点。</li>
+                        <li><strong>结果</strong>　Marina 场景（H=2.5m、GPS 关闭）中，规则方案较无重路由基线使平均韧性损失指标 RTA 下降 <strong>62.2%</strong>；稀疏路网上，模型用更少动作打到接近的效果。有研究报告 PDF。</li>
                     </ul>
                     <div class="project-actions">
                         <a href="files/CE5001_report.pdf" class="btn btn-sm btn-primary" target="_blank" rel="noopener">报告 PDF</a>
