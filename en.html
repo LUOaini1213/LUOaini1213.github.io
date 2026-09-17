@@ -227,7 +227,7 @@
                         <p class="timeline-degree">MSc Civil Engineering · Transport</p>
                         <p class="timeline-meta">Transport engineering programme; the AI coursework was taken within it.</p>
                         <p class="exp-summary" style="margin:0.75rem 0 0.5rem">
-                            Transcript courses: <strong>CEE5901QA</strong> ML Foundations, <strong>CEE5901QB</strong> Advanced AI for CEE; plus traffic planning and ITS simulation.
+                            Coursework: <strong>CEE5901QA</strong> ML Foundations, <strong>CEE5901QB</strong> Advanced AI for CEE; plus traffic planning and ITS simulation.
                         </p>
                         <div class="timeline-courses">
                             <span class="course-tag">CEE5901QA · ML Foundations</span>
@@ -301,7 +301,7 @@
                     <div class="timeline-dot"></div>
                     <div class="timeline-content">
                         <div class="timeline-header">
-                            <span class="timeline-date">2025.06.02 – 2025.08.01</span>
+                            <span class="timeline-date">2025.06.02 – 2025.08.04</span>
                             <span class="timeline-badge badge-pm">Product</span>
                         </div>
                         <h3>Caixun Technology <span class="text-muted">| Product Intern</span></h3>
@@ -458,7 +458,7 @@
                         <span class="project-type">TechJam Track 1 · Agent middleware</span>
                     </div>
                     <h3>Glass Box — Agent observability plane</h3>
-                    <p class="project-affil">TypeScript / Fastify · 12 test files · did not place</p>
+                    <p class="project-affil">TypeScript / Fastify · 21 test files · 150 cases · did not place</p>
                     <div class="project-tech">
                         <span>OpenTelemetry</span><span>Tracing</span><span>Redaction</span><span>Policy gate</span>
                     </div>
@@ -510,7 +510,7 @@
                         <li><strong>Result</strong>　13/13 gradeable shapes PASS at a worst absolute error of 9.5e-6 against a 2e-3 gate; median speedup versus the FP32 reference is <strong>2.83×</strong> on a T4 (per-shape median of three independent runs, range 1.57×–5.22×) / 2.07× on a P100. A separate full-length 100k forward pass uses FP16, peaking at 14.2 GB and taking 184 s on the T4; it has no runnable full FP32 baseline and is excluded from the speedup summary. Correctness was checked in FP32 on a truncated sequence.</li>
                         <li><strong>Where the speed comes from</strong>　A hand-written <strong>fp16x3</strong> linear layer: each operand is split into an fp16 hi + lo pair and fed to one cuBLAS tensor-core GEMM with K tripled — <strong>fp32-class accuracy on the fp16 tensor cores</strong>. The GEMM-bound shape goes 1.09× → 1.57×, the median 2.30× → 2.83×. Not accuracy traded for speed.</li>
                         <li><strong>The trade-off</strong>　On gradeable shapes, fp16 storage autocast reaches 4.01×, but its worst absolute error of 2.04e-3 exceeds <code>atol=0.002</code>. It is disabled by default; these shapes use the fp16x3 path that passes the accuracy checks.</li>
-                        <li><strong>Self-audit</strong>　An adversarial audit of our own claims found <strong>five</strong> wrong ones, "FlashAttention" among them (a backend probe showed neither GPU could run it, and the probe is committed as evidence), including our own sweep script silently dropping <code>torch.compile</code> from the fifth shape on and under-reporting three shapes. <strong>Three hand-written kernel families were all measured; one ships</strong>: fp16x3. A fused add+LayerNorm matched Inductor without beating it, and a split-operand attention kernel reached fp32-class accuracy but lost on speed — both left off.</li>
+                        <li><strong>Three hand-written kernel families were all measured; one ships</strong>　fp16x3. A fused add+LayerNorm matched Inductor without beating it, and a split-operand attention kernel reached fp32-class accuracy but lost on speed — both left off. A backend probe, committed as evidence, shows neither P100 nor T4 can run FlashAttention.</li>
                     </ul>
                     <div class="project-actions">
                         <a href="https://github.com/LUOaini1213/fp16x3-transformer" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
