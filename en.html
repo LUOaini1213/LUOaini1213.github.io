@@ -101,7 +101,7 @@
                     <div class="tile">
                         <div class="lbl">Packing evals</div>
                         <div class="val">128</div>
-                        <div class="sub">71 fit · 57 did not</div>
+                        <div class="sub">16×8 eval runs</div>
                     </div>
                     <div class="tile">
                         <div class="lbl">Golden path</div>
@@ -150,8 +150,8 @@
                         I build <strong>agentic AI products</strong> for complex workflows: the model routes, tools compute, humans confirm, evals rerun.
                     </p>
                     <p>
-                        I am an <strong>engineering intern</strong> at Far East Facade in Singapore:
-                        material receipts, sampling and tests with <strong>four</strong> suppliers, and site progress.
+                        I work as a <strong>project engineer</strong> at Far East Facade in Singapore:
+                        <strong>15</strong> façade material types and inbound plans, <strong>5</strong> suppliers for sampling and tests, transport and site progress.
                         In the open-source repos,
                         <a href="https://github.com/LUOaini1213/civil-buddy" target="_blank" rel="noopener">Civil Buddy</a>
                         packs with tools computing coordinates and counts, then a human yes;
@@ -167,7 +167,7 @@
                     <div class="about-quick-facts">
                         <div class="fact"><span class="fact-icon">📍</span><span>Singapore</span></div>
                         <div class="fact"><span class="fact-icon">🎓</span><span>NUS MSc · Jan 2027</span></div>
-                        <div class="fact"><span class="fact-icon">🏗️</span><span>Far East · engineering intern</span></div>
+                        <div class="fact"><span class="fact-icon">🏗️</span><span>Far East · project engineer</span></div>
                         <div class="fact"><span class="fact-icon">🧩</span><span>Agents · HITL · Eval</span></div>
                     </div>
                 </div>
@@ -197,8 +197,8 @@
                 <a href="#proj-ce5001" class="blog-card insight-card">
                     <div class="blog-card-date">CE5001</div>
                     <h3>GPS rerouting is often already enough</h3>
-                    <p>In the course report, a GPS-proxy reroute — not a solved dynamic user equilibrium — accounts for most of the measured drop versus no rerouting on the dense Marina case. The 62.2% figure is that descriptive comparison, not a significance test.</p>
-                    <div class="blog-card-tags"><span>GPS reroute</span><span>Resilience</span></div>
+                    <p>On dense networks, dynamic user equilibrium already takes most of the obtainable mitigation. Agents should match topology, not default to a larger model.</p>
+                    <div class="blog-card-tags"><span>DUE</span><span>Resilience</span></div>
                     <span class="insight-link">See the study →</span>
                 </a>
                 <a href="#proj-my-ask" class="blog-card insight-card">
@@ -262,14 +262,14 @@
                 <header class="exp-integrated-header">
                     <div class="timeline-header">
                         <span class="timeline-date">2026.06 – Present</span>
-                        <span class="timeline-badge badge-eng">Engineering intern</span>
+                        <span class="timeline-badge badge-eng">Project engineer</span>
                         <span class="timeline-badge badge-live">Singapore · on site</span>
                     </div>
-                    <h3>Far East Facade (Singapore) <span class="text-muted">| Engineering intern</span></h3>
-                    <p class="timeline-degree">Façade project · material records and supplier tests</p>
+                    <h3>Far East Facade (Singapore) <span class="text-muted">| Project engineer</span></h3>
+                    <p class="timeline-degree">Semiconductor fab façade project · also an LTA building</p>
                     <ul class="exp-list">
-                        <li><strong>Material records:</strong> built a goods-receipt application and tracked inbound material status.</li>
-                        <li><strong>Suppliers:</strong> coordinated four suppliers on sampling and third-party tests.</li>
+                        <li><strong>Material board:</strong> 15 façade material types and inbound plans; a board tracks status and milestones.</li>
+                        <li><strong>Suppliers:</strong> 5 vendors; sampling and third-party tests so material arrives on schedule.</li>
                         <li><strong>Site progress:</strong> tracked installation progress and quality; supported weekly meetings, monthly reports and subcontractor coordination.</li>
                         <li><strong>Mail tool:</strong> Python pulls shipment and test mail, extracts arrival and inspection fields, replaces hand copying.</li>
                     </ul>
@@ -347,7 +347,7 @@
                     <ul class="project-details">
                         <li>A civil-engineering workbench: 16 domains / 66 job skills, tasks follow an SOP. Hard numbers come from tools; the model does not write coordinates or invent container counts.</li>
                         <li>Packing job: a sentence or material table comes in; a program computes container count and coordinates; a person confirms, then stow / 3D.</li>
-                        <li>128 deterministic packing evaluations (16 concurrent lanes × 8 rounds): <strong>can_fit=true on 71</strong> and false on 57. A pass means the pipeline returned a container count and the fit flag, not that every load fit. CI checks a 2×1 offline slice. Separate steps / llm_toolcall shadow evaluation uses policy_fallback without a model key. Local workflow: pack → confirm → figure.</li>
+                        <li>128 deterministic packing evaluations (16 concurrent lanes × 8 rounds); CI checks a 2×1 offline slice. Separate steps / llm_toolcall shadow evaluation uses policy_fallback without a model key. Local workflow: pack → confirm → figure.</li>
                     </ul>
                     <div class="project-highlight">
                         <span class="highlight-label">Rule</span>
@@ -552,7 +552,7 @@
                         <li><strong>What</strong>　A menswear storefront whose search_products tool returns a question instead of half a ranking whenever answering would be a guess; answer_question is registered only while a question is open and unregistered once it is answered; checkout is a declarative form an agent can fill but only a person can submit. One page, no server, no model call. Verified on Chrome 152 with the WebMCP flag, driving document.modelContext directly: all eleven imperative tools plus the checkout form show up in getTools(), answer_question comes and goes natively, and checkout stops in front of the Place-order button with nothing submitted.</li>
                         <li><strong>Reading a whole sentence</strong>　An agent relays "a leather belt, nothing with a snap, not over $50", not two search-box words. Budget, refusals, stated attributes and "any is fine" are parsed in a fixed order, each claimed span blanked so no word is read twice. On 800 sentences generated from real product records: Hit@10 0.793 with a keyword matcher → <strong>0.999</strong> with the parser (0.993 on the rebuilt index, 0.991 under phrasings it was never tuned on); refusals inverted into requirements 100% → 0, budget broken in the top 10 31% → 0. 61 hand-written cases and a 4,000-sentence fuzzer run in npm test.</li>
                         <li><strong>When to ask</strong>　Not entropy — with multi-valued attributes the shares are not a distribution — but expected candidates removed; missing data is not a mismatch, attributes recorded on under 45% of the pool are never asked about, and a question that clears fewer than 10 candidates is not worth a turn. A "clear leader, stop asking" rule was built twice and removed twice; one step of lookahead was built, measured and left off. Each time the measurement said no.</li>
-                        <li><strong>Scope and credit</strong>　The simulated shopper answers instantly and only tells the truth, so neither benchmark prices a person's patience or a missing attribute; coverage is the ceiling — after the index rebuild, material is recorded on 69% of products (from 56%), fit still on 9%. Teammate Cui Zixuan built an independent implementation on the cuizi-rewrite branch of the archived counterask repository; five of its ideas were folded into this one. The live store is counterask-webmcp, not that archived repository.</li>
+                        <li><strong>Scope and credit</strong>　The simulated shopper answers instantly and only tells the truth, so neither benchmark prices a person's patience or a missing attribute; coverage is the ceiling — after the index rebuild, material is recorded on 69% of products (from 56%), fit still on 9%. Teammate Cui Zixuan built an independent implementation of the same design (the cuizi-rewrite branch of the counterask repo); five of its ideas were folded back into this one.</li>
                     </ul>
                     <div class="project-actions">
                         <a href="https://luoaini1213.github.io/counterask-webmcp/" class="btn btn-sm btn-primary" target="_blank" rel="noopener">Live</a>
@@ -616,34 +616,14 @@
                         <span>Linear programming</span><span>Integer programming</span><span>Simplex</span><span>Cutting planes</span>
                     </div>
                     <ul class="project-details">
-                        <li><strong>The main result</strong>　One problem — minimum fleet size for a fixed timetable — written two ways. The assignment formulation has a <strong>totally unimodular</strong> constraint matrix, so the LP relaxation is integral and branch and bound closes in <strong>a single node</strong>. The big-M formulation gives the identical answer but its bound collapses from 3.0 to <strong>1.0</strong> and it takes <strong>29, 31 and 21 nodes</strong> on 4, 5 and 6 trips. An order of magnitude, decided at modelling time.</li>
+                        <li><strong>The main result</strong>　One problem — minimum fleet size for a fixed timetable — written two ways. The assignment formulation has a <strong>totally unimodular</strong> constraint matrix, so the LP relaxation is integral and branch and bound closes in <strong>a single node</strong>. The big-M formulation gives the identical answer but its bound collapses from 3.0 to <strong>1.0</strong> and it explores <strong>21 to 31 nodes</strong>. An order of magnitude, decided at modelling time.</li>
                         <li><strong>How big should big-M be</strong>　A measurable decision, not a habit: tightening M from 10000 to each variable's own capacity moves the relaxation bound 1086.54 to <strong>970.51</strong> and the node count 19 to <strong>5</strong>, with the optimum unchanged at 953.</li>
                         <li><strong>The textbook warning is real</strong>　On Beale's 1955 degenerate example, Dantzig pricing <strong>cycles and has not terminated after 203 iterations</strong>; Bland's rule converges in <strong>9</strong>. The shipped default is Dantzig with an iteration cap that restarts under Bland, locked by a test. On the Klee-Minty cube, Dantzig takes exactly 2^n - 1 iterations (7 / 15 / 31 / 63 / 127 for n=3..7), to the step.</li>
                         <li><strong>Two negative results carry it</strong>　First, <strong>cuts are not free</strong>: three knapsacks go 17/27/35 nodes to 1, but <strong>n=12 is the counterexample</strong> — the bound does improve (163.44 to 160.33) and the tree still grows from 29 to <strong>31</strong>. Second, cut validity is checked against the definition rather than by reading the code: <strong>enumerate all 5,376 integer points</strong> and assert none was cut off. An earlier fake cut failed exactly that test.</li>
-                        <li><strong>Scope</strong>　<strong>Written on 2026-09-08; it corresponds to no past coursework or job.</strong> The largest instances are an 80x120 dense LP, 14 binaries and an 8-trip multi-depot problem, on a dense tableau simplex that does not scale; <strong>mixed-integer GMI cuts and column generation are not implemented</strong> — I read about column generation, which is not the same as having done it. Pure-integer Gomory fractional cuts are what the repo checks. "Slower than HiGHS" is false on small instances and only reaches 32x at 80x120.</li>
+                        <li><strong>Scope</strong>　<strong>Written on 2026-09-08; it corresponds to no past coursework or job.</strong> The largest instances are an 80x120 dense LP, 14 binaries and an 8-trip multi-depot problem, on a dense tableau simplex that does not scale; <strong>column generation is not implemented</strong> — I read about it, which is not the same as having done it. "Slower than HiGHS" is false on small instances and only reaches 32x at 80x120.</li>
                     </ul>
                     <div class="project-actions">
                         <a href="https://github.com/LUOaini1213/lp-mip-from-scratch" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
-                    </div>
-                </article>
-                <article class="project-card" id="proj-planning">
-                    <div class="project-card-header">
-                        <span class="project-year">2026.09</span>
-                        <span class="project-type">Open source · Production planning</span>
-                    </div>
-                    <h3>Manufacturing planning — capacity, downtime, and a public lot-sizing instance</h3>
-                    <p class="project-affil">HiGHS via SciPy · SimPy replay · no language-model calls · Trigeiro F1</p>
-                    <div class="project-tech">
-                        <span>HiGHS</span><span>SimPy</span><span>Lot sizing</span><span>Capacity</span>
-                    </div>
-                    <ul class="project-details">
-                        <li><strong>Two different models</strong>　A synthetic two-stage, two-day shop with 16 units, and the public Trigeiro F1 lot-sizing instance (6 items, 15 periods, capacity 728). Neither is a deployed factory.</li>
-                        <li><strong>Deterministic 16-unit shop</strong>　One machine is down. The on-time plan uses 1 overtime hour and finishes all 16 on time (cost 80). Earliest-due-date uses 3 overtime hours (cost 240). The minimum-cost plan accepts 1 late unit and costs 50. Missing downtime hours stop the solve, and a request to move due dates is refused.</li>
-                        <li><strong>Seeded replay is a different count</strong>　Seed 7, with a 3-hour outage at the start of machine M1 on day 2: the fixed workflow's first replay is 12 on time and 4 late; after those lost hours are written back, the next replay is 14 on time and 2 late; the agent's outage replay is also 14 on time and 2 late.</li>
-                        <li><strong>Trigeiro F1</strong>　HiGHS is optimal at cost <strong>40,854</strong> with 46 setups. Lot-for-lot is infeasible because period 4 needs 748 against a capacity of 728. Merging a lot into an earlier period that already has that setup is feasible at <strong>44,519</strong> with 51 setups.</li>
-                    </ul>
-                    <div class="project-actions">
-                        <a href="https://github.com/LUOaini1213/manufacturing-planning-agent" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
                     </div>
                 </article>
                 <article class="project-card" id="proj-campusbus">
@@ -684,7 +664,7 @@
                         <li><strong>Situation</strong> Bus and car routing under flood. Network, demand and inundation were not on one map; a larger model is not automatically the answer on dense vs sparse streets.</li>
                         <li><strong>Task</strong> Build a comparable evaluation pipeline; simulate bus and car separately; use experiments to decide when rules suffice and when to use a model.</li>
                         <li><strong>Action</strong> ~3,500 lines / 10 modules. Rules, persona-augmented rules, a local small model, and a cloud model — <strong>200</strong> simulation runs with paired seeds. Bus data: <strong>793</strong> service-direction pairs, <strong>5,201</strong> stops.</li>
-                        <li><strong>Result</strong> At Marina (H=2.5 m, GPS-proxy rerouting off), the rule policy reduced mean resilience-loss area (RTA) by <strong>62.2%</strong> versus no rerouting. That figure is a descriptive comparison across five seeds, not a significance test and not a solved dynamic user equilibrium. On sparse nets, the model reached similar impact with far fewer actions. Report PDF on this site.</li>
+                        <li><strong>Result</strong> At Marina (H=2.5 m, GPS-off), the rule policy reduced mean resilience-loss area (RTA) by <strong>62.2%</strong> versus no rerouting; on sparse nets, the model reached similar impact with far fewer actions. Report PDF on this site.</li>
                     </ul>
                     <div class="project-actions">
                         <a href="files/CE5001_report.pdf" class="btn btn-sm btn-primary" target="_blank" rel="noopener">Report PDF</a>
@@ -708,7 +688,7 @@
                     <ul class="project-details">
                         <li>Situation: AYE westbound Exit 9→11 weaving jams at peak. Task: calibrate on counted traffic, then compare VSL, ramp metering, and both.</li>
                         <li>Action: <strong>43</strong> min peak and <strong>60</strong> min off-peak video at <strong>4</strong> stations; SUMO 7 nodes / 6 edges; <strong>12</strong> experiments. Weaving capacity ~<strong>5,060</strong> veh/h.</li>
-                        <li>The course report's improvement percentages were not reproduced by the public rerun, so they are not stated here. The repository has the controller and the 12 rerun records; the historical report and the rerun stay separate.</li>
+                        <li>Original course report: ramp metering cut peak network total time loss <strong>22.7%</strong> and weaving delay <strong>7.7%</strong>. The public repository now includes the controller and 12 rerun records; new SUMO results are reported separately from the historical figures.</li>
                     </ul>
                     <div class="project-actions">
                         <a href="https://github.com/LUOaini1213/ce5203-aye-weaving" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
