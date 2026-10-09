@@ -101,7 +101,7 @@
                     <a href="CV_LuoWenjie.pdf" class="btn btn-primary" download aria-label="下载一页简历 PDF">下载简历</a>
                     <a href="#projects" class="btn btn-outline">看精选项目</a>
                 </div>
-                <p class="hero-cta-note">一页 PDF · 预计 2027.01 毕业 · 新加坡 · <a href="resumes/">七赛道中英文简历</a></p>
+                <p class="hero-cta-note">一页 PDF · 预计 2027.01 毕业 · 新加坡 · <a href="resumes/">七岗位简历与项目证据</a></p>
                 <div class="hero-social">
                     <a href="https://github.com/LUOaini1213" target="_blank" rel="noopener" title="GitHub" aria-label="GitHub">
                         <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" fill="currentColor"/></svg>
@@ -357,14 +357,14 @@
                         <span class="project-type">TechJam Track 3 · GPU kernel</span>
                     </div>
                     <h3>fp16x3-transformer · 在 fp16 张量核上保留 fp32 级精度</h3>
-                    <p class="project-affil">三次独立 T4 会话 · 13 种形状 · 117 次精度检查 · 竞赛未入围</p>
+                    <p class="project-affil">历史独立复测：三次 T4 会话 · 13 种形状 · 117 次精度检查 · 竞赛未入围</p>
                     <div class="project-tech">
                         <span>SDPA 融合注意力</span><span>torch.compile</span><span>数值等价</span>
                     </div>
                     <ul class="project-details">
                         <li><strong>方法</strong>　将操作数拆为 fp16 hi / lo，通过 Triton 拆分核与补偿 GEMM，在精度约束内利用张量核。</li>
                         <li><strong>证据</strong>　三次独立 T4 会话，相对原始 FP32 参考实现的聚合中位加速 <strong>2.875×</strong>；117 次输入检查全部通过，最大绝对误差 <span class="measurement">9.83e-6</span>。</li>
-                        <li><strong>最新验收</strong>　当前运行策略另做一轮完整 T4 测试：234 项检查通过，13/13 形状通过启动与稳态门槛。前述 2.875× 属于独立历史复现；缓存命中与恢复证据见报告。</li>
+                        <li><strong>运行验收</strong>　当前策略的两次完整 T4 会话各通过 234 项精度检查，启动与稳态门槛分别通过 12/13、13/13；形状 2 的追加测试通过 2/3，失败结果保留，balanced 仍需主动启用。前述 2.875× 属于独立历史复现。</li>
                     </ul>
                     <details class="project-evidence"><summary>2026 年 9 月实验与竞赛版本的完整说明</summary>
                     <ul class="project-details">
@@ -379,8 +379,8 @@
                     <div class="project-actions">
                         <a href="https://github.com/LUOaini1213/fp16x3-transformer" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
                         <a href="https://github.com/LUOaini1213/fp16x3-transformer/blob/c8fe1cf7807d5633a1b75773d2ab03461318cb22/results/next/usability_summary.md" class="btn btn-sm btn-outline" target="_blank" rel="noopener">独立复测报告</a>
-                        <a href="https://github.com/LUOaini1213/fp16x3-transformer/blob/b560a81a063b3f16bf633b8eace1a3c01a96e104/results/next/improvements_summary.md" class="btn btn-sm btn-outline" target="_blank" rel="noopener">运行验收</a>
-                        <a href="https://github.com/LUOaini1213/fp16x3-transformer/blob/b560a81a063b3f16bf633b8eace1a3c01a96e104/docs/QUICKSTART.md" class="btn btn-sm btn-outline" target="_blank" rel="noopener">运行指南</a>
+                        <a href="https://github.com/LUOaini1213/fp16x3-transformer/blob/0936d91bc38752aecd9e066287d8f4c47652dee7/README.md#what-the-measurements-support" class="btn btn-sm btn-outline" target="_blank" rel="noopener">运行证据总览</a>
+                        <a href="https://github.com/LUOaini1213/fp16x3-transformer/blob/0936d91bc38752aecd9e066287d8f4c47652dee7/docs/QUICKSTART.md" class="btn btn-sm btn-outline" target="_blank" rel="noopener">运行与校验指南</a>
                     </div>
                 </article>
 
@@ -423,13 +423,13 @@
                     <ul class="project-details">
                         <li><strong>问题</strong>　Agent 跑完只看得到最后输出。中间调了什么工具、哪步失败、花了多少 token、有没有把密钥读出去，全是黑盒。</li>
                         <li><strong>做什么</strong>　把每次 Run 变成关联 span 瀑布，按 OpenTelemetry GenAI 语义约定命名；一个 <code>GET /api/runs/:id/trace</code> 取出整棵树，失败 step 直接可跳。</li>
-                        <li><strong>导出恢复</strong>　启用 OTLP 后，trace 经本地持久队列异步导出；真实 HTTP 503、超时和强制重启后恢复通过。远端接受与本地确认落盘之间的崩溃窗口仍可能重复投递。</li>
+                        <li><strong>导出恢复</strong>　每次 Run 可查看 OTLP 接收、拒绝与未确认状态；本地持久队列的真实 HTTP 503、超时和强制重启恢复通过。远端接受与本地确认落盘之间的崩溃窗口仍可能重复投递。</li>
                         <li><strong>顺手挡住密钥</strong>　落盘与 HTTP 前对 key 形态字符串做 redaction，Web UI 永远拿不到 API Key；越权取密提示词走策略拒绝，每轮对话起一次性容器。</li>
                         <li><strong>边界</strong>　Playground / Agent CRUD / Codex Runtime / ECS 路径来自官方 starter，我加的是可观测层；单用户 PoC，容器不是多租户隔离。</li>
                     </ul>
                     <div class="project-actions">
                         <a href="https://github.com/LUOaini1213/track1" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
-                        <a href="https://github.com/LUOaini1213/track1/blob/a1b0823b515da1b585cb3c201b65596f24b255d9/docs/OTLP_DELIVERY.md" class="btn btn-sm btn-outline" target="_blank" rel="noopener">恢复与开销报告</a>
+                        <a href="https://github.com/LUOaini1213/track1/blob/7d3b02dab693de2d6b45ced69ac9b4c04eaaab4d/docs/OTLP_DELIVERY.md" class="btn btn-sm btn-outline" target="_blank" rel="noopener">恢复与开销报告</a>
                         <a href="https://youtu.be/ARw1wfMX-JU" class="btn btn-sm btn-outline" target="_blank" rel="noopener">3 分钟 demo</a>
                     </div>
                 </article>
@@ -446,9 +446,9 @@
                     <div class="project-tech"><span>Python</span><span>Ollama</span><span>Bootstrap</span><span>Moonshot</span></div>
                     <ul class="project-details"><li>比较单评委与多评委，并审计参考答案、位置偏差和表达方式对判分的影响。</li>
                         <li>保存原始判断、预注册计划和离线分析；将已观察的结果与模拟排名区分呈现。</li>
-                        <li>事后敏感性分析按 188 道整题重采样，保留 400 条样本的原结果；主比较的 95% 区间为 [-0.25, 4.98] 个百分点，跨过 0。</li>
+                        <li>事后敏感性分析按 188 道整题重采样，保留 400 条样本的原结果；主比较的 95% 区间为 [-0.25, 4.98] 个百分点。五个随机种子、两档抽样次数下的 20 组题簇区间均跨过 0，端点诊断见报告。</li>
                         <li>实验使用个人构建的题集与确定性标签，项目独立于 AI Verify Foundation / IMDA。</li></ul>
-                    <div class="project-actions"><a href="https://github.com/LUOaini1213/llm-eval-experiments" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a><a href="https://github.com/LUOaini1213/llm-eval-experiments/blob/45283cff27b8f33b9d012a45a7f0fdce57fe0b34/results/e1/cluster_sensitivity.md" class="btn btn-sm btn-outline" target="_blank" rel="noopener">统计敏感性报告</a></div>
+                    <div class="project-actions"><a href="https://github.com/LUOaini1213/llm-eval-experiments" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a><a href="https://github.com/LUOaini1213/llm-eval-experiments/blob/dc4822fbf88980d419a60c27b64de20df89f9a60/results/e1/cluster_sensitivity.md" class="btn btn-sm btn-outline" target="_blank" rel="noopener">统计敏感性报告</a></div>
                 </div>
                 </details>
                 <details class="project-index-item" id="proj-navsim">
@@ -945,6 +945,15 @@
             navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
         });
 
+        const languageLinks = Array.from(document.querySelectorAll('.nav-lang, .footer-sub a'))
+            .filter(link => /^(index|en)\.html$/.test(link.getAttribute('href')))
+            .map(link => ({ link, page: link.getAttribute('href') }));
+        function syncLanguageLinks() {
+            languageLinks.forEach(({ link, page }) => link.setAttribute('href', page + window.location.hash));
+        }
+        window.addEventListener('hashchange', syncLanguageLinks);
+        syncLanguageLinks();
+
         function revealProject(target) {
             if (target instanceof HTMLDetailsElement) target.open = true;
             for (let parent = target.parentElement; parent; parent = parent.parentElement) {
@@ -958,7 +967,7 @@
             const target = document.getElementById(id);
             if (!target) return;
             revealProject(target);
-            requestAnimationFrame(() => target.scrollIntoView({ block: 'start' }));
+            target.scrollIntoView({ behavior: 'instant', block: 'start' });
         }
         window.addEventListener('hashchange', revealProjectHash);
         revealProjectHash();
@@ -972,6 +981,7 @@
                     e.preventDefault();
                     revealProject(target);
                     history.pushState(null, '', href);
+                    syncLanguageLinks();
                     target.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     navLinks.classList.remove('active');
                     navToggle.classList.remove('active');

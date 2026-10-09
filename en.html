@@ -78,7 +78,7 @@
                     <a href="#projects" class="btn btn-outline">Selected projects</a>
                 </div>
                 <p class="hero-cta-note">One-page PDF · Grad. Jan 2027 · Singapore</p>
-                <p class="hero-cta-note"><a href="resumes/">CVs for seven roles · English / 中文</a></p>
+                <p class="hero-cta-note"><a href="resumes/">Role-specific CVs and project evidence · English / 中文</a></p>
                 <div class="hero-social">
                     <a href="https://github.com/LUOaini1213" target="_blank" rel="noopener" title="GitHub" aria-label="GitHub">
                         <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" fill="currentColor"/></svg>
@@ -340,14 +340,14 @@
                         <span class="project-type">TechJam Track 3 · GPU kernel</span>
                     </div>
                     <h3>fp16x3-transformer — fp32-class accuracy on fp16 tensor cores</h3>
-                    <p class="project-affil">Three independent T4 sessions · 13 shapes · 117 accuracy checks · Did not place</p>
+                    <p class="project-affil">Historical reproduction: three T4 sessions · 13 shapes · 117 accuracy checks · Did not place</p>
                     <div class="project-tech">
                         <span>Fused SDPA</span><span>torch.compile</span><span>Numerical parity</span>
                     </div>
                     <ul class="project-details">
                         <li><strong>Method</strong> Split operands into fp16 hi / lo pairs with Triton kernels and use compensated GEMMs to exploit tensor cores within the accuracy gate.</li>
                         <li><strong>Evidence</strong> Across three independent T4 sessions, the aggregate median speedup over the original FP32 reference is <strong>2.875×</strong>; all 117 input checks pass, with maximum absolute error <span class="measurement">9.83e-6</span>.</li>
-                        <li><strong>Latest validation</strong> One full T4 session for the maintained profiles passes 234 checks and 13/13 startup and steady-state gates. The 2.875× figure comes from a separate historical reproduction; the new report records cache hits and recovery checks.</li>
+                        <li><strong>Runtime validation</strong> Two full T4 sessions each pass 234 accuracy checks, with 12/13 and 13/13 startup and steady-state gates. A shape-2 repeat passes 2/3 comparisons; misses remain published and balanced stays opt-in. The 2.875× figure comes from a separate historical reproduction.</li>
                     </ul>
                     <details class="project-evidence"><summary>Full September 2026 experiment and competition-version notes</summary>
                     <ul class="project-details">
@@ -362,8 +362,8 @@
                     <div class="project-actions">
                         <a href="https://github.com/LUOaini1213/fp16x3-transformer" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
                         <a href="https://github.com/LUOaini1213/fp16x3-transformer/blob/c8fe1cf7807d5633a1b75773d2ab03461318cb22/results/next/usability_summary.md" class="btn btn-sm btn-outline" target="_blank" rel="noopener">Independent reproduction</a>
-                        <a href="https://github.com/LUOaini1213/fp16x3-transformer/blob/b560a81a063b3f16bf633b8eace1a3c01a96e104/results/next/improvements_summary.md" class="btn btn-sm btn-outline" target="_blank" rel="noopener">Runtime validation</a>
-                        <a href="https://github.com/LUOaini1213/fp16x3-transformer/blob/b560a81a063b3f16bf633b8eace1a3c01a96e104/docs/QUICKSTART.md" class="btn btn-sm btn-outline" target="_blank" rel="noopener">Run it</a>
+                        <a href="https://github.com/LUOaini1213/fp16x3-transformer/blob/0936d91bc38752aecd9e066287d8f4c47652dee7/README.md#what-the-measurements-support" class="btn btn-sm btn-outline" target="_blank" rel="noopener">Runtime evidence</a>
+                        <a href="https://github.com/LUOaini1213/fp16x3-transformer/blob/0936d91bc38752aecd9e066287d8f4c47652dee7/docs/QUICKSTART.md" class="btn btn-sm btn-outline" target="_blank" rel="noopener">Run and verify</a>
                     </div>
                 </article>
 
@@ -406,13 +406,13 @@
                     <ul class="project-details">
                         <li><strong>Problem</strong>　After an Agent Run you only see the final output. Which tools ran, which step failed, how many tokens it burned, whether a secret leaked — all invisible.</li>
                         <li><strong>What it does</strong>　Turns every Run into a correlated span waterfall named per the OpenTelemetry GenAI conventions. One <code>GET /api/runs/:id/trace</code> returns the whole tree; a failed step is marked <code>error</code> and can be opened directly.</li>
-                        <li><strong>Delivery evidence</strong> When OTLP is enabled, traces enter a durable local queue for background export. Actual HTTP 503, timeout and forced-restart recovery tests pass. A crash between remote acceptance and local checkpoint can still replay a batch.</li>
+                        <li><strong>Delivery evidence</strong> Each run shows OTLP acceptance, rejection and uncertain acknowledgments. Durable-queue recovery passes actual HTTP 503, timeout and forced-restart tests. A crash between remote acceptance and local checkpoint can still replay a batch.</li>
                         <li><strong>Secrets, while we are here</strong>　Key-shaped strings are redacted before they are persisted or sent over HTTP, so the web UI never receives the API key. Exfiltration prompts hit a policy deny, and each turn runs in a disposable container.</li>
                         <li><strong>Scope</strong>　The Playground, Agent CRUD, Codex Runtime and ECS path come from the official starter; the observability plane is mine. Single-user proof of concept — an ordinary container is not multi-tenant isolation.</li>
                     </ul>
                     <div class="project-actions">
                         <a href="https://github.com/LUOaini1213/track1" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
-                        <a href="https://github.com/LUOaini1213/track1/blob/a1b0823b515da1b585cb3c201b65596f24b255d9/docs/OTLP_DELIVERY.md" class="btn btn-sm btn-outline" target="_blank" rel="noopener">Recovery and overhead</a>
+                        <a href="https://github.com/LUOaini1213/track1/blob/7d3b02dab693de2d6b45ced69ac9b4c04eaaab4d/docs/OTLP_DELIVERY.md" class="btn btn-sm btn-outline" target="_blank" rel="noopener">Recovery and overhead</a>
                         <a href="https://youtu.be/ARw1wfMX-JU" class="btn btn-sm btn-outline" target="_blank" rel="noopener">3-min demo</a>
                     </div>
                 </article>
@@ -429,9 +429,9 @@
                     <div class="project-tech"><span>Python</span><span>Ollama</span><span>Bootstrap</span><span>Moonshot</span></div>
                     <ul class="project-details"><li>Compare a single judge with juries and audit how references, answer order and writing style affect grading.</li>
                         <li>Retain raw judgments, a pre-registered plan and offline analysis; distinguish observed results from simulated rankings.</li>
-                        <li>Post-hoc sensitivity resamples 188 whole questions, retaining the original results for 400 items. The main contrast's 95% interval is [-0.25, 4.98] percentage points, crossing zero.</li>
+                        <li>Post-hoc sensitivity resamples 188 whole questions, retaining the original results for 400 items. The main contrast's 95% interval is [-0.25, 4.98] percentage points. All 20 question-cluster intervals across five seeds and two draw counts cross zero; endpoint diagnostics are in the report.</li>
                         <li>Use author-built test sets and deterministic labels. This independent project is not affiliated with AI Verify Foundation or IMDA.</li></ul>
-                    <div class="project-actions"><a href="https://github.com/LUOaini1213/llm-eval-experiments" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a><a href="https://github.com/LUOaini1213/llm-eval-experiments/blob/45283cff27b8f33b9d012a45a7f0fdce57fe0b34/results/e1/cluster_sensitivity.md" class="btn btn-sm btn-outline" target="_blank" rel="noopener">Statistical sensitivity</a></div>
+                    <div class="project-actions"><a href="https://github.com/LUOaini1213/llm-eval-experiments" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a><a href="https://github.com/LUOaini1213/llm-eval-experiments/blob/dc4822fbf88980d419a60c27b64de20df89f9a60/results/e1/cluster_sensitivity.md" class="btn btn-sm btn-outline" target="_blank" rel="noopener">Statistical sensitivity</a></div>
                 </div>
                 </details>
                 <details class="project-index-item" id="proj-navsim">
@@ -928,6 +928,15 @@
             navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
         });
 
+        const languageLinks = Array.from(document.querySelectorAll('.nav-lang, .footer-sub a'))
+            .filter(link => /^(index|en)\.html$/.test(link.getAttribute('href')))
+            .map(link => ({ link, page: link.getAttribute('href') }));
+        function syncLanguageLinks() {
+            languageLinks.forEach(({ link, page }) => link.setAttribute('href', page + window.location.hash));
+        }
+        window.addEventListener('hashchange', syncLanguageLinks);
+        syncLanguageLinks();
+
         function revealProject(target) {
             if (target instanceof HTMLDetailsElement) target.open = true;
             for (let parent = target.parentElement; parent; parent = parent.parentElement) {
@@ -941,7 +950,7 @@
             const target = document.getElementById(id);
             if (!target) return;
             revealProject(target);
-            requestAnimationFrame(() => target.scrollIntoView({ block: 'start' }));
+            target.scrollIntoView({ behavior: 'instant', block: 'start' });
         }
         window.addEventListener('hashchange', revealProjectHash);
         revealProjectHash();
@@ -955,6 +964,7 @@
                     e.preventDefault();
                     revealProject(target);
                     history.pushState(null, '', href);
+                    syncLanguageLinks();
                     target.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     navLinks.classList.remove('active');
                     navToggle.classList.remove('active');
