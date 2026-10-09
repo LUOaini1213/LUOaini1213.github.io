@@ -75,7 +75,7 @@
                 </p>
                 <div class="hero-cta">
                     <a href="CV_LuoWenjie_EN.pdf" class="btn btn-primary" download aria-label="Download one-page CV">Download CV</a>
-                    <a href="https://github.com/LUOaini1213/civil-buddy" class="btn btn-outline" target="_blank" rel="noopener">Civil Buddy</a>
+                    <a href="#projects" class="btn btn-outline">Selected projects</a>
                 </div>
                 <p class="hero-cta-note">One-page PDF · Grad. Jan 2027 · Singapore</p>
                 <p class="hero-cta-note"><a href="resumes/">CVs for seven roles · English / 中文</a></p>
@@ -331,9 +331,41 @@
 
     <section id="projects" class="section">
         <div class="container">
-            <h2 class="section-title">Projects</h2>
-            <p class="section-lead">Public repos can be cloned and rerun. Course work is labelled as such.</p>
-            <div class="projects-grid">
+            <h2 class="section-title">Selected projects</h2>
+            <p class="section-lead">Start with three projects: GPU computing, an engineering agent and observability. More research and course work is indexed below.</p>
+            <div class="projects-grid projects-selected">
+                <article class="project-card project-featured" id="proj-tj3">
+                    <div class="project-card-header">
+                        <span class="project-year">2026.09</span>
+                        <span class="project-type">TechJam Track 3 · GPU kernel</span>
+                    </div>
+                    <h3>fp16x3-transformer — fp32-class accuracy on fp16 tensor cores</h3>
+                    <p class="project-affil">Three independent T4 sessions · 13 shapes · 117 accuracy checks · Did not place</p>
+                    <div class="project-tech">
+                        <span>Fused SDPA</span><span>torch.compile</span><span>Numerical parity</span>
+                    </div>
+                    <ul class="project-details">
+                        <li><strong>Method</strong> Split operands into fp16 hi / lo pairs with Triton kernels and use compensated GEMMs to exploit tensor cores within the accuracy gate.</li>
+                        <li><strong>Evidence</strong> Across three independent T4 sessions, the aggregate median speedup over the original FP32 reference is <strong>2.875×</strong>; all 117 input checks pass, with maximum absolute error 9.83e-6.</li>
+                        <li><strong>Trade-offs</strong> Measure first-public-forward cost, steady throughput and memory separately; retain losing variants. These figures belong to the archived revision, not later cache and recovery changes.</li>
+                    </ul>
+                    <details class="project-evidence"><summary>Full September 2026 experiment and competition-version notes</summary>
+                    <ul class="project-details">
+                        <li><strong>Problem</strong>　The hardest shape, <code>seq_len=100000</code>, needs roughly 20.5 TB just for the baseline attention score matrix. Not a speed problem — it simply cannot run.</li>
+                        <li><strong>What it does</strong>　Fused SDPA (the memory-efficient backend) replaces the O(S²) matrix with an O(S) kernel; the 100k shape is chunked into a preallocated output tensor. Every baseline submodule and parameter name is kept, so a strict weight copy still succeeds and the comparison stays apples-to-apples.</li>
+                        <li><strong>Result</strong>　13/13 gradeable shapes PASS at a worst absolute error of 9.5e-6 against a 2e-3 gate; median speedup versus the FP32 reference is <strong>2.83×</strong> on a T4 (per-shape median of three independent runs, range 1.57×–5.22×) / 2.07× on a P100. A separate full-length 100k forward pass uses FP16, peaking at 14.2 GB and taking 184 s on the T4; it has no runnable full FP32 baseline and is excluded from the speedup summary. Correctness was checked in FP32 on a truncated sequence.</li>
+                        <li><strong>Where the speed comes from</strong>　A hand-written <strong>fp16x3</strong> linear layer: each operand is split into an fp16 hi + lo pair and fed to one cuBLAS tensor-core GEMM with K tripled — <strong>fp32-class accuracy on the fp16 tensor cores</strong>. The GEMM-bound shape goes 1.09× → 1.57×, the median 2.30× → 2.83×. Not accuracy traded for speed.</li>
+                        <li><strong>The trade-off</strong>　On gradeable shapes, fp16 storage autocast reaches 4.01×, but its worst absolute error of 2.04e-3 exceeds <code>atol=0.002</code>. It is disabled by default; these shapes use the fp16x3 path that passes the accuracy checks.</li>
+                        <li><strong>Three hand-written kernel families were all measured; one ships</strong>　fp16x3. A fused add+LayerNorm matched Inductor without beating it, and a split-operand attention kernel reached fp32-class accuracy but lost on speed — both left off. A backend probe, committed as evidence, shows neither P100 nor T4 can run FlashAttention.</li>
+                    </ul>
+                    </details>
+                    <div class="project-actions">
+                        <a href="https://github.com/LUOaini1213/fp16x3-transformer" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
+                        <a href="https://github.com/LUOaini1213/fp16x3-transformer/blob/c8fe1cf7807d5633a1b75773d2ab03461318cb22/results/next/usability_summary.md" class="btn btn-sm btn-outline" target="_blank" rel="noopener">Independent reproduction</a>
+                        <a href="https://github.com/LUOaini1213/fp16x3-transformer/blob/main/docs/QUICKSTART.md" class="btn btn-sm btn-outline" target="_blank" rel="noopener">Run it</a>
+                    </div>
+                </article>
+
                 <article class="project-card project-featured" id="proj-packing">
                     <div class="project-card-header">
                         <span class="project-year">2026</span>
@@ -360,12 +392,52 @@
                     </div>
                 </article>
 
-                <article class="project-card project-featured" id="proj-navsim">
+                <article class="project-card project-featured" id="proj-tj1">
+                    <div class="project-card-header">
+                        <span class="project-year">2026.09</span>
+                        <span class="project-type">TechJam Track 1 · Agent middleware</span>
+                    </div>
+                    <h3>Glass Box — Agent observability plane</h3>
+                    <p class="project-affil">TypeScript / Fastify · Key-free replay demo · Did not place</p>
+                    <div class="project-tech">
+                        <span>OpenTelemetry</span><span>Tracing</span><span>Redaction</span><span>Policy gate</span>
+                    </div>
+                    <ul class="project-details">
+                        <li><strong>Problem</strong>　After an Agent Run you only see the final output. Which tools ran, which step failed, how many tokens it burned, whether a secret leaked — all invisible.</li>
+                        <li><strong>What it does</strong>　Turns every Run into a correlated span waterfall named per the OpenTelemetry GenAI conventions. One <code>GET /api/runs/:id/trace</code> returns the whole tree; a failed step is marked <code>error</code> and can be opened directly.</li>
+                        <li><strong>Secrets, while we are here</strong>　Key-shaped strings are redacted before they are persisted or sent over HTTP, so the web UI never receives the API key. Exfiltration prompts hit a policy deny, and each turn runs in a disposable container.</li>
+                        <li><strong>Scope</strong>　The Playground, Agent CRUD, Codex Runtime and ECS path come from the official starter; the observability plane is mine. Single-user proof of concept — an ordinary container is not multi-tenant isolation.</li>
+                    </ul>
+                    <div class="project-actions">
+                        <a href="https://github.com/LUOaini1213/track1" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
+                        <a href="https://youtu.be/ARw1wfMX-JU" class="btn btn-sm btn-outline" target="_blank" rel="noopener">3-min demo</a>
+                    </div>
+                </article>
+            </div>
+            <div class="project-index" aria-labelledby="project-index-heading">
+                <h3 id="project-index-heading">More projects</h3>
+                <p>Expand a title for methods, results and evidence. Course and competition projects retain their stated scope.</p>
+                <details class="project-index-item" id="proj-llm-eval">
+                    <summary><span class="project-index-title">LLM judge experiments — when majority votes mislead</span><span class="project-index-meta">Open source · Model evaluation</span></summary>
+                    <div class="project-index-content">
+                    <div class="project-card-header"><span class="project-year">2026</span><span class="project-type">Open source · Model evaluation</span></div>
+
+                    <p class="project-affil">Project Moonshot · Local models · Recomputable evidence</p>
+                    <div class="project-tech"><span>Python</span><span>Ollama</span><span>Bootstrap</span><span>Moonshot</span></div>
+                    <ul class="project-details"><li>Compare a single judge with juries and audit how references, answer order and writing style affect grading.</li>
+                        <li>Retain raw judgments, a pre-registered plan and offline analysis; distinguish observed results from simulated rankings.</li>
+                        <li>Use author-built test sets and deterministic labels. This independent project is not affiliated with AI Verify Foundation or IMDA.</li></ul>
+                    <div class="project-actions"><a href="https://github.com/LUOaini1213/llm-eval-experiments" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a></div>
+                </div>
+                </details>
+                <details class="project-index-item" id="proj-navsim">
+                    <summary><span class="project-index-title">NAVSIM ability ladder — what caps open-loop planning</span><span class="project-index-meta">Open source · AD evaluation</span></summary>
+                    <div class="project-index-content">
                     <div class="project-card-header">
                         <span class="project-year">2026.08 – 2026.09</span>
                         <span class="project-type">Open source · AD evaluation</span>
                     </div>
-                    <h3>NAVSIM ability ladder — what caps open-loop planning</h3>
+
                     <p class="project-affil">Full navtest: 12,146 scenes / 136 logs · trained on navtrain (103,288 scenes) · three seeds per cell</p>
                     <div class="project-tech">
                         <span>NAVSIM</span><span>Ablation</span><span>Confidence intervals</span><span>Baseline reproduction</span>
@@ -388,14 +460,16 @@
                         <a href="https://github.com/LUOaini1213/navsim-ability-ladder" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
                         <a href="https://github.com/LUOaini1213/navsim-ability-ladder/blob/main/results/clean_ladder.md" class="btn btn-sm btn-outline" target="_blank" rel="noopener">Clean-split report</a>
                     </div>
-                </article>
-
-                <article class="project-card project-featured" id="proj-cuda">
+                </div>
+                </details>
+                <details class="project-index-item" id="proj-cuda">
+                    <summary><span class="project-index-title">cuda-fused-layernorm — hand-written CUDA that lost to Triton, and why</span><span class="project-index-meta">Open source · GPU kernel</span></summary>
+                    <div class="project-index-content">
                     <div class="project-card-header">
                         <span class="project-year">2026.09</span>
                         <span class="project-type">Open source · GPU kernel</span>
                     </div>
-                    <h3>cuda-fused-layernorm — hand-written CUDA that lost to Triton, and why</h3>
+
                     <p class="project-affil">CUDA C++ (NVRTC) · same-card three-way comparison on a T4 · 12 shapes</p>
                     <div class="project-tech">
                         <span>CUDA C++</span><span>Triton</span><span>warp shuffle</span><span>Controlled comparison</span>
@@ -408,14 +482,16 @@
                     <div class="project-actions">
                         <a href="https://github.com/LUOaini1213/cuda-fused-layernorm" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
                     </div>
-                </article>
-
-                <article class="project-card" id="proj-vllm">
+                </div>
+                </details>
+                <details class="project-index-item" id="proj-vllm">
+                    <summary><span class="project-index-title">vllm-sm75-throughput — a 10× throughput collapse traced to one GEMM cliff</span><span class="project-index-meta">Open source · Inference diagnosis</span></summary>
+                    <div class="project-index-content">
                     <div class="project-card-header">
                         <span class="project-year">2026.09</span>
                         <span class="project-type">Open source · Inference diagnosis</span>
                     </div>
-                    <h3>vllm-sm75-throughput — a 10× throughput collapse traced to one GEMM cliff</h3>
+
                     <p class="project-affil">GTX 1650 (sm_75) · refutation experiment on a T4 · fp16 GEMM</p>
                     <div class="project-tech">
                         <span>vLLM</span><span>cuBLAS</span><span>Tensor Cores</span><span>Attribution</span>
@@ -429,14 +505,16 @@
                     <div class="project-actions">
                         <a href="https://github.com/LUOaini1213/vllm-sm75-throughput" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
                     </div>
-                </article>
-
-                <article class="project-card" id="proj-eda">
+                </div>
+                </details>
+                <details class="project-index-item" id="proj-eda">
+                    <summary><span class="project-index-title">EDA Copilot — OpenROAD flow Q&amp;A that stops and asks when the metric is unclear</span><span class="project-index-meta">Open source · Flow Q&amp;A</span></summary>
+                    <div class="project-index-content">
                     <div class="project-card-header">
                         <span class="project-year">2026.09</span>
                         <span class="project-type">Open source · Flow Q&amp;A</span>
                     </div>
-                    <h3>EDA Copilot — OpenROAD flow Q&amp;A that stops and asks when the metric is unclear</h3>
+
                     <p class="project-affil">Ran RTL→GDSII myself · 1,215-chunk corpus with line-level provenance · stop-guard ablation</p>
                     <div class="project-tech">
                         <span>OpenROAD / ORFS</span><span>RAG</span><span>Stop guard</span><span>QoR</span>
@@ -450,36 +528,16 @@
                     <div class="project-actions">
                         <a href="https://github.com/LUOaini1213/eda-copilot" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
                     </div>
-                </article>
-
-                <article class="project-card project-featured" id="proj-tj1">
-                    <div class="project-card-header">
-                        <span class="project-year">2026.09</span>
-                        <span class="project-type">TechJam Track 1 · Agent middleware</span>
-                    </div>
-                    <h3>Glass Box — Agent observability plane</h3>
-                    <p class="project-affil">TypeScript / Fastify · 21 test files · 150 cases · did not place</p>
-                    <div class="project-tech">
-                        <span>OpenTelemetry</span><span>Tracing</span><span>Redaction</span><span>Policy gate</span>
-                    </div>
-                    <ul class="project-details">
-                        <li><strong>Problem</strong>　After an Agent Run you only see the final output. Which tools ran, which step failed, how many tokens it burned, whether a secret leaked — all invisible.</li>
-                        <li><strong>What it does</strong>　Turns every Run into a correlated span waterfall named per the OpenTelemetry GenAI conventions. One <code>GET /api/runs/:id/trace</code> returns the whole tree; a failed step is marked <code>error</code> and can be opened directly.</li>
-                        <li><strong>Secrets, while we are here</strong>　Key-shaped strings are redacted before they are persisted or sent over HTTP, so the web UI never receives the API key. Exfiltration prompts hit a policy deny, and each turn runs in a disposable container.</li>
-                        <li><strong>Scope</strong>　The Playground, Agent CRUD, Codex Runtime and ECS path come from the official starter; the observability plane is mine. Single-user proof of concept — an ordinary container is not multi-tenant isolation.</li>
-                    </ul>
-                    <div class="project-actions">
-                        <a href="https://github.com/LUOaini1213/track1" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
-                        <a href="https://youtu.be/ARw1wfMX-JU" class="btn btn-sm btn-outline" target="_blank" rel="noopener">3-min demo</a>
-                    </div>
-                </article>
-
-                <article class="project-card" id="proj-tj2">
+                </div>
+                </details>
+                <details class="project-index-item" id="proj-tj2">
+                    <summary><span class="project-index-title">RecAgent — an agent that runs its own MLE loop</span><span class="project-index-meta">TechJam Track 2 · Autonomous ML agent</span></summary>
+                    <div class="project-index-content">
                     <div class="project-card-header">
                         <span class="project-year">2026.09</span>
                         <span class="project-type">TechJam Track 2 · Autonomous ML agent</span>
                     </div>
-                    <h3>RecAgent — an agent that runs its own MLE loop</h3>
+
                     <p class="project-affil">KuaiRand-Pure · official scoring protocol · did not place</p>
                     <div class="project-tech">
                         <span>LightGBM</span><span>AutoML</span><span>Ranking</span><span>0 manual edits</span>
@@ -492,37 +550,16 @@
                     <div class="project-actions">
                         <a href="https://github.com/LUOaini1213/recagent-techjam2026-track2" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
                     </div>
-                </article>
-
-                <article class="project-card" id="proj-tj3">
-                    <div class="project-card-header">
-                        <span class="project-year">2026.09</span>
-                        <span class="project-type">TechJam Track 3 · GPU kernel</span>
-                    </div>
-                    <h3>Transformer forward-pass GPU kernel</h3>
-                    <p class="project-affil">13/13 gradeable shapes PASS · free cloud GPUs · did not place</p>
-                    <div class="project-tech">
-                        <span>Fused SDPA</span><span>torch.compile</span><span>Numerical parity</span>
-                    </div>
-                    <ul class="project-details">
-                        <li><strong>Problem</strong>　The hardest shape, <code>seq_len=100000</code>, needs roughly 20.5 TB just for the baseline attention score matrix. Not a speed problem — it simply cannot run.</li>
-                        <li><strong>What it does</strong>　Fused SDPA (the memory-efficient backend) replaces the O(S²) matrix with an O(S) kernel; the 100k shape is chunked into a preallocated output tensor. Every baseline submodule and parameter name is kept, so a strict weight copy still succeeds and the comparison stays apples-to-apples.</li>
-                        <li><strong>Result</strong>　13/13 gradeable shapes PASS at a worst absolute error of 9.5e-6 against a 2e-3 gate; median speedup versus the FP32 reference is <strong>2.83×</strong> on a T4 (per-shape median of three independent runs, range 1.57×–5.22×) / 2.07× on a P100. A separate full-length 100k forward pass uses FP16, peaking at 14.2 GB and taking 184 s on the T4; it has no runnable full FP32 baseline and is excluded from the speedup summary. Correctness was checked in FP32 on a truncated sequence.</li>
-                        <li><strong>Where the speed comes from</strong>　A hand-written <strong>fp16x3</strong> linear layer: each operand is split into an fp16 hi + lo pair and fed to one cuBLAS tensor-core GEMM with K tripled — <strong>fp32-class accuracy on the fp16 tensor cores</strong>. The GEMM-bound shape goes 1.09× → 1.57×, the median 2.30× → 2.83×. Not accuracy traded for speed.</li>
-                        <li><strong>The trade-off</strong>　On gradeable shapes, fp16 storage autocast reaches 4.01×, but its worst absolute error of 2.04e-3 exceeds <code>atol=0.002</code>. It is disabled by default; these shapes use the fp16x3 path that passes the accuracy checks.</li>
-                        <li><strong>Three hand-written kernel families were all measured; one ships</strong>　fp16x3. A fused add+LayerNorm matched Inductor without beating it, and a split-operand attention kernel reached fp32-class accuracy but lost on speed — both left off. A backend probe, committed as evidence, shows neither P100 nor T4 can run FlashAttention.</li>
-                    </ul>
-                    <div class="project-actions">
-                        <a href="https://github.com/LUOaini1213/fp16x3-transformer" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
-                    </div>
-                </article>
-
-                <article class="project-card" id="proj-tj4">
+                </div>
+                </details>
+                <details class="project-index-item" id="proj-tj4">
+                    <summary><span class="project-index-title">ByteSize — recommend only once the evidence is enough</span><span class="project-index-meta">TechJam Track 4 · Conversational search</span></summary>
+                    <div class="project-index-content">
                     <div class="project-card-header">
                         <span class="project-year">2026.09</span>
                         <span class="project-type">TechJam Track 4 · Conversational search</span>
                     </div>
-                    <h3>ByteSize — recommend only once the evidence is enough</h3>
+
                     <p class="project-affil">50,000-item catalog · 0 tokens / $0 · did not place</p>
                     <div class="project-tech">
                         <span>Value of information</span><span>Late fusion</span><span>Fully offline</span>
@@ -536,14 +573,16 @@
                     <div class="project-actions">
                         <a href="https://github.com/LUOaini1213/track4" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
                     </div>
-                </article>
-
-                <article class="project-card" id="proj-counterask">
+                </div>
+                </details>
+                <details class="project-index-item" id="proj-counterask">
+                    <summary><span class="project-index-title">Counterask — when answering would be a guess, the tool asks back</span><span class="project-index-meta">WebMCP Challenge · Open source</span></summary>
+                    <div class="project-index-content">
                     <div class="project-card-header">
                         <span class="project-year">2026.09</span>
                         <span class="project-type">WebMCP Challenge · Open source</span>
                     </div>
-                    <h3>Counterask — when answering would be a guess, the tool asks back</h3>
+
                     <p class="project-affil">9,901 real menswear products (Amazon Reviews 2023) · one page, no server · 0 tokens</p>
                     <div class="project-tech">
                         <span>WebMCP</span><span>Sentence parsing</span><span>Expected-survivors stopping</span><span>Category-tree questions</span>
@@ -558,14 +597,16 @@
                         <a href="https://luoaini1213.github.io/counterask-webmcp/" class="btn btn-sm btn-primary" target="_blank" rel="noopener">Live</a>
                         <a href="https://github.com/LUOaini1213/counterask-webmcp" class="btn btn-sm btn-outline" target="_blank" rel="noopener">GitHub</a>
                     </div>
-                </article>
-
-                <article class="project-card" id="proj-repostguard">
+                </div>
+                </details>
+                <details class="project-index-item" id="proj-repostguard">
+                    <summary><span class="project-index-title">RepostGuard — detect AI-generated images on the repost, not the original</span><span class="project-index-meta">Open source · Image forensics</span></summary>
+                    <div class="project-index-content">
                     <div class="project-card-header">
                         <span class="project-year">2026.08 – 2026.09</span>
                         <span class="project-type">Open source · Image forensics</span>
                     </div>
-                    <h3>RepostGuard — detect AI-generated images on the repost, not the original</h3>
+
                     <p class="project-affil">Frozen CLIP + DINOv2 + a 28-D forensic vector · ~110M, CPU-only · all 15 transforms</p>
                     <div class="project-tech">
                         <span>Image forensics</span><span>Robustness</span><span>Bootstrap CIs</span><span>Leakage control</span>
@@ -580,13 +621,16 @@
                     <div class="project-actions">
                         <a href="https://github.com/LUOaini1213/tiktok-techjam-2026-track5" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
                     </div>
-                </article>
-                <article class="project-card project-featured" id="proj-my-ask">
+                </div>
+                </details>
+                <details class="project-index-item" id="proj-my-ask">
+                    <summary><span class="project-index-title">malaysia-auto-ask · Malaysia auto Q&amp;A</span><span class="project-index-meta">Open source · ask-data</span></summary>
+                    <div class="project-index-content">
                     <div class="project-card-header">
                         <span class="project-year">2026.08</span>
                         <span class="project-type">Open source · ask-data</span>
                     </div>
-                    <h3>malaysia-auto-ask · Malaysia auto Q&amp;A</h3>
+
                     <p class="project-affil">SQLite · fixed SQL templates · 30+8 eval cases</p>
                     <div class="project-tech">
                         <span>SQL</span><span>lineage</span><span>HITL</span><span>Eval</span>
@@ -603,14 +647,16 @@
                     <div class="project-actions">
                         <a href="https://github.com/LUOaini1213/malaysia-auto-ask" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
                     </div>
-                </article>
-
-                <article class="project-card" id="proj-lpmip">
+                </div>
+                </details>
+                <details class="project-index-item" id="proj-lpmip">
+                    <summary><span class="project-index-title">LP / MIP from scratch — the model matters more than the solver</span><span class="project-index-meta">Open source · Operations research</span></summary>
+                    <div class="project-index-content">
                     <div class="project-card-header">
                         <span class="project-year">2026.09</span>
                         <span class="project-type">Open source · Operations research</span>
                     </div>
-                    <h3>LP / MIP from scratch — the model matters more than the solver</h3>
+
                     <p class="project-affil">Two-phase simplex + branch and bound + real Gomory cuts · cross-checked against HiGHS · 29 tests</p>
                     <div class="project-tech">
                         <span>Linear programming</span><span>Integer programming</span><span>Simplex</span><span>Cutting planes</span>
@@ -625,13 +671,16 @@
                     <div class="project-actions">
                         <a href="https://github.com/LUOaini1213/lp-mip-from-scratch" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
                     </div>
-                </article>
-                <article class="project-card" id="proj-campusbus">
+                </div>
+                </details>
+                <details class="project-index-item" id="proj-campusbus">
+                    <summary><span class="project-index-title">Campus shuttle routing — testing a claim that could not be falsified where it was made</span><span class="project-index-meta">Open source · Time-dependent routing</span></summary>
+                    <div class="project-index-content">
                     <div class="project-card-header">
                         <span class="project-year">2026.09</span>
                         <span class="project-type">Open source · Time-dependent routing</span>
                     </div>
-                    <h3>Campus shuttle routing — testing a claim that could not be falsified where it was made</h3>
+
                     <p class="project-affil">23 nodes / 58 directed edges, time-dependent · four solvers cross-checked over 600 queries · 37 tests</p>
                     <div class="project-tech">
                         <span>Time-dependent shortest path</span><span>Cross-validation</span><span>Tail latency</span><span>Map matching</span>
@@ -646,13 +695,16 @@
                     <div class="project-actions">
                         <a href="https://github.com/LUOaini1213/campus-bus-routing" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
                     </div>
-                </article>
-                <article class="project-card project-featured" id="proj-ce5001">
+                </div>
+                </details>
+                <details class="project-index-item" id="proj-ce5001">
+                    <summary><span class="project-index-title">Flooded multimodal networks: DEM, SUMO, LLM agents</span><span class="project-index-meta">NUS · CE5001</span></summary>
+                    <div class="project-index-content">
                     <div class="project-card-header">
                         <span class="project-year">2026</span>
                         <span class="project-type">NUS · CE5001</span>
                     </div>
-                    <h3>Flooded multimodal networks: DEM, SUMO, LLM agents</h3>
+
                     <p class="project-affil">Course project · report PDF</p>
                     <div class="project-image">
                         <img src="images/proj_ce5001_framework.jpg" alt="CE5001 decision framework" loading="lazy" width="800" height="450">
@@ -670,14 +722,16 @@
                         <a href="files/CE5001_report.pdf" class="btn btn-sm btn-primary" target="_blank" rel="noopener">Report PDF</a>
                         <a href="images/proj_ce5001_results.jpg" class="btn btn-sm btn-outline" target="_blank" rel="noopener">Results figure</a>
                     </div>
-                </article>
-
-                <article class="project-card" id="proj-aye">
+                </div>
+                </details>
+                <details class="project-index-item" id="proj-aye">
+                    <summary><span class="project-index-title">AYE weaving: counts, simulation, ramp metering</span><span class="project-index-meta">NUS · CE5203 group</span></summary>
+                    <div class="project-index-content">
                     <div class="project-card-header">
                         <span class="project-year">2026</span>
                         <span class="project-type">NUS · CE5203 group</span>
                     </div>
-                    <h3>AYE weaving: counts, simulation, ramp metering</h3>
+
                     <p class="project-affil">Group 12 · public repo</p>
                     <div class="project-image">
                         <img src="images/proj_aye.jpg" alt="AYE weaving simulation and ramp metering" loading="lazy" width="800" height="450">
@@ -693,14 +747,16 @@
                     <div class="project-actions">
                         <a href="https://github.com/LUOaini1213/ce5203-aye-weaving" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
                     </div>
-                </article>
-
-                <article class="project-card" id="proj-llm">
+                </div>
+                </details>
+                <details class="project-index-item" id="proj-llm">
+                    <summary><span class="project-index-title">Traffic coordination: approve / reject only</span><span class="project-index-meta">NUS · CE5212 course</span></summary>
+                    <div class="project-index-content">
                     <div class="project-card-header">
                         <span class="project-year">2026</span>
                         <span class="project-type">NUS · CE5212 course</span>
                     </div>
-                    <h3>Traffic coordination: approve / reject only</h3>
+
                     <p class="project-affil">Course project · decision and grounding layers are open source</p>
                     <div class="project-image">
                         <img src="images/proj_llm.jpg" alt="Three-layer LLM traffic coordination" loading="lazy" width="800" height="450">
@@ -716,11 +772,9 @@
                     <div class="project-actions">
                         <a href="https://github.com/LUOaini1213/ce5212-llm-coordinator" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
                     </div>
-                </article>
+                </div>
+                </details>
             </div>
-            <p class="section-lead" style="margin-top:1.5rem">
-                Coursework also includes SAP2000 frame analysis and ABAQUS seepage — part of my civil training, not the focus of this site.
-            </p>
         </div>
     </section>
 
@@ -844,7 +898,7 @@
     <footer class="footer">
         <div class="container">
             <p>&copy; 2026 Wenjie Luo</p>
-            <p class="footer-sub">NUS · AI product · Updated 2026-09-01</p>
+            <p class="footer-sub">NUS · AI product · Project showcase updated 2026-10-09</p>
             <p class="footer-sub"><a href="index.html">中文</a> · <a href="mailto:e1576499@u.nus.edu">Email</a></p>
         </div>
     </footer>
@@ -870,13 +924,33 @@
             navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
         });
 
+        function revealProject(target) {
+            if (target instanceof HTMLDetailsElement) target.open = true;
+            for (let parent = target.parentElement; parent; parent = parent.parentElement) {
+                if (parent instanceof HTMLDetailsElement) parent.open = true;
+            }
+        }
+        function revealProjectHash() {
+            let id;
+            try { id = decodeURIComponent(window.location.hash.slice(1)); }
+            catch { return; }
+            const target = document.getElementById(id);
+            if (!target) return;
+            revealProject(target);
+            requestAnimationFrame(() => target.scrollIntoView({ block: 'start' }));
+        }
+        window.addEventListener('hashchange', revealProjectHash);
+        revealProjectHash();
+
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 const href = this.getAttribute('href');
                 if (!href || href === '#') return;
-                const target = document.querySelector(href);
+                const target = document.getElementById(decodeURIComponent(href.slice(1)));
                 if (target) {
                     e.preventDefault();
+                    revealProject(target);
+                    history.pushState(null, '', href);
                     target.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     navLinks.classList.remove('active');
                     navToggle.classList.remove('active');

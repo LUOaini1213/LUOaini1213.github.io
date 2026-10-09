@@ -99,7 +99,7 @@
                 </p>
                 <div class="hero-cta">
                     <a href="CV_LuoWenjie.pdf" class="btn btn-primary" download aria-label="下载一页简历 PDF">下载简历</a>
-                    <a href="https://github.com/LUOaini1213/civil-buddy" class="btn btn-outline" target="_blank" rel="noopener">Civil Buddy</a>
+                    <a href="#projects" class="btn btn-outline">看精选项目</a>
                 </div>
                 <p class="hero-cta-note">一页 PDF · 预计 2027.01 毕业 · 新加坡 · <a href="resumes/">七赛道中英文简历</a></p>
                 <div class="hero-social">
@@ -348,9 +348,41 @@
 
     <section id="projects" class="section">
         <div class="container">
-            <h2 class="section-title">项目</h2>
-            <p class="section-lead">开源仓可克隆复跑。课程项目单独标明。</p>
-            <div class="projects-grid">
+            <h2 class="section-title">精选项目</h2>
+            <p class="section-lead">先看三个项目：GPU 计算、工程 Agent 和可观测性。更多研究与课程项目在下方索引。</p>
+            <div class="projects-grid projects-selected">
+                <article class="project-card project-featured" id="proj-tj3">
+                    <div class="project-card-header">
+                        <span class="project-year">2026.09</span>
+                        <span class="project-type">TechJam Track 3 · GPU kernel</span>
+                    </div>
+                    <h3>fp16x3-transformer · 在 fp16 张量核上保留 fp32 级精度</h3>
+                    <p class="project-affil">三次独立 T4 会话 · 13 种形状 · 117 次精度检查 · 竞赛未入围</p>
+                    <div class="project-tech">
+                        <span>SDPA 融合注意力</span><span>torch.compile</span><span>数值等价</span>
+                    </div>
+                    <ul class="project-details">
+                        <li><strong>方法</strong>　将操作数拆为 fp16 hi / lo，通过 Triton 拆分核与补偿 GEMM，在精度约束内利用张量核。</li>
+                        <li><strong>证据</strong>　三次独立 T4 会话，相对原始 FP32 参考实现的聚合中位加速 <strong>2.875×</strong>；117 次输入检查全部通过，最大绝对误差 9.83e-6。</li>
+                        <li><strong>取舍</strong>　分别测首轮执行、稳态吞吐与显存；报告保留未胜出的方案。上述数字对应留档修订，不代表后续缓存与恢复策略的性能。</li>
+                    </ul>
+                    <details class="project-evidence"><summary>2026 年 9 月实验与竞赛版本的完整说明</summary>
+                    <ul class="project-details">
+                        <li><strong>问题</strong>　最狠的一档 seq_len=100000，基线光注意力分数矩阵就要约 20.5 TB 显存——不是快慢问题，是压根跑不起来。</li>
+                        <li><strong>做什么</strong>　用 SDPA 融合注意力（memory-efficient 后端）把 O(S²) 换成 O(S) 融合核，再对 100k 那档做批分块写进预分配张量；保留全部基线子模块与参数名，只重写前向，保证权重严格拷贝可比。</li>
+                        <li><strong>结果</strong>　13/13 可评形状 PASS，最差绝对误差 9.5e-6（门限 2e-3）；相对 FP32 参考实现中位加速 <strong>2.83×</strong>（T4，逐形状三次独立跑的中位，区间 1.57×–5.22×）/ 2.07×（P100）。另以 FP16 完成 100k 序列前向，T4 峰值显存 14.2 GB、耗时 184 s；该档无完整 FP32 基线，不计入上述加速统计，精度在截短序列上以 FP32 验证。</li>
+                        <li><strong>真正的加速</strong>　自写 <strong>fp16x3</strong> 线性层：操作数拆成 fp16 hi + lo 一对，送一次 K 三倍的 cuBLAS 张量核 GEMM——<strong>在 fp16 张量核上拿到 fp32 级精度</strong>，GEMM 受限那一档 1.09× → 1.57×，中位 2.30× → 2.83×。不是拿精度换速度。</li>
+                        <li><strong>取舍</strong>　在可评形状中，fp16 存储 autocast 能到 4.01×，但最差绝对误差 2.04e-3 已越过 atol=0.002，因此默认关闭；这些形状采用通过精度校验的 fp16x3 路径。</li>
+                        <li><strong>三个手写核家族全部实测，只上了一个</strong>　fp16x3 上线；融合 add+LayerNorm 打平 Inductor 但没打赢、拆操作数的注意力核精度到 fp32 级却输速度，两个都默认关。后端探针入库作证：P100 与 T4 都跑不了 FlashAttention。</li>
+                    </ul>
+                    </details>
+                    <div class="project-actions">
+                        <a href="https://github.com/LUOaini1213/fp16x3-transformer" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
+                        <a href="https://github.com/LUOaini1213/fp16x3-transformer/blob/c8fe1cf7807d5633a1b75773d2ab03461318cb22/results/next/usability_summary.md" class="btn btn-sm btn-outline" target="_blank" rel="noopener">独立复测报告</a>
+                        <a href="https://github.com/LUOaini1213/fp16x3-transformer/blob/main/docs/QUICKSTART.md" class="btn btn-sm btn-outline" target="_blank" rel="noopener">运行指南</a>
+                    </div>
+                </article>
+
                 <article class="project-card project-featured" id="proj-packing">
                     <div class="project-card-header">
                         <span class="project-year">2026</span>
@@ -377,12 +409,52 @@
                     </div>
                 </article>
 
-                <article class="project-card project-featured" id="proj-navsim">
+                <article class="project-card project-featured" id="proj-tj1">
+                    <div class="project-card-header">
+                        <span class="project-year">2026.09</span>
+                        <span class="project-type">TechJam Track 1 · Agent 中间件</span>
+                    </div>
+                    <h3>Glass Box · Agent 可观测中间件</h3>
+                    <p class="project-affil">TypeScript / Fastify · 无 Key 回放演示 · 竞赛未入围</p>
+                    <div class="project-tech">
+                        <span>OpenTelemetry</span><span>Trace</span><span>Redaction</span><span>策略拦截</span>
+                    </div>
+                    <ul class="project-details">
+                        <li><strong>问题</strong>　Agent 跑完只看得到最后输出。中间调了什么工具、哪步失败、花了多少 token、有没有把密钥读出去，全是黑盒。</li>
+                        <li><strong>做什么</strong>　把每次 Run 变成关联 span 瀑布，按 OpenTelemetry GenAI 语义约定命名；一个 <code>GET /api/runs/:id/trace</code> 取出整棵树，失败 step 直接可跳。</li>
+                        <li><strong>顺手挡住密钥</strong>　落盘与 HTTP 前对 key 形态字符串做 redaction，Web UI 永远拿不到 API Key；越权取密提示词走策略拒绝，每轮对话起一次性容器。</li>
+                        <li><strong>边界</strong>　Playground / Agent CRUD / Codex Runtime / ECS 路径来自官方 starter，我加的是可观测层；单用户 PoC，容器不是多租户隔离。</li>
+                    </ul>
+                    <div class="project-actions">
+                        <a href="https://github.com/LUOaini1213/track1" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
+                        <a href="https://youtu.be/ARw1wfMX-JU" class="btn btn-sm btn-outline" target="_blank" rel="noopener">3 分钟 demo</a>
+                    </div>
+                </article>
+            </div>
+            <div class="project-index" aria-labelledby="project-index-heading">
+                <h3 id="project-index-heading">更多项目</h3>
+                <p>按标题展开查看方法、结果和证据；课程与竞赛项目保留各自边界。</p>
+                <details class="project-index-item" id="proj-llm-eval">
+                    <summary><span class="project-index-title">LLM 评委实验 · 多数票什么时候会误导</span><span class="project-index-meta">开源 · 模型评测</span></summary>
+                    <div class="project-index-content">
+                    <div class="project-card-header"><span class="project-year">2026</span><span class="project-type">开源 · 模型评测</span></div>
+
+                    <p class="project-affil">Project Moonshot · 本地模型 · 可复算的实验记录</p>
+                    <div class="project-tech"><span>Python</span><span>Ollama</span><span>Bootstrap</span><span>Moonshot</span></div>
+                    <ul class="project-details"><li>比较单评委与多评委，并审计参考答案、位置偏差和表达方式对判分的影响。</li>
+                        <li>保存原始判断、预注册计划和离线分析；将已观察的结果与模拟排名区分呈现。</li>
+                        <li>实验使用个人构建的题集与确定性标签，项目独立于 AI Verify Foundation / IMDA。</li></ul>
+                    <div class="project-actions"><a href="https://github.com/LUOaini1213/llm-eval-experiments" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a></div>
+                </div>
+                </details>
+                <details class="project-index-item" id="proj-navsim">
+                    <summary><span class="project-index-title">NAVSIM 能力阶梯 · 开环规划到底卡在哪</span><span class="project-index-meta">开源 · 智驾评测</span></summary>
+                    <div class="project-index-content">
                     <div class="project-card-header">
                         <span class="project-year">2026.08 – 2026.09</span>
                         <span class="project-type">开源 · 智驾评测</span>
                     </div>
-                    <h3>NAVSIM 能力阶梯 · 开环规划到底卡在哪</h3>
+
                     <p class="project-affil">navtest 全量 12,146 场 / 136 log · navtrain 103,288 场训练 · 每格三种子</p>
                     <div class="project-tech">
                         <span>NAVSIM</span><span>消融</span><span>置信区间</span><span>基线复现</span>
@@ -405,14 +477,16 @@
                         <a href="https://github.com/LUOaini1213/navsim-ability-ladder" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
                         <a href="https://github.com/LUOaini1213/navsim-ability-ladder/blob/main/results/clean_ladder.md" class="btn btn-sm btn-outline" target="_blank" rel="noopener">干净划分报告</a>
                     </div>
-                </article>
-
-                <article class="project-card project-featured" id="proj-cuda">
+                </div>
+                </details>
+                <details class="project-index-item" id="proj-cuda">
+                    <summary><span class="project-index-title">cuda-fused-layernorm · 手写 CUDA，输给了 Triton，写清为什么</span><span class="project-index-meta">开源 · GPU kernel</span></summary>
+                    <div class="project-index-content">
                     <div class="project-card-header">
                         <span class="project-year">2026.09</span>
                         <span class="project-type">开源 · GPU kernel</span>
                     </div>
-                    <h3>cuda-fused-layernorm · 手写 CUDA，输给了 Triton，写清为什么</h3>
+
                     <p class="project-affil">CUDA C++ (NVRTC) · T4 同卡三方对照 · 12 组形状</p>
                     <div class="project-tech">
                         <span>CUDA C++</span><span>Triton</span><span>warp-shuffle</span><span>受控对照</span>
@@ -425,14 +499,16 @@
                     <div class="project-actions">
                         <a href="https://github.com/LUOaini1213/cuda-fused-layernorm" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
                     </div>
-                </article>
-
-                <article class="project-card" id="proj-vllm">
+                </div>
+                </details>
+                <details class="project-index-item" id="proj-vllm">
+                    <summary><span class="project-index-title">vllm-sm75-throughput · 10× 吞吐塌陷归因到一条 GEMM 断崖</span><span class="project-index-meta">开源 · 推理性能诊断</span></summary>
+                    <div class="project-index-content">
                     <div class="project-card-header">
                         <span class="project-year">2026.09</span>
                         <span class="project-type">开源 · 推理性能诊断</span>
                     </div>
-                    <h3>vllm-sm75-throughput · 10× 吞吐塌陷归因到一条 GEMM 断崖</h3>
+
                     <p class="project-affil">GTX 1650 (sm_75) · T4 受控反证 · fp16 GEMM</p>
                     <div class="project-tech">
                         <span>vLLM</span><span>cuBLAS</span><span>Tensor Core</span><span>归因实验</span>
@@ -446,14 +522,16 @@
                     <div class="project-actions">
                         <a href="https://github.com/LUOaini1213/vllm-sm75-throughput" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
                     </div>
-                </article>
-
-                <article class="project-card" id="proj-eda">
+                </div>
+                </details>
+                <details class="project-index-item" id="proj-eda">
+                    <summary><span class="project-index-title">EDA Copilot · OpenROAD 流程问答，口径不清就停下来问人</span><span class="project-index-meta">开源 · 流程问答</span></summary>
+                    <div class="project-index-content">
                     <div class="project-card-header">
                         <span class="project-year">2026.09</span>
                         <span class="project-type">开源 · 流程问答</span>
                     </div>
-                    <h3>EDA Copilot · OpenROAD 流程问答，口径不清就停下来问人</h3>
+
                     <p class="project-affil">自己跑通 RTL→GDSII · 1215 块语料出处到行 · 停问消融</p>
                     <div class="project-tech">
                         <span>OpenROAD / ORFS</span><span>RAG</span><span>停问护栏</span><span>QoR</span>
@@ -467,36 +545,16 @@
                     <div class="project-actions">
                         <a href="https://github.com/LUOaini1213/eda-copilot" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
                     </div>
-                </article>
-
-                <article class="project-card project-featured" id="proj-tj1">
-                    <div class="project-card-header">
-                        <span class="project-year">2026.09</span>
-                        <span class="project-type">TechJam Track 1 · Agent 中间件</span>
-                    </div>
-                    <h3>Glass Box · Agent 可观测中间件</h3>
-                    <p class="project-affil">TypeScript / Fastify · 21 个测试文件 · 150 用例 · 未入围</p>
-                    <div class="project-tech">
-                        <span>OpenTelemetry</span><span>Trace</span><span>Redaction</span><span>策略拦截</span>
-                    </div>
-                    <ul class="project-details">
-                        <li><strong>问题</strong>　Agent 跑完只看得到最后输出。中间调了什么工具、哪步失败、花了多少 token、有没有把密钥读出去，全是黑盒。</li>
-                        <li><strong>做什么</strong>　把每次 Run 变成关联 span 瀑布，按 OpenTelemetry GenAI 语义约定命名；一个 <code>GET /api/runs/:id/trace</code> 取出整棵树，失败 step 直接可跳。</li>
-                        <li><strong>顺手挡住密钥</strong>　落盘与 HTTP 前对 key 形态字符串做 redaction，Web UI 永远拿不到 API Key；越权取密提示词走策略拒绝，每轮对话起一次性容器。</li>
-                        <li><strong>边界</strong>　Playground / Agent CRUD / Codex Runtime / ECS 路径来自官方 starter，我加的是可观测层；单用户 PoC，容器不是多租户隔离。</li>
-                    </ul>
-                    <div class="project-actions">
-                        <a href="https://github.com/LUOaini1213/track1" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
-                        <a href="https://youtu.be/ARw1wfMX-JU" class="btn btn-sm btn-outline" target="_blank" rel="noopener">3 分钟 demo</a>
-                    </div>
-                </article>
-
-                <article class="project-card" id="proj-tj2">
+                </div>
+                </details>
+                <details class="project-index-item" id="proj-tj2">
+                    <summary><span class="project-index-title">RecAgent · 自己跑 MLE 循环的 Agent</span><span class="project-index-meta">TechJam Track 2 · 自主 ML Agent</span></summary>
+                    <div class="project-index-content">
                     <div class="project-card-header">
                         <span class="project-year">2026.09</span>
                         <span class="project-type">TechJam Track 2 · 自主 ML Agent</span>
                     </div>
-                    <h3>RecAgent · 自己跑 MLE 循环的 Agent</h3>
+
                     <p class="project-affil">KuaiRand-Pure · 官方协议计分 · 未入围</p>
                     <div class="project-tech">
                         <span>LightGBM</span><span>AutoML</span><span>排序</span><span>0 次人工改代码</span>
@@ -509,37 +567,16 @@
                     <div class="project-actions">
                         <a href="https://github.com/LUOaini1213/recagent-techjam2026-track2" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
                     </div>
-                </article>
-
-                <article class="project-card" id="proj-tj3">
-                    <div class="project-card-header">
-                        <span class="project-year">2026.09</span>
-                        <span class="project-type">TechJam Track 3 · GPU kernel</span>
-                    </div>
-                    <h3>Transformer 前向 GPU kernel 优化</h3>
-                    <p class="project-affil">13/13 可评形状 PASS · 免费云 GPU · 未入围</p>
-                    <div class="project-tech">
-                        <span>SDPA 融合注意力</span><span>torch.compile</span><span>数值等价</span>
-                    </div>
-                    <ul class="project-details">
-                        <li><strong>问题</strong>　最狠的一档 seq_len=100000，基线光注意力分数矩阵就要约 20.5 TB 显存——不是快慢问题，是压根跑不起来。</li>
-                        <li><strong>做什么</strong>　用 SDPA 融合注意力（memory-efficient 后端）把 O(S²) 换成 O(S) 融合核，再对 100k 那档做批分块写进预分配张量；保留全部基线子模块与参数名，只重写前向，保证权重严格拷贝可比。</li>
-                        <li><strong>结果</strong>　13/13 可评形状 PASS，最差绝对误差 9.5e-6（门限 2e-3）；相对 FP32 参考实现中位加速 <strong>2.83×</strong>（T4，逐形状三次独立跑的中位，区间 1.57×–5.22×）/ 2.07×（P100）。另以 FP16 完成 100k 序列前向，T4 峰值显存 14.2 GB、耗时 184 s；该档无完整 FP32 基线，不计入上述加速统计，精度在截短序列上以 FP32 验证。</li>
-                        <li><strong>真正的加速</strong>　自写 <strong>fp16x3</strong> 线性层：操作数拆成 fp16 hi + lo 一对，送一次 K 三倍的 cuBLAS 张量核 GEMM——<strong>在 fp16 张量核上拿到 fp32 级精度</strong>，GEMM 受限那一档 1.09× → 1.57×，中位 2.30× → 2.83×。不是拿精度换速度。</li>
-                        <li><strong>取舍</strong>　在可评形状中，fp16 存储 autocast 能到 4.01×，但最差绝对误差 2.04e-3 已越过 atol=0.002，因此默认关闭；这些形状采用通过精度校验的 fp16x3 路径。</li>
-                        <li><strong>三个手写核家族全部实测，只上了一个</strong>　fp16x3 上线；融合 add+LayerNorm 打平 Inductor 但没打赢、拆操作数的注意力核精度到 fp32 级却输速度，两个都默认关。后端探针入库作证：P100 与 T4 都跑不了 FlashAttention。</li>
-                    </ul>
-                    <div class="project-actions">
-                        <a href="https://github.com/LUOaini1213/fp16x3-transformer" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
-                    </div>
-                </article>
-
-                <article class="project-card" id="proj-tj4">
+                </div>
+                </details>
+                <details class="project-index-item" id="proj-tj4">
+                    <summary><span class="project-index-title">ByteSize · 问够了才推荐</span><span class="project-index-meta">TechJam Track 4 · 对话式搜索</span></summary>
+                    <div class="project-index-content">
                     <div class="project-card-header">
                         <span class="project-year">2026.09</span>
                         <span class="project-type">TechJam Track 4 · 对话式搜索</span>
                     </div>
-                    <h3>ByteSize · 问够了才推荐</h3>
+
                     <p class="project-affil">五万件目录 · 0 token / $0 · 未入围</p>
                     <div class="project-tech">
                         <span>信息价值停止</span><span>后融合排序</span><span>离线</span>
@@ -553,14 +590,16 @@
                     <div class="project-actions">
                         <a href="https://github.com/LUOaini1213/track4" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
                     </div>
-                </article>
-
-                <article class="project-card" id="proj-counterask">
+                </div>
+                </details>
+                <details class="project-index-item" id="proj-counterask">
+                    <summary><span class="project-index-title">Counterask · 回答等于猜的时候，工具反问一句</span><span class="project-index-meta">WebMCP Challenge · 开源</span></summary>
+                    <div class="project-index-content">
                     <div class="project-card-header">
                         <span class="project-year">2026.09</span>
                         <span class="project-type">WebMCP Challenge · 开源</span>
                     </div>
-                    <h3>Counterask · 回答等于猜的时候，工具反问一句</h3>
+
                     <p class="project-affil">9,901 件真实男装（Amazon Reviews 2023）· 单页无服务器 · 0 token</p>
                     <div class="project-tech">
                         <span>WebMCP</span><span>句子解析</span><span>期望存活数停问</span><span>类目树追问</span>
@@ -575,14 +614,16 @@
                         <a href="https://luoaini1213.github.io/counterask-webmcp/" class="btn btn-sm btn-primary" target="_blank" rel="noopener">Live</a>
                         <a href="https://github.com/LUOaini1213/counterask-webmcp" class="btn btn-sm btn-outline" target="_blank" rel="noopener">GitHub</a>
                     </div>
-                </article>
-
-                <article class="project-card" id="proj-repostguard">
+                </div>
+                </details>
+                <details class="project-index-item" id="proj-repostguard">
+                    <summary><span class="project-index-title">RepostGuard · 在转发后的图上判 AI 生成，而不是在原图上</span><span class="project-index-meta">开源 · 图像取证</span></summary>
+                    <div class="project-index-content">
                     <div class="project-card-header">
                         <span class="project-year">2026.08 – 2026.09</span>
                         <span class="project-type">开源 · 图像取证</span>
                     </div>
-                    <h3>RepostGuard · 在转发后的图上判 AI 生成，而不是在原图上</h3>
+
                     <p class="project-affil">冻结 CLIP + DINOv2 + 28 维取证特征 · 纯 CPU 约 110M · 15 种变换全评</p>
                     <div class="project-tech">
                         <span>图像取证</span><span>鲁棒性评测</span><span>自助置信区间</span><span>泄漏对照</span>
@@ -597,13 +638,16 @@
                     <div class="project-actions">
                         <a href="https://github.com/LUOaini1213/tiktok-techjam-2026-track5" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
                     </div>
-                </article>
-                <article class="project-card project-featured" id="proj-my-ask">
+                </div>
+                </details>
+                <details class="project-index-item" id="proj-my-ask">
+                    <summary><span class="project-index-title">malaysia-auto-ask · 马来西亚汽车问数</span><span class="project-index-meta">开源 · 问数</span></summary>
+                    <div class="project-index-content">
                     <div class="project-card-header">
                         <span class="project-year">2026.08</span>
                         <span class="project-type">开源 · 问数</span>
                     </div>
-                    <h3>malaysia-auto-ask · 马来西亚汽车问数</h3>
+
                     <p class="project-affil">SQLite · 写死的查询 · 30+8 条评测</p>
                     <div class="project-tech">
                         <span>SQL</span><span>血缘</span><span>HITL</span><span>Eval</span>
@@ -620,14 +664,16 @@
                     <div class="project-actions">
                         <a href="https://github.com/LUOaini1213/malaysia-auto-ask" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
                     </div>
-                </article>
-
-                <article class="project-card" id="proj-lpmip">
+                </div>
+                </details>
+                <details class="project-index-item" id="proj-lpmip">
+                    <summary><span class="project-index-title">LP / MIP 从零实现 · 建模比换求解器重要</span><span class="project-index-meta">开源 · 运筹优化</span></summary>
+                    <div class="project-index-content">
                     <div class="project-card-header">
                         <span class="project-year">2026.09</span>
                         <span class="project-type">开源 · 运筹优化</span>
                     </div>
-                    <h3>LP / MIP 从零实现 · 建模比换求解器重要</h3>
+
                     <p class="project-affil">两阶段单纯形 + 分支定界 + 真 Gomory 割 · 逐实例与 HiGHS 交叉验证 · 29 测试</p>
                     <div class="project-tech">
                         <span>线性规划</span><span>整数规划</span><span>单纯形</span><span>割平面</span>
@@ -642,13 +688,16 @@
                     <div class="project-actions">
                         <a href="https://github.com/LUOaini1213/lp-mip-from-scratch" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
                     </div>
-                </article>
-                <article class="project-card" id="proj-campusbus">
+                </div>
+                </details>
+                <details class="project-index-item" id="proj-campusbus">
+                    <summary><span class="project-index-title">校园班车分时路由 · 把一句无法证伪的话拿去单独测</span><span class="project-index-meta">开源 · 分时路由</span></summary>
+                    <div class="project-index-content">
                     <div class="project-card-header">
                         <span class="project-year">2026.09</span>
                         <span class="project-type">开源 · 分时路由</span>
                     </div>
-                    <h3>校园班车分时路由 · 把一句无法证伪的话拿去单独测</h3>
+
                     <p class="project-affil">23 节点 / 58 有向边动态图 · 四求解器 600 组交叉验证 · 37 测试</p>
                     <div class="project-tech">
                         <span>分时最短路</span><span>交叉验证</span><span>尾延迟</span><span>地图匹配</span>
@@ -663,13 +712,16 @@
                     <div class="project-actions">
                         <a href="https://github.com/LUOaini1213/campus-bus-routing" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
                     </div>
-                </article>
-                <article class="project-card project-featured" id="proj-ce5001">
+                </div>
+                </details>
+                <details class="project-index-item" id="proj-ce5001">
+                    <summary><span class="project-index-title">洪水下的多模式路网：DEM、SUMO 与 LLM 代理</span><span class="project-index-meta">NUS · CE5001 课设</span></summary>
+                    <div class="project-index-content">
                     <div class="project-card-header">
                         <span class="project-year">2026</span>
                         <span class="project-type">NUS · CE5001 课设</span>
                     </div>
-                    <h3>洪水下的多模式路网：DEM、SUMO 与 LLM 代理</h3>
+
                     <p class="project-affil">课程设计 · 有报告 PDF</p>
                     <div class="project-image">
                         <img src="images/proj_ce5001_framework.jpg" alt="CE5001 决策框架示意" loading="lazy" width="800" height="450">
@@ -687,14 +739,16 @@
                         <a href="files/CE5001_report.pdf" class="btn btn-sm btn-primary" target="_blank" rel="noopener">报告 PDF</a>
                         <a href="images/proj_ce5001_results.jpg" class="btn btn-sm btn-outline" target="_blank" rel="noopener">结果图</a>
                     </div>
-                </article>
-
-                <article class="project-card" id="proj-aye">
+                </div>
+                </details>
+                <details class="project-index-item" id="proj-aye">
+                    <summary><span class="project-index-title">AYE 交织瓶颈：计数、仿真、匝道控制</span><span class="project-index-meta">NUS · CE5203 小组</span></summary>
+                    <div class="project-index-content">
                     <div class="project-card-header">
                         <span class="project-year">2026</span>
                         <span class="project-type">NUS · CE5203 小组</span>
                     </div>
-                    <h3>AYE 交织瓶颈：计数、仿真、匝道控制</h3>
+
                     <p class="project-affil">Group 12 · 仓库可复现</p>
                     <div class="project-image">
                         <img src="images/proj_aye.jpg" alt="AYE 交织段仿真与匝道控制" loading="lazy" width="800" height="450">
@@ -710,14 +764,16 @@
                     <div class="project-actions">
                         <a href="https://github.com/LUOaini1213/ce5203-aye-weaving" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
                     </div>
-                </article>
-
-                <article class="project-card" id="proj-llm">
+                </div>
+                </details>
+                <details class="project-index-item" id="proj-llm">
+                    <summary><span class="project-index-title">交通协调：模型只做批 / 不批</span><span class="project-index-meta">NUS · CE5212 课程</span></summary>
+                    <div class="project-index-content">
                     <div class="project-card-header">
                         <span class="project-year">2026</span>
                         <span class="project-type">NUS · CE5212 课程</span>
                     </div>
-                    <h3>交通协调：模型只做批 / 不批</h3>
+
                     <p class="project-affil">课程项目 · 决策层与接地层开源可查</p>
                     <div class="project-image">
                         <img src="images/proj_llm.jpg" alt="三层 LLM 交通协调示意" loading="lazy" width="800" height="450">
@@ -733,11 +789,9 @@
                     <div class="project-actions">
                         <a href="https://github.com/LUOaini1213/ce5212-llm-coordinator" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
                     </div>
-                </article>
+                </div>
+                </details>
             </div>
-            <p class="section-lead" style="margin-top:1.5rem">
-                课程里还做过 SAP2000 框架分析和 ABAQUS 渗流，属于土木训练，不是这里的主线。
-            </p>
         </div>
     </section>
 
@@ -861,7 +915,7 @@
     <footer class="footer">
         <div class="container">
             <p>&copy; 2026 罗文杰 (Wenjie Luo)</p>
-            <p class="footer-sub">NUS · AI 产品 · 更新于 2026-09-01</p>
+            <p class="footer-sub">NUS · AI 产品 · 项目展示更新于 2026-10-09</p>
             <p class="footer-sub"><a href="en.html">English</a> · <a href="mailto:e1576499@u.nus.edu">Email</a></p>
         </div>
     </footer>
@@ -887,13 +941,33 @@
             navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
         });
 
+        function revealProject(target) {
+            if (target instanceof HTMLDetailsElement) target.open = true;
+            for (let parent = target.parentElement; parent; parent = parent.parentElement) {
+                if (parent instanceof HTMLDetailsElement) parent.open = true;
+            }
+        }
+        function revealProjectHash() {
+            let id;
+            try { id = decodeURIComponent(window.location.hash.slice(1)); }
+            catch { return; }
+            const target = document.getElementById(id);
+            if (!target) return;
+            revealProject(target);
+            requestAnimationFrame(() => target.scrollIntoView({ block: 'start' }));
+        }
+        window.addEventListener('hashchange', revealProjectHash);
+        revealProjectHash();
+
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 const href = this.getAttribute('href');
                 if (!href || href === '#') return;
-                const target = document.querySelector(href);
+                const target = document.getElementById(decodeURIComponent(href.slice(1)));
                 if (target) {
                     e.preventDefault();
+                    revealProject(target);
+                    history.pushState(null, '', href);
                     target.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     navLinks.classList.remove('active');
                     navToggle.classList.remove('active');
