@@ -1777,3 +1777,38 @@ a.insight-card:hover {
     }
     a[href]::after { content: none !important; }
 }
+
+/* A short project shortlist followed by the full, linkable project index. */
+.project-index { margin-top: 2.5rem; }
+.project-index > h3 { margin-bottom: 0.5rem; }
+.project-index > p { color: var(--color-text-muted); margin-bottom: 1rem; }
+.project-index-item {
+    margin-bottom: 0.7rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-ring);
+    border-radius: var(--radius);
+    scroll-margin-top: 6rem;
+}
+.project-index-item > summary {
+    cursor: pointer;
+    padding: 1rem 1.2rem;
+    line-height: 1.5;
+}
+.project-index-title { font-weight: 600; }
+.project-index-meta {
+    display: block;
+    margin: 0.2rem 0 0 1rem;
+    color: var(--color-text-muted);
+    font-size: 0.8rem;
+}
+.project-index-content { padding: 0 1.2rem 1.2rem; }
+.project-index-content .project-card-header { margin-top: 0.5rem; }
+.project-evidence { margin-top: 1rem; }
+.project-evidence > summary { cursor: pointer; color: var(--color-accent); }
+.project-evidence > .project-details { margin-top: 0.8rem; }
+.measurement { white-space: nowrap; }
+.section[id] { scroll-margin-top: 1rem; }
+.project-featured { scroll-margin-top: 6rem; }
+.project-index-item:target { outline: 2px solid var(--color-accent); outline-offset: 3px; }
+.project-index-item > summary:focus-visible,
+.project-evidence > summary:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
