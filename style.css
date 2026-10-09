@@ -1806,6 +1806,9 @@ a.insight-card:hover {
 .project-evidence { margin-top: 1rem; }
 .project-evidence > summary { cursor: pointer; color: var(--color-accent); }
 .project-evidence > .project-details { margin-top: 0.8rem; }
+.measurement { white-space: nowrap; }
+.section[id] { scroll-margin-top: 1rem; }
+.project-featured { scroll-margin-top: 6rem; }
 .project-index-item:target { outline: 2px solid var(--color-accent); outline-offset: 3px; }
 .project-index-item > summary:focus-visible,
 .project-evidence > summary:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }

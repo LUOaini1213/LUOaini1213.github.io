@@ -346,23 +346,24 @@
                     </div>
                     <ul class="project-details">
                         <li><strong>Method</strong> Split operands into fp16 hi / lo pairs with Triton kernels and use compensated GEMMs to exploit tensor cores within the accuracy gate.</li>
-                        <li><strong>Evidence</strong> Across three independent T4 sessions, the aggregate median speedup over the original FP32 reference is <strong>2.875×</strong>; all 117 input checks pass, with maximum absolute error 9.83e-6.</li>
-                        <li><strong>Trade-offs</strong> Measure first-public-forward cost, steady throughput and memory separately; retain losing variants. These figures belong to the archived revision, not later cache and recovery changes.</li>
+                        <li><strong>Evidence</strong> Across three independent T4 sessions, the aggregate median speedup over the original FP32 reference is <strong>2.875×</strong>; all 117 input checks pass, with maximum absolute error <span class="measurement">9.83e-6</span>.</li>
+                        <li><strong>Latest validation</strong> One full T4 session for the maintained profiles passes 234 checks and 13/13 startup and steady-state gates. The 2.875× figure comes from a separate historical reproduction; the new report records cache hits and recovery checks.</li>
                     </ul>
                     <details class="project-evidence"><summary>Full September 2026 experiment and competition-version notes</summary>
                     <ul class="project-details">
                         <li><strong>Problem</strong>　The hardest shape, <code>seq_len=100000</code>, needs roughly 20.5 TB just for the baseline attention score matrix. Not a speed problem — it simply cannot run.</li>
-                        <li><strong>What it does</strong>　Fused SDPA (the memory-efficient backend) replaces the O(S²) matrix with an O(S) kernel; the 100k shape is chunked into a preallocated output tensor. Every baseline submodule and parameter name is kept, so a strict weight copy still succeeds and the comparison stays apples-to-apples.</li>
+                        <li><strong>What it does</strong>　Fused SDPA (the memory-efficient backend) reduces attention-score storage from O(S²) to O(S); attention computation remains O(S²). The 100k shape is chunked into a preallocated output tensor. Every baseline submodule and parameter name is kept, so a strict weight copy still succeeds and the comparison stays apples-to-apples.</li>
                         <li><strong>Result</strong>　13/13 gradeable shapes PASS at a worst absolute error of 9.5e-6 against a 2e-3 gate; median speedup versus the FP32 reference is <strong>2.83×</strong> on a T4 (per-shape median of three independent runs, range 1.57×–5.22×) / 2.07× on a P100. A separate full-length 100k forward pass uses FP16, peaking at 14.2 GB and taking 184 s on the T4; it has no runnable full FP32 baseline and is excluded from the speedup summary. Correctness was checked in FP32 on a truncated sequence.</li>
                         <li><strong>Where the speed comes from</strong>　A hand-written <strong>fp16x3</strong> linear layer: each operand is split into an fp16 hi + lo pair and fed to one cuBLAS tensor-core GEMM with K tripled — <strong>fp32-class accuracy on the fp16 tensor cores</strong>. The GEMM-bound shape goes 1.09× → 1.57×, the median 2.30× → 2.83×. Not accuracy traded for speed.</li>
                         <li><strong>The trade-off</strong>　On gradeable shapes, fp16 storage autocast reaches 4.01×, but its worst absolute error of 2.04e-3 exceeds <code>atol=0.002</code>. It is disabled by default; these shapes use the fp16x3 path that passes the accuracy checks.</li>
-                        <li><strong>Three hand-written kernel families were all measured; one ships</strong>　fp16x3. A fused add+LayerNorm matched Inductor without beating it, and a split-operand attention kernel reached fp32-class accuracy but lost on speed — both left off. A backend probe, committed as evidence, shows neither P100 nor T4 can run FlashAttention.</li>
+                        <li><strong>Three hand-written kernel families were all measured; one ships</strong>　fp16x3. A fused add+LayerNorm matched Inductor without beating it, and a split-operand attention kernel reached fp32-class accuracy but lost on speed — both left off. The archived probe shows that the FLASH_ATTENTION backend in the then-tested Torch environment was unavailable on P100 and T4.</li>
                     </ul>
                     </details>
                     <div class="project-actions">
                         <a href="https://github.com/LUOaini1213/fp16x3-transformer" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
                         <a href="https://github.com/LUOaini1213/fp16x3-transformer/blob/c8fe1cf7807d5633a1b75773d2ab03461318cb22/results/next/usability_summary.md" class="btn btn-sm btn-outline" target="_blank" rel="noopener">Independent reproduction</a>
-                        <a href="https://github.com/LUOaini1213/fp16x3-transformer/blob/main/docs/QUICKSTART.md" class="btn btn-sm btn-outline" target="_blank" rel="noopener">Run it</a>
+                        <a href="https://github.com/LUOaini1213/fp16x3-transformer/blob/b560a81a063b3f16bf633b8eace1a3c01a96e104/results/next/improvements_summary.md" class="btn btn-sm btn-outline" target="_blank" rel="noopener">Runtime validation</a>
+                        <a href="https://github.com/LUOaini1213/fp16x3-transformer/blob/b560a81a063b3f16bf633b8eace1a3c01a96e104/docs/QUICKSTART.md" class="btn btn-sm btn-outline" target="_blank" rel="noopener">Run it</a>
                     </div>
                 </article>
 
@@ -405,11 +406,13 @@
                     <ul class="project-details">
                         <li><strong>Problem</strong>　After an Agent Run you only see the final output. Which tools ran, which step failed, how many tokens it burned, whether a secret leaked — all invisible.</li>
                         <li><strong>What it does</strong>　Turns every Run into a correlated span waterfall named per the OpenTelemetry GenAI conventions. One <code>GET /api/runs/:id/trace</code> returns the whole tree; a failed step is marked <code>error</code> and can be opened directly.</li>
+                        <li><strong>Delivery evidence</strong> When OTLP is enabled, traces enter a durable local queue for background export. Actual HTTP 503, timeout and forced-restart recovery tests pass. A crash between remote acceptance and local checkpoint can still replay a batch.</li>
                         <li><strong>Secrets, while we are here</strong>　Key-shaped strings are redacted before they are persisted or sent over HTTP, so the web UI never receives the API key. Exfiltration prompts hit a policy deny, and each turn runs in a disposable container.</li>
                         <li><strong>Scope</strong>　The Playground, Agent CRUD, Codex Runtime and ECS path come from the official starter; the observability plane is mine. Single-user proof of concept — an ordinary container is not multi-tenant isolation.</li>
                     </ul>
                     <div class="project-actions">
                         <a href="https://github.com/LUOaini1213/track1" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
+                        <a href="https://github.com/LUOaini1213/track1/blob/a1b0823b515da1b585cb3c201b65596f24b255d9/docs/OTLP_DELIVERY.md" class="btn btn-sm btn-outline" target="_blank" rel="noopener">Recovery and overhead</a>
                         <a href="https://youtu.be/ARw1wfMX-JU" class="btn btn-sm btn-outline" target="_blank" rel="noopener">3-min demo</a>
                     </div>
                 </article>
@@ -426,8 +429,9 @@
                     <div class="project-tech"><span>Python</span><span>Ollama</span><span>Bootstrap</span><span>Moonshot</span></div>
                     <ul class="project-details"><li>Compare a single judge with juries and audit how references, answer order and writing style affect grading.</li>
                         <li>Retain raw judgments, a pre-registered plan and offline analysis; distinguish observed results from simulated rankings.</li>
+                        <li>Post-hoc sensitivity resamples 188 whole questions, retaining the original results for 400 items. The main contrast's 95% interval is [-0.25, 4.98] percentage points, crossing zero.</li>
                         <li>Use author-built test sets and deterministic labels. This independent project is not affiliated with AI Verify Foundation or IMDA.</li></ul>
-                    <div class="project-actions"><a href="https://github.com/LUOaini1213/llm-eval-experiments" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a></div>
+                    <div class="project-actions"><a href="https://github.com/LUOaini1213/llm-eval-experiments" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a><a href="https://github.com/LUOaini1213/llm-eval-experiments/blob/45283cff27b8f33b9d012a45a7f0fdce57fe0b34/results/e1/cluster_sensitivity.md" class="btn btn-sm btn-outline" target="_blank" rel="noopener">Statistical sensitivity</a></div>
                 </div>
                 </details>
                 <details class="project-index-item" id="proj-navsim">

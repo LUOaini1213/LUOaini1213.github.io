@@ -17,7 +17,10 @@ visit or browser back/forward navigation. Both languages retain the same cases.
 
 The current fp16x3 card cites the source-pinned independent T4 reproduction;
 September's competition measurements remain in its expandable historical notes.
-The website does not attribute those measurements to later cache/recovery code.
+The maintained-runtime validation is linked separately: 234 correctness checks
+and 13 startup/steady-state gates in one full T4 session. The LLM judge entry
+links its question-cluster sensitivity report and retains its stated uncertainty.
+The Glass Box card links failure-recovery evidence and host-specific benchmarks.
 
 The September 12, 2026 CV release uses 11 pt Chinese and 10.5-11 pt English body type, embedded fonts and
 clickable contact/project links. Editable application materials are maintained

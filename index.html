@@ -363,23 +363,24 @@
                     </div>
                     <ul class="project-details">
                         <li><strong>方法</strong>　将操作数拆为 fp16 hi / lo，通过 Triton 拆分核与补偿 GEMM，在精度约束内利用张量核。</li>
-                        <li><strong>证据</strong>　三次独立 T4 会话，相对原始 FP32 参考实现的聚合中位加速 <strong>2.875×</strong>；117 次输入检查全部通过，最大绝对误差 9.83e-6。</li>
-                        <li><strong>取舍</strong>　分别测首轮执行、稳态吞吐与显存；报告保留未胜出的方案。上述数字对应留档修订，不代表后续缓存与恢复策略的性能。</li>
+                        <li><strong>证据</strong>　三次独立 T4 会话，相对原始 FP32 参考实现的聚合中位加速 <strong>2.875×</strong>；117 次输入检查全部通过，最大绝对误差 <span class="measurement">9.83e-6</span>。</li>
+                        <li><strong>最新验收</strong>　当前运行策略另做一轮完整 T4 测试：234 项检查通过，13/13 形状通过启动与稳态门槛。前述 2.875× 属于独立历史复现；缓存命中与恢复证据见报告。</li>
                     </ul>
                     <details class="project-evidence"><summary>2026 年 9 月实验与竞赛版本的完整说明</summary>
                     <ul class="project-details">
                         <li><strong>问题</strong>　最狠的一档 seq_len=100000，基线光注意力分数矩阵就要约 20.5 TB 显存——不是快慢问题，是压根跑不起来。</li>
-                        <li><strong>做什么</strong>　用 SDPA 融合注意力（memory-efficient 后端）把 O(S²) 换成 O(S) 融合核，再对 100k 那档做批分块写进预分配张量；保留全部基线子模块与参数名，只重写前向，保证权重严格拷贝可比。</li>
+                        <li><strong>做什么</strong>　用 SDPA 融合注意力（memory-efficient 后端）将注意力分数存储由 O(S²) 降至 O(S)，注意力计算量仍为 O(S²)；再对 100k 那档做批分块写进预分配张量。保留全部基线子模块与参数名，只重写前向，保证权重严格拷贝可比。</li>
                         <li><strong>结果</strong>　13/13 可评形状 PASS，最差绝对误差 9.5e-6（门限 2e-3）；相对 FP32 参考实现中位加速 <strong>2.83×</strong>（T4，逐形状三次独立跑的中位，区间 1.57×–5.22×）/ 2.07×（P100）。另以 FP16 完成 100k 序列前向，T4 峰值显存 14.2 GB、耗时 184 s；该档无完整 FP32 基线，不计入上述加速统计，精度在截短序列上以 FP32 验证。</li>
                         <li><strong>真正的加速</strong>　自写 <strong>fp16x3</strong> 线性层：操作数拆成 fp16 hi + lo 一对，送一次 K 三倍的 cuBLAS 张量核 GEMM——<strong>在 fp16 张量核上拿到 fp32 级精度</strong>，GEMM 受限那一档 1.09× → 1.57×，中位 2.30× → 2.83×。不是拿精度换速度。</li>
                         <li><strong>取舍</strong>　在可评形状中，fp16 存储 autocast 能到 4.01×，但最差绝对误差 2.04e-3 已越过 atol=0.002，因此默认关闭；这些形状采用通过精度校验的 fp16x3 路径。</li>
-                        <li><strong>三个手写核家族全部实测，只上了一个</strong>　fp16x3 上线；融合 add+LayerNorm 打平 Inductor 但没打赢、拆操作数的注意力核精度到 fp32 级却输速度，两个都默认关。后端探针入库作证：P100 与 T4 都跑不了 FlashAttention。</li>
+                        <li><strong>三个手写核家族全部实测，只上了一个</strong>　fp16x3 上线；融合 add+LayerNorm 打平 Inductor 但没打赢、拆操作数的注意力核精度到 fp32 级却输速度，两个都默认关。留档后端探针显示：当时 Torch 环境的 FLASH_ATTENTION 后端在 P100 与 T4 上均不可用。</li>
                     </ul>
                     </details>
                     <div class="project-actions">
                         <a href="https://github.com/LUOaini1213/fp16x3-transformer" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
                         <a href="https://github.com/LUOaini1213/fp16x3-transformer/blob/c8fe1cf7807d5633a1b75773d2ab03461318cb22/results/next/usability_summary.md" class="btn btn-sm btn-outline" target="_blank" rel="noopener">独立复测报告</a>
-                        <a href="https://github.com/LUOaini1213/fp16x3-transformer/blob/main/docs/QUICKSTART.md" class="btn btn-sm btn-outline" target="_blank" rel="noopener">运行指南</a>
+                        <a href="https://github.com/LUOaini1213/fp16x3-transformer/blob/b560a81a063b3f16bf633b8eace1a3c01a96e104/results/next/improvements_summary.md" class="btn btn-sm btn-outline" target="_blank" rel="noopener">运行验收</a>
+                        <a href="https://github.com/LUOaini1213/fp16x3-transformer/blob/b560a81a063b3f16bf633b8eace1a3c01a96e104/docs/QUICKSTART.md" class="btn btn-sm btn-outline" target="_blank" rel="noopener">运行指南</a>
                     </div>
                 </article>
 
@@ -422,11 +423,13 @@
                     <ul class="project-details">
                         <li><strong>问题</strong>　Agent 跑完只看得到最后输出。中间调了什么工具、哪步失败、花了多少 token、有没有把密钥读出去，全是黑盒。</li>
                         <li><strong>做什么</strong>　把每次 Run 变成关联 span 瀑布，按 OpenTelemetry GenAI 语义约定命名；一个 <code>GET /api/runs/:id/trace</code> 取出整棵树，失败 step 直接可跳。</li>
+                        <li><strong>导出恢复</strong>　启用 OTLP 后，trace 经本地持久队列异步导出；真实 HTTP 503、超时和强制重启后恢复通过。远端接受与本地确认落盘之间的崩溃窗口仍可能重复投递。</li>
                         <li><strong>顺手挡住密钥</strong>　落盘与 HTTP 前对 key 形态字符串做 redaction，Web UI 永远拿不到 API Key；越权取密提示词走策略拒绝，每轮对话起一次性容器。</li>
                         <li><strong>边界</strong>　Playground / Agent CRUD / Codex Runtime / ECS 路径来自官方 starter，我加的是可观测层；单用户 PoC，容器不是多租户隔离。</li>
                     </ul>
                     <div class="project-actions">
                         <a href="https://github.com/LUOaini1213/track1" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a>
+                        <a href="https://github.com/LUOaini1213/track1/blob/a1b0823b515da1b585cb3c201b65596f24b255d9/docs/OTLP_DELIVERY.md" class="btn btn-sm btn-outline" target="_blank" rel="noopener">恢复与开销报告</a>
                         <a href="https://youtu.be/ARw1wfMX-JU" class="btn btn-sm btn-outline" target="_blank" rel="noopener">3 分钟 demo</a>
                     </div>
                 </article>
@@ -443,8 +446,9 @@
                     <div class="project-tech"><span>Python</span><span>Ollama</span><span>Bootstrap</span><span>Moonshot</span></div>
                     <ul class="project-details"><li>比较单评委与多评委，并审计参考答案、位置偏差和表达方式对判分的影响。</li>
                         <li>保存原始判断、预注册计划和离线分析；将已观察的结果与模拟排名区分呈现。</li>
+                        <li>事后敏感性分析按 188 道整题重采样，保留 400 条样本的原结果；主比较的 95% 区间为 [-0.25, 4.98] 个百分点，跨过 0。</li>
                         <li>实验使用个人构建的题集与确定性标签，项目独立于 AI Verify Foundation / IMDA。</li></ul>
-                    <div class="project-actions"><a href="https://github.com/LUOaini1213/llm-eval-experiments" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a></div>
+                    <div class="project-actions"><a href="https://github.com/LUOaini1213/llm-eval-experiments" class="btn btn-sm btn-primary" target="_blank" rel="noopener">GitHub</a><a href="https://github.com/LUOaini1213/llm-eval-experiments/blob/45283cff27b8f33b9d012a45a7f0fdce57fe0b34/results/e1/cluster_sensitivity.md" class="btn btn-sm btn-outline" target="_blank" rel="noopener">统计敏感性报告</a></div>
                 </div>
                 </details>
                 <details class="project-index-item" id="proj-navsim">
