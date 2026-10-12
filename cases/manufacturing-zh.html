@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>制造滚动规划 | Wenjie Luo</title><meta name="description" content="把设备故障变成候选排程、公平对照与明确确认。求解器和仿真负责算数，工作流负责保留状态。">
+<link rel="canonical" href="https://luoaini1213.github.io/cases/manufacturing-zh.html">
+<link rel="alternate" hreflang="en" href="https://luoaini1213.github.io/cases/manufacturing.html">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../style.css"><link rel="stylesheet" href="case.css?v=20261012">
+<script src="case.js" defer></script>
+</head>
+<body class="case-page">
+<a class="skip-link" href="#content">跳到主要内容</a>
+<nav class="case-nav" aria-label="主导航"><div>
+<a class="case-logo" href="../index.html"><span class="logo-mark" aria-hidden="true"></span>Wenjie Luo</a>
+<span class="case-nav-links"><a href="index.html">工程案例</a><a href="../resumes/">简历</a><a class="case-language" href="manufacturing.html" hreflang="en">EN</a>
+<button class="case-theme" type="button" aria-label="切换主题" aria-pressed="false">主题 <span aria-hidden="true">◐</span></button></span>
+</div></nav>
+<main id="content" class="case-main"><header class="case-hero"><p class="case-kicker">01 · DECISION WORKFLOW</p><h1>重排未来，保留已经发生的工作。</h1><p class="case-deck">把设备故障变成候选排程、公平对照与明确确认。求解器和仿真负责算数，工作流负责保留状态。</p><div class="case-actions"><a href="https://luoaini1213.github.io/manufacturing-planning-agent/">打开录制回放</a><a href="#evidence">查看源码依据</a></div></header>
+<ol class="flow-strip" aria-label="处理流程"><li><b>观察</b><span>快照 + 故障</span></li><li><b>比较</b><span>原排程 / 候选</span></li><li><b>确认</b><span>明确选择</span></li><li><b>续算</b><span>形成新快照</span></li></ol>
+<div class="case-facts" aria-label="示例范围与记录"><div><strong>2/4 → 4/4</strong><span>首次故障对照 · 合成任务完工数</span></div><div><strong>2 次事件</strong><span>录制演练中的确认状态转换</span></div><div><strong>0 次模型调用</strong><span>本例由 HiGHS 与 SimPy 计算</span></div></div>
+
+<div class="case-layout"><aside class="case-toc" aria-label="本页导航"><a href="#problem">问题</a><a href="#decisions">实现决策</a><a href="#demo">亲自检查</a><a href="#limits">适用边界</a><a href="#evidence">来源与验证</a></aside><div>
+<section id="problem" class="case-section"><h2>问题</h2><p>第 2 小时，设备发生故障，一件任务已经加工了一部分。整份排程直接重写，会抹掉已完成的工作，还可能把已开工任务移到另一台设备。可用的重排必须先保留这两类承诺，再优化剩余时段。</p></section>
+<section id="decisions" class="case-section"><h2>实现决策</h2><article class="decision"><span class="decision-number">01</span><div><h3>同一状态，两条未来</h3><p>SimPy 从同一快照续算原排程与 HiGHS 候选排程。已完成工序被冻结；在制品保留原设备与剩余加工时间。</p></div></article><article class="decision"><span class="decision-number">02</span><div><h3>提案经过确认才推进</h3><p>先比较完工、未完成、加班与时间线，再明确确认。推进会消费所选提案，第二次故障从真实续算后的新状态开始比较。</p></div></article><article class="decision"><span class="decision-number">03</span><div><h3>失败仍有可解释的路径</h3><p>求解器在隔离进程中运行；失败或超时不会发布提案，也不会推进执行。不可行或更差的候选继续推荐原排程，过期确认不能把提案应用到另一份快照。</p></div></article></section>
+<section id="demo" class="case-section"><h2>亲自检查</h2><p>公开页面播放一个自编场景的录制结果。要修改故障并调用实际求解器，请安装仓库依赖后启动本地演练：</p><pre><code>python -m mpa.demo --port 8840</code></pre><ol class="inspection-steps"><li>比较默认 M1 在第 2 至 6 小时停机的结果。</li><li>查看冻结前缀与剩余工作，确认选择并推进到第 3.5 小时。</li><li>比较第二次 M2 故障，再次推进并下载状态转换记录。</li></ol><p><a href="https://luoaini1213.github.io/manufacturing-planning-agent/">打开录制回放 →</a></p></section>
+<section id="limits" class="case-section case-limits"><h2>适用边界</h2><p>这是四件任务、有限时间网格上的合成演练。它验证状态转换和比较约束，不代表工厂产能增益或 LLM 排程能力。演练没有连接生产设备。</p></section>
+<section id="evidence" class="case-section"><h2>来源与验证</h2><ul class="evidence-links"><li><a href="https://github.com/LUOaini1213/manufacturing-planning-agent/blob/b00721143d88b61f98894f853626fee0ba572676/docs/BROWSER_DEMO.md">固定源码的安装、回放与边界</a><span aria-hidden="true"> ↗</span></li><li><a href="https://github.com/LUOaini1213/manufacturing-planning-agent/blob/b00721143d88b61f98894f853626fee0ba572676/mpa/demo.py">会话、提案与确认推进实现</a><span aria-hidden="true"> ↗</span></li><li><a href="https://github.com/LUOaini1213/manufacturing-planning-agent/blob/b00721143d88b61f98894f853626fee0ba572676/mpa/demo_worker.py">隔离求解进程</a><span aria-hidden="true"> ↗</span></li><li><a href="https://github.com/LUOaini1213/manufacturing-planning-agent/actions/runs/38220624031">对应源码的求解、仿真与工作流检查</a><span aria-hidden="true"> ↗</span></li></ul><p class="source-note">源码和 CI 链接用于检查实现与复现状态；测试通过不等于部署成功或实际业务收益。</p></section>
+</div></div>
+<nav class="next-cases" aria-label="其他案例"><a href="ifc-review-zh.html">IFC 检查与补全 →</a><a href="driving-zh.html">驾驶场景 3DGS →</a></nav></main>
+<footer class="case-footer"><span>Wenjie Luo · 个人工程项目</span><a href="../index.html#contact">联系我</a><span>案例更新 · 2026-10-12</span></footer>
+</body></html>
