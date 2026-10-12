@@ -437,6 +437,20 @@
             <div class="project-index" aria-labelledby="project-index-heading">
                 <h3 id="project-index-heading">更多项目</h3>
                 <p>按标题展开查看方法、结果和证据；课程与竞赛项目保留各自边界。</p>
+                <details class="project-index-item" id="proj-keeta">
+                    <summary><span class="project-index-title">Keeta 评论分析 · 可复算的跨市场客户反馈</span><span class="project-index-meta">公开数据 · 文本分析</span></summary>
+                    <div class="project-index-content">
+                    <div class="project-card-header"><span class="project-year">2026</span><span class="project-type">个人项目 · 客户反馈分析</span></div>
+                    <p class="project-affil">公开 App Store 评论 · 不隶属于 Keeta / 美团</p>
+                    <div class="project-tech"><span>Python</span><span>SQL</span><span>Ollama</span><span>Bootstrap</span></div>
+                    <ul class="project-details">
+                        <li>分析 2026-09-27 固定快照中的 2,572 条评论，覆盖 7 个市场；看板展示低星评论中的主题占比、市场差异和小样本提示。</li>
+                        <li>比较多语言规则与本地 LLM 标注；SQL 指标通过独立 pandas 实现复算，报告、看板和数据口径在 CI 中核对。</li>
+                        <li>180 条参考标注由 AI 辅助制作，非独立人工标注；主动评论样本不代表总体满意度，也不能证明业务影响。</li>
+                    </ul>
+                    <div class="project-actions"><a href="https://luoaini1213.github.io/keeta-review-voc/" class="btn btn-sm btn-primary" target="_blank" rel="noopener">在线看板</a><a href="https://github.com/LUOaini1213/keeta-review-voc/blob/04b1a89341996ef99052ff52ecab1339d59d8f6b/REPORT.md" class="btn btn-sm btn-outline" target="_blank" rel="noopener">分析报告</a><a href="https://github.com/LUOaini1213/keeta-review-voc" class="btn btn-sm btn-outline" target="_blank" rel="noopener">GitHub</a></div>
+                    </div>
+                </details>
                 <details class="project-index-item" id="proj-llm-eval">
                     <summary><span class="project-index-title">LLM 评委实验 · 多数票什么时候会误导</span><span class="project-index-meta">开源 · 模型评测</span></summary>
                     <div class="project-index-content">
@@ -919,7 +933,7 @@
     <footer class="footer">
         <div class="container">
             <p>&copy; 2026 罗文杰 (Wenjie Luo)</p>
-            <p class="footer-sub">NUS · AI 产品 · 项目展示更新于 2026-10-09</p>
+            <p class="footer-sub">NUS · AI 产品 · 项目展示更新于 2026-10-12</p>
             <p class="footer-sub"><a href="en.html">English</a> · <a href="mailto:e1576499@u.nus.edu">Email</a></p>
         </div>
     </footer>
