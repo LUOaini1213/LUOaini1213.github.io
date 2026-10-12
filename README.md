@@ -11,7 +11,10 @@ locally, or serve this directory with `python -m http.server 8000`.
 
 The project section opens with three selected cases: fp16x3 GPU computing,
 Civil Buddy's engineering workflow and Glass Box observability. The remaining
-projects, including the LLM judge experiments, have expandable index entries.
+projects, including Keeta customer-feedback analysis and the LLM judge
+experiments, have expandable index entries. The bilingual Keeta entry links
+its aggregate dashboard, source-pinned report and reproducible repository,
+and states the AI-assisted reference and self-selected-review limitations.
 Existing `#proj-*` links open the corresponding entry, including on a direct
 visit or browser back/forward navigation. Both languages retain the same cases.
 Language switches keep the current project fragment and open its matching entry.
