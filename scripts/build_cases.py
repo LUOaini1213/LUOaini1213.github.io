@@ -6,7 +6,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 DRIVING = "https://github.com/LUOaini1213/driving-3dgs/blob/6a584b45579c333e1d2461ff4d64ff15b056e775/"
 MFG = "https://github.com/LUOaini1213/manufacturing-planning-agent/"
-MFG_SOURCE = MFG + "blob/0db8f89b02262031a358686c43fcf7fc25995c03/"
+MFG_SOURCE = MFG + "blob/b00721143d88b61f98894f853626fee0ba572676/"
 IFC = "https://github.com/LUOaini1213/ifcsg-precheck/"
 IFC_SOURCE = IFC + "blob/fd48ad5664be8903442a1b70db917a7059830999/"
 
@@ -32,7 +32,7 @@ CASES = {
             "command": "python -m mpa.demo --port 8840",
             "steps": ["Compare the default M1 outage from hour 2 to 6.", "Inspect the frozen prefix and remaining work; confirm a choice and advance to hour 3.5.", "Compare the second M2 outage, advance again and download the transition trace."],
             "boundary": "This is a four-unit synthetic exercise on a bounded time grid. It establishes the state transition and comparison contract, not factory throughput gains or LLM planning quality. There is no connection to shop-floor equipment.",
-            "evidence": [(MFG_SOURCE + "docs/BROWSER_DEMO.md", "Source-pinned setup, replay and limits"), (MFG_SOURCE + "mpa/demo.py", "Session, proposal and confirmed-transition implementation"), (MFG_SOURCE + "mpa/demo_worker.py", "Isolated solver worker"), (MFG + "actions/runs/38217806200", "Exact-source solver, simulation and workflow checks")],
+            "evidence": [(MFG_SOURCE + "docs/BROWSER_DEMO.md", "Source-pinned setup, replay and limits"), (MFG_SOURCE + "mpa/demo.py", "Session, proposal and confirmed-transition implementation"), (MFG_SOURCE + "mpa/demo_worker.py", "Isolated solver worker"), (MFG + "actions/runs/38220624031", "Exact-source solver, simulation and workflow checks")],
             "demo_label": "Open the recorded replay", "demo_url": "https://luoaini1213.github.io/manufacturing-planning-agent/",
             "strip": [("Observe", "snapshot + outage"), ("Compare", "original / candidate"), ("Confirm", "explicit choice"), ("Continue", "new snapshot")],
         },
@@ -50,7 +50,7 @@ CASES = {
             "command": "python -m mpa.demo --port 8840",
             "steps": ["比较默认 M1 在第 2 至 6 小时停机的结果。", "查看冻结前缀与剩余工作，确认选择并推进到第 3.5 小时。", "比较第二次 M2 故障，再次推进并下载状态转换记录。"],
             "boundary": "这是四件任务、有限时间网格上的合成演练。它验证状态转换和比较约束，不代表工厂产能增益或 LLM 排程能力。演练没有连接生产设备。",
-            "evidence": [(MFG_SOURCE + "docs/BROWSER_DEMO.md", "固定源码的安装、回放与边界"), (MFG_SOURCE + "mpa/demo.py", "会话、提案与确认推进实现"), (MFG_SOURCE + "mpa/demo_worker.py", "隔离求解进程"), (MFG + "actions/runs/38217806200", "对应源码的求解、仿真与工作流检查")],
+            "evidence": [(MFG_SOURCE + "docs/BROWSER_DEMO.md", "固定源码的安装、回放与边界"), (MFG_SOURCE + "mpa/demo.py", "会话、提案与确认推进实现"), (MFG_SOURCE + "mpa/demo_worker.py", "隔离求解进程"), (MFG + "actions/runs/38220624031", "对应源码的求解、仿真与工作流检查")],
             "demo_label": "打开录制回放", "demo_url": "https://luoaini1213.github.io/manufacturing-planning-agent/",
             "strip": [("观察", "快照 + 故障"), ("比较", "原排程 / 候选"), ("确认", "明确选择"), ("续算", "形成新快照")],
         },
@@ -166,7 +166,7 @@ def shell(title, description, lang, paired, filename_, body):
 <title>{escape(title)} | Wenjie Luo</title><meta name="description" content="{escape(description, quote=True)}">
 <link rel="canonical" href="https://luoaini1213.github.io/cases/{filename_}">
 <link rel="alternate" hreflang="{'en' if zh else 'zh-CN'}" href="https://luoaini1213.github.io/cases/{paired}">
-<link rel="icon" href="../favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../style.css"><link rel="stylesheet" href="case.css">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../style.css"><link rel="stylesheet" href="case.css?v=20261012">
 <script src="case.js" defer></script>
 </head>
 <body class="case-page">
@@ -210,7 +210,7 @@ def case_page(slug, lang):
 
 def hub_page(lang):
     zh = lang == 'zh'
-    title = '把技术实现变成可检查的工作流。' if zh else 'Engineering work you can inspect.'
+    title = '可操作、可复核的工程案例。' if zh else 'Engineering work you can inspect.'
     deck = '三个个人项目，分别展示状态续算、有类型的工程数据，以及研究结果的浏览器交付。每项都有演示、源码与适用边界。' if zh else 'Three personal projects: stateful replanning, typed engineering data and a research result delivered to the browser. Each connects a demonstration to its implementation and limits.'
     labels = [('状态与决策', 'State and decisions'), ('语义与复核', 'Semantics and readback'), ('研究与交付', 'Research and delivery')]
     rows = ''
