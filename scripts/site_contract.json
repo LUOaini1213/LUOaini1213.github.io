@@ -1,0 +1,42 @@
+{
+  "baseline": "e35345312a37220a0c0ea46a2e837b227570293b",
+  "project_ids": [
+    "proj-aye",
+    "proj-campusbus",
+    "proj-ce5001",
+    "proj-counterask",
+    "proj-cuda",
+    "proj-eda",
+    "proj-keeta",
+    "proj-llm",
+    "proj-llm-eval",
+    "proj-lpmip",
+    "proj-my-ask",
+    "proj-navsim",
+    "proj-packing",
+    "proj-repostguard",
+    "proj-tj1",
+    "proj-tj2",
+    "proj-tj3",
+    "proj-tj4",
+    "proj-vllm"
+  ],
+  "pdf_sha256": {
+    "CV_LuoWenjie.pdf": "220fe813c1f56c5e1e46693aa1bfd8c5dc46a7a1ae72d0443aca91d33eda6ef4",
+    "CV_LuoWenjie_EN.pdf": "d056d19165db47cd80e7c295453b51c2a8766652a176f19ca0c6722a3c8e03b2",
+    "resumes/01_ai_product_en.pdf": "67d0da3485efb94a8168acac1125fa1e90e83056d7e251028e88cb75fbf73673",
+    "resumes/01_ai_product_zh.pdf": "220fe813c1f56c5e1e46693aa1bfd8c5dc46a7a1ae72d0443aca91d33eda6ef4",
+    "resumes/02_agent_development_en.pdf": "1db07bfd0c4c8cfe91cd8a68d0a4f23a5fa054bd7b66ad66d9f755abd6adde2f",
+    "resumes/02_agent_development_zh.pdf": "944ca747cf8deeaa555d573d18ccf237122c72da06553cffe9c02ea05c68a603",
+    "resumes/03_inference_evaluation_en.pdf": "a948e1bc027436ff3e2259000b035ec032c0d8ea3c33f1c4e7c65792616373fc",
+    "resumes/03_inference_evaluation_zh.pdf": "28f401d14decc32305780461db0dac67b645e31271a3201b6784648ba8742b14",
+    "resumes/04_data_optimization_en.pdf": "bd33122fe8aa72c1b0fcda6242ad5b0e2e7e5c38361017c163ab3994a9b0bbf5",
+    "resumes/04_data_optimization_zh.pdf": "7a188e51c9fa682618fb45a72cd8732db8434bbd1081c552088776dc705e18c5",
+    "resumes/05_supply_project_en.pdf": "3188b2c3f3332c75064b170905a6f452728f13f931d61ecb4ca3a4ebb02b9b44",
+    "resumes/05_supply_project_zh.pdf": "d8cacf7bb13de2bcf9ba823a8634692503cec6c928450657b7c605146df7e95a",
+    "resumes/06_transport_en.pdf": "33ff9ea923f6d0e69ae6b505eef396d2ff72c9235ff6ecd145d5a40c462667bb",
+    "resumes/06_transport_zh.pdf": "b6817671f8fb9f680e72c610ae8089fa443ec9942f0afc4a6ae21c4362c7b4d1",
+    "resumes/07_civil_construction_en.pdf": "b81424517ae7cca2341b410028914bbe2f959927a5d139e39aa629cf7f243cc3",
+    "resumes/07_civil_construction_zh.pdf": "871dcebf6ccb4b052c7b61fc94f0613255406a4c920412922e7551b8bc7f8e36"
+  }
+}

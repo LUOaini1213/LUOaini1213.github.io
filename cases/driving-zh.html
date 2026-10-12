@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>驾驶场景 3DGS | Wenjie Luo</title><meta name="description" content="把可复现的离线评测与网页查看器连接起来，让下载、准备、恢复视角和资源释放都有可检查的行为。">
+<link rel="canonical" href="https://luoaini1213.github.io/cases/driving-zh.html">
+<link rel="alternate" hreflang="en" href="https://luoaini1213.github.io/cases/driving.html">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../style.css"><link rel="stylesheet" href="case.css">
+<script src="case.js" defer></script>
+</head>
+<body class="case-page">
+<a class="skip-link" href="#content">跳到主要内容</a>
+<nav class="case-nav" aria-label="主导航"><div>
+<a class="case-logo" href="../index.html"><span class="logo-mark" aria-hidden="true"></span>Wenjie Luo</a>
+<span class="case-nav-links"><a href="index.html">工程案例</a><a href="../resumes/">简历</a><a class="case-language" href="driving.html" hreflang="en">EN</a>
+<button class="case-theme" type="button" aria-label="切换主题" aria-pressed="false">主题 <span aria-hidden="true">◐</span></button></span>
+</div></nav>
+<main id="content" class="case-main"><header class="case-hero"><p class="case-kicker">03 · RESEARCH TO BROWSER</p><h1>从重建实验，走到可检查的三维场景。</h1><p class="case-deck">把可复现的离线评测与网页查看器连接起来，让下载、准备、恢复视角和资源释放都有可检查的行为。</p><div class="case-actions"><a href="https://luoaini1213.github.io/driving-3dgs/">探索三维场景</a><a href="#evidence">查看源码依据</a></div></header>
+<ol class="flow-strip" aria-label="处理流程"><li><b>实验</b><span>留出帧依据</span></li><li><b>打包</b><span>固定资产 + 哈希</span></li><li><b>探索</b><span>移动 / 复位</span></li><li><b>释放</b><span>返回预览</span></li></ol>
+<div class="case-facts" aria-label="示例范围与记录"><div><strong>1 段 · 约 8 秒</strong><span>单前视相机 · Argoverse 2</span></div><div><strong>309,957</strong><span>公开导出中的高斯数</span></div><div><strong>9,918,624 字节</strong><span>场景解码后的精确大小</span></div></div>
+<figure class="scene-preview"><img src="https://luoaini1213.github.io/driving-3dgs/assets/preview.jpg" width="960" height="540" loading="lazy" alt="Recorded 3DGS scene preview from the archived driving reconstruction"><figcaption>Recorded preview · Data © 2021 Argo AI, LLC · <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> · <a href="https://luoaini1213.github.io/driving-3dgs/NOTICES.txt">Asset attribution</a></figcaption></figure>
+<div class="case-layout"><aside class="case-toc" aria-label="本页导航"><a href="#problem">问题</a><a href="#decisions">实现决策</a><a href="#demo">亲自检查</a><a href="#limits">适用边界</a><a href="#evidence">来源与验证</a></aside><div>
+<section id="problem" class="case-section"><h2>问题</h2><p>研究导出需要稳定加载，也需要把局限讲清楚，访客才能判断其价值。这个 Argoverse 2 单段八秒场景，将历史实验与独立的轻量公开查看器连接起来。</p></section>
+<section id="decisions" class="case-section"><h2>实现决策</h2><article class="decision"><span class="decision-number">01</span><div><h3>让评测来源可见</h3><p>确定性留出帧、图像与深度基线、严格传感器输入隔离和历史消融支持复查。原始使用全部扫描的初始化仍保留，并标明其对深度评测构成泄漏。</p></div></article><article class="decision"><span class="decision-number">02</span><div><h3>管理解码字节与生命周期</h3><p>HTTP 压缩可能让编码 Content-Length 小于解码后的场景。查看器使用已校验的解码 buffer，准备完成后再释放 object URL；返回预览会移除渲染 iframe。</p></div></article><article class="decision"><span class="decision-number">03</span><div><h3>由访客选择资源开销</h3><p>先显示录制预览，点击 Explore in 3D 后才加载场景和渲染器。下载与准备有独立状态；准备完成后可以移动、复位并返回预览。</p></div></article></section>
+<section id="demo" class="case-section"><h2>亲自检查</h2><p>公开页面提供实际可交互的三维场景。打开查看器，点击 Explore in 3D，拖动场景、恢复视角、返回预览，再次加载。</p><ol class="inspection-steps"><li>从录制预览加载 309,957 个高斯、约 9.9 MB 的导出资产。</li><li>移动相机、恢复视角，再通过返回预览释放渲染器。</li><li>结合源码清单、历史评测与渲染局限判断结果。</li></ol><p><a href="https://luoaini1213.github.io/driving-3dgs/">探索三维场景 →</a></p></section>
+<section id="limits" class="case-section case-limits"><h2>适用边界</h2><p>单段视频、单个前视相机、静态场景表示：动态物体、模糊、空洞和偏离轨迹的漂浮物仍存在。历史 26.56 dB 来自导出量化前筛选子集的离线 gsplat 评测，不是实际 .splat 或浏览器 PSNR。小屏布局检查不代表实体手机性能。Data © 2021 Argo AI, LLC；AV2 衍生物按 CC BY-NC-SA 4.0 提供，仅作非商业技术展示。</p></section>
+<section id="evidence" class="case-section"><h2>来源与验证</h2><ul class="evidence-links"><li><a href="https://github.com/LUOaini1213/driving-3dgs/blob/6a584b45579c333e1d2461ff4d64ff15b056e775/docs/PUBLIC_VIEWER.md">固定源码的查看器与发布说明</a><span aria-hidden="true"> ↗</span></li><li><a href="https://github.com/LUOaini1213/driving-3dgs/blob/6a584b45579c333e1d2461ff4d64ff15b056e775/README.md">历史实验、基线与局限</a><span aria-hidden="true"> ↗</span></li><li><a href="https://github.com/LUOaini1213/driving-3dgs/blob/6a584b45579c333e1d2461ff4d64ff15b056e775/site/scene-promise.js">解码场景与生命周期实现</a><span aria-hidden="true"> ↗</span></li><li><a href="https://luoaini1213.github.io/driving-3dgs/source-index.json">已发布资产哈希清单</a><span aria-hidden="true"> ↗</span></li></ul><p class="source-note">源码和 CI 链接用于检查实现与复现状态；测试通过不等于部署成功或实际业务收益。</p></section>
+</div></div>
+<nav class="next-cases" aria-label="其他案例"><a href="manufacturing-zh.html">制造滚动规划 →</a><a href="ifc-review-zh.html">IFC 检查与补全 →</a></nav></main>
+<footer class="case-footer"><span>Wenjie Luo · 个人工程项目</span><a href="../index.html#contact">联系我</a><span>案例更新 · 2026-10-12</span></footer>
+</body></html>

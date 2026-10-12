@@ -38,6 +38,18 @@
     --transition: 0.15s ease;
 }
 
+/* Source-linked case entrances, preserving the existing project index. */
+.case-entry-section { background: var(--color-bg-alt); }
+.case-entry-kicker { color: var(--color-accent); font: 12px var(--font-mono); letter-spacing: .05em; margin-bottom: 16px; }
+.case-entry-links { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 24px; margin-top: 30px; }
+.case-entry-links a { display: flex; flex-direction: column; gap: 12px; padding: 18px 0; border-top: 2px solid var(--color-border); color: var(--color-text); }
+.case-entry-links a:hover { border-top-color: var(--color-accent); }
+.case-entry-links span { font-size: 12px; color: var(--color-accent); }
+.case-entry-links b { font-size: 17px; line-height: 1.5; font-weight: 600; }
+.case-entry-links small { color: var(--color-text-muted); line-height: 1.6; }
+.case-entry-more { margin-top: 24px; font-size: 14px; }
+@media(max-width:740px) { .case-entry-links { grid-template-columns: 1fr; gap: 8px; } }
+
 /* ---- 全局重置 ---- */
 *, *::before, *::after {
     box-sizing: border-box;

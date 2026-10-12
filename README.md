@@ -5,6 +5,7 @@ locally, or serve this directory with `python -m http.server 8000`.
 
 - Chinese page: `index.html`
 - English page: `en.html`
+- Bilingual engineering case hub: `cases/index.html` and `cases/en.html`
 - Seven-role CV library: `resumes/index.html` (14 single-page PDFs)
 - Default downloads: `CV_LuoWenjie.pdf` and `CV_LuoWenjie_EN.pdf` (AI Product)
 - Project runtime guide: [RUNNABLE_PROJECTS.md](https://github.com/LUOaini1213/LUOaini1213/blob/master/RUNNABLE_PROJECTS.md)
@@ -23,6 +24,26 @@ fixed navigation without a long page-scroll animation.
 The CV library links each of seven roles to two relevant projects or experience
 entries, alongside all 14 original PDF downloads. It dates project navigation
 updates separately from the September CV release.
+
+The October engineering cases connect manufacturing replanning, IFC review and
+driving-scene 3DGS to their demonstrations, implementation choices and limits.
+The manufacturing public page is a recorded replay; its local demo invokes the
+actual solver. The IFC demonstration uses an authored small model and illustrative
+rules. The 3DGS page loads the actual scene and retains its data attribution.
+Private evidence and official rulebook inputs are not published in the site.
+
+`scripts/build_cases.py` is the source of the eight static bilingual case pages.
+Run it after editing their content, then validate with:
+
+```bash
+python scripts/build_cases.py --check
+python scripts/check_site.py
+```
+
+The check requires Node for JavaScript syntax validation, verifies local links and
+case language pairs, and protects the existing project anchors and all 16 archived
+PDF bytes. GitHub Pages continues publishing from `main /`; the checks do not
+perform deployment or claim browser acceptance.
 
 The current fp16x3 card cites the source-pinned independent T4 reproduction;
 September's competition measurements remain in its expandable historical notes.

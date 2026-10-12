@@ -65,6 +65,7 @@
                 <li><a href="#about">关于</a></li>
                 <li><a href="#insights">判断</a></li>
                 <li><a href="#experience">经历</a></li>
+                <li><a href="#cases">案例</a></li>
                 <li><a href="#projects">项目</a></li>
                 <li><a href="#contact">联系</a></li>
                 <li><a href="en.html" class="nav-lang" hreflang="en" title="English version">EN</a></li>
@@ -346,6 +347,19 @@
         </div>
     </section>
 
+    <section id="cases" class="section case-entry-section">
+        <div class="container">
+            <p class="case-entry-kicker">可检查的工程工作流 · 2026.10</p>
+            <h2 class="section-title">打开演示，再看实现依据。</h2>
+            <p class="section-lead">三个案例，展示状态续算、工程数据语义与研究结果交付。每个案例连接演示、技术决策和适用边界。</p>
+            <div class="case-entry-links">
+                <a href="cases/manufacturing-zh.html"><span>01 · 制造规划</span><b>故障 → 比较 → 确认 → 续算</b><small>公开录制回放 + 本地实际求解</small></a>
+                <a href="cases/ifc-review-zh.html"><span>02 · IFC 检查</span><b>类型与单位 → 补全 → 复核</b><small>自编模型，完整报告与待处理项</small></a>
+                <a href="cases/driving-zh.html"><span>03 · 驾驶场景 3DGS</span><b>离线实验 → 浏览器三维探索</b><small>实际场景、资源释放与历史评测</small></a>
+            </div>
+            <p class="case-entry-more"><a href="cases/">查看全部案例 →</a></p>
+        </div>
+    </section>
     <section id="projects" class="section">
         <div class="container">
             <h2 class="section-title">精选项目</h2>
@@ -940,7 +954,8 @@
 
     <script>
         const themeToggle = document.getElementById('themeToggle');
-        const stored = localStorage.getItem('theme');
+        let stored;
+        try { stored = localStorage.getItem('theme'); } catch (_) { /* Storage may be disabled. */ }
         if (stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.setAttribute('data-theme', 'dark');
         }
@@ -948,7 +963,7 @@
             const current = document.documentElement.getAttribute('data-theme');
             const next = current === 'dark' ? 'light' : 'dark';
             document.documentElement.setAttribute('data-theme', next);
-            localStorage.setItem('theme', next);
+            try { localStorage.setItem('theme', next); } catch (_) { /* Theme still changes without storage. */ }
         });
 
         const navToggle = document.querySelector('.nav-toggle');
@@ -1005,7 +1020,7 @@
         });
 
         const navbar = document.querySelector('.navbar');
-        const sectionIds = ['about', 'insights', 'education', 'experience', 'projects', 'contact'];
+        const sectionIds = ['about', 'insights', 'education', 'experience', 'cases', 'projects', 'contact'];
         const navAnchors = Array.from(document.querySelectorAll('.nav-links a[href^="#"]'));
 
         function updateNavActive() {
