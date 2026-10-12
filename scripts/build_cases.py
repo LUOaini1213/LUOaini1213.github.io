@@ -6,7 +6,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 DRIVING = "https://github.com/LUOaini1213/driving-3dgs/blob/6a584b45579c333e1d2461ff4d64ff15b056e775/"
 MFG = "https://github.com/LUOaini1213/manufacturing-planning-agent/"
+MFG_SOURCE = MFG + "blob/0db8f89b02262031a358686c43fcf7fc25995c03/"
 IFC = "https://github.com/LUOaini1213/ifcsg-precheck/"
+IFC_SOURCE = IFC + "blob/fd48ad5664be8903442a1b70db917a7059830999/"
 
 
 def link(url, label):
@@ -24,13 +26,13 @@ CASES = {
             "decisions": [
                 ("One state, two futures", "SimPy resumes the original schedule and the HiGHS candidate from the same snapshot. Completed operations stay frozen; work in progress keeps its machine and remaining duration."),
                 ("A proposal is not a dispatch", "Compare completion, unfinished units, overtime and the timeline before confirming. Advancing consumes the selected proposal, then a second outage starts a new comparison from the resulting state."),
-                ("Failure keeps an explainable path", "Infeasible or worse candidates keep the original recommendation. Stale confirmations cannot apply a proposal to a different snapshot. The exported trace records inputs and the accepted transition."),
+                ("Failure keeps an explainable path", "The solver runs in an isolated process. A failed or timed-out solve publishes no proposal and does not advance execution. Infeasible or worse candidates keep the original recommendation; stale confirmations cannot apply a proposal to a different snapshot."),
             ],
             "demo": "The public page replays a recorded, authored scenario. To edit an outage and run the actual solver, start the local demo after installing the repository requirements:",
             "command": "python -m mpa.demo --port 8840",
             "steps": ["Compare the default M1 outage from hour 2 to 6.", "Inspect the frozen prefix and remaining work; confirm a choice and advance to hour 3.5.", "Compare the second M2 outage, advance again and download the transition trace."],
             "boundary": "This is a four-unit synthetic exercise on a bounded time grid. It establishes the state transition and comparison contract, not factory throughput gains or LLM planning quality. There is no connection to shop-floor equipment.",
-            "evidence": [(MFG + "blob/main/README.md", "Setup and reproducible commands"), (MFG + "blob/main/mpa/rolling.py", "Proposal and confirmed-transition implementation"), (MFG + "actions", "Solver, simulation and workflow checks")],
+            "evidence": [(MFG_SOURCE + "docs/BROWSER_DEMO.md", "Source-pinned setup, replay and limits"), (MFG_SOURCE + "mpa/demo.py", "Session, proposal and confirmed-transition implementation"), (MFG_SOURCE + "mpa/demo_worker.py", "Isolated solver worker"), (MFG + "actions/runs/38217806200", "Exact-source solver, simulation and workflow checks")],
             "demo_label": "Open the recorded replay", "demo_url": "https://luoaini1213.github.io/manufacturing-planning-agent/",
             "strip": [("Observe", "snapshot + outage"), ("Compare", "original / candidate"), ("Confirm", "explicit choice"), ("Continue", "new snapshot")],
         },
@@ -42,13 +44,13 @@ CASES = {
             "decisions": [
                 ("同一状态，两条未来", "SimPy 从同一快照续算原排程与 HiGHS 候选排程。已完成工序被冻结；在制品保留原设备与剩余加工时间。"),
                 ("提案经过确认才推进", "先比较完工、未完成、加班与时间线，再明确确认。推进会消费所选提案，第二次故障从真实续算后的新状态开始比较。"),
-                ("失败仍有可解释的路径", "不可行或更差的候选继续推荐原排程。过期确认不能把提案应用到另一份快照；导出的 trace 记录输入与被接受的状态转换。"),
+                ("失败仍有可解释的路径", "求解器在隔离进程中运行；失败或超时不会发布提案，也不会推进执行。不可行或更差的候选继续推荐原排程，过期确认不能把提案应用到另一份快照。"),
             ],
             "demo": "公开页面播放一个自编场景的录制结果。要修改故障并调用实际求解器，请安装仓库依赖后启动本地演练：",
             "command": "python -m mpa.demo --port 8840",
             "steps": ["比较默认 M1 在第 2 至 6 小时停机的结果。", "查看冻结前缀与剩余工作，确认选择并推进到第 3.5 小时。", "比较第二次 M2 故障，再次推进并下载状态转换记录。"],
             "boundary": "这是四件任务、有限时间网格上的合成演练。它验证状态转换和比较约束，不代表工厂产能增益或 LLM 排程能力。演练没有连接生产设备。",
-            "evidence": [(MFG + "blob/main/README.md", "安装与复现命令"), (MFG + "blob/main/mpa/rolling.py", "提案与确认推进实现"), (MFG + "actions", "求解、仿真与工作流检查")],
+            "evidence": [(MFG_SOURCE + "docs/BROWSER_DEMO.md", "固定源码的安装、回放与边界"), (MFG_SOURCE + "mpa/demo.py", "会话、提案与确认推进实现"), (MFG_SOURCE + "mpa/demo_worker.py", "隔离求解进程"), (MFG + "actions/runs/38217806200", "对应源码的求解、仿真与工作流检查")],
             "demo_label": "打开录制回放", "demo_url": "https://luoaini1213.github.io/manufacturing-planning-agent/",
             "strip": [("观察", "快照 + 故障"), ("比较", "原排程 / 候选"), ("确认", "明确选择"), ("续算", "形成新快照")],
         },
@@ -61,15 +63,15 @@ CASES = {
             "name": "IFC review and enrichment",
             "problem": "The same numeric value can mean millimetres, metres or a dimensionless ratio. Treating every property name as a measurement produces plausible-looking but incorrect checks. A useful report must show what was read and why a conversion or derivation was allowed.",
             "decisions": [
-                ("Read the IFC semantics", "Keep the original value, IFC measure type and explicit or project unit. A dimensionless IfcReal does not acquire a length dimension because of its property name. Unknown units remain unresolved."),
+                ("Read the IFC semantics", "Keep the original value, IFC measure type and explicit or project unit. A generic IfcReal with no explicit physical unit does not acquire a length dimension because of its property name. Unknown units remain unresolved."),
                 ("Fill only with justified evidence", "Geometry-derived values are written as typed measures with units. Existing nonempty values are preserved, and shared property sets are separated before changing one element."),
                 ("Make review navigable", "Filter findings by agency, severity, element identity, property and status. Inspect all findings, export the filtered view, and retain the complete report and derivation evidence."),
             ],
             "demo": "Open the authored three-slab example, compare the before/after reports, inspect a conversion and a deferred field, then download the findings. Rebuild it locally with:",
             "command": "python scripts/report_demo.py --output-dir demos/report-review",
             "steps": ["Start with the original report and locate a specific GlobalId or property.", "Compare the enriched report, including typed writes and unresolved items.", "Open the independent reopen evidence; export the selected findings without changing the original totals."],
-            "boundary": "The demonstration uses a small self-authored IFC and illustrative rules. It is not an official regulatory rulebook or an approval decision. Geometry assumptions, absent values and unknown units remain visible for human review.",
-            "evidence": [(IFC + "blob/main/README.md", "Checker, unit handling and enrichment setup"), (IFC + "blob/main/src/ifcsg_precheck/report.py", "Report implementation"), (IFC + "actions", "Checks and mutation verification")],
+            "boundary": "This static report replay uses a small self-authored IFC and illustrative rules; it processes no visitor files. It is not an official regulatory rulebook or an approval decision. Geometry assumptions, absent values and unknown units remain visible for human review.",
+            "evidence": [(IFC_SOURCE + "docs/REPORT_REVIEW.md", "Source-pinned workflow, reproduction and limits"), (IFC_SOURCE + "src/ifcsg_precheck/report.py", "Report implementation"), (IFC_SOURCE + "scripts/verify_report_demo.py", "Independent typed STEP readback"), ("https://github.com/LUOaini1213/ifcsg-precheck/actions/runs/38215169532", "Exact-source checks and mutation verification")],
             "demo_label": "Open the report workflow", "demo_url": "https://luoaini1213.github.io/ifcsg-precheck/",
             "strip": [("Read", "value / type / unit"), ("Check", "normalized evidence"), ("Enrich", "typed write / defer"), ("Reopen", "independent readback")],
         },
@@ -79,15 +81,15 @@ CASES = {
             "name": "IFC 检查与补全",
             "problem": "同一个数值可能表示毫米、米，或无量纲比值。仅靠属性名猜测尺寸，会生成看似合理却错误的检查。可用的报告必须说明读取了什么，以及为什么允许换算或推导。",
             "decisions": [
-                ("读取 IFC 语义", "保留原始值、IFC 度量类型与显式或项目单位。无量纲 IfcReal 不会因为属性名像长度就获得长度维度；未知单位继续保持未解决。"),
+                ("读取 IFC 语义", "保留原始值、IFC 度量类型与显式或项目单位。未声明物理单位的通用 IfcReal 数值，不会因为属性名像长度就获得长度维度；未知单位继续保持未解决。"),
                 ("依据足够才补全", "几何推导结果写为带单位的 typed measure。既有非空值被保留；共享属性集在修改单个构件前先分离。"),
                 ("让审阅可以定位", "按机构、严重度、构件标识、属性与状态筛选，查看全部问题，导出当前筛选，同时保留完整报告与推导依据。"),
             ],
             "demo": "打开自编的三个楼板示例，对照补全前后，查看单位转换与暂缓项，再下载检查结果。本地重建命令：",
             "command": "python scripts/report_demo.py --output-dir demos/report-review",
             "steps": ["从原始报告按 GlobalId 或属性定位一项检查。", "对照补全后的报告，查看有类型的写入与未解决项。", "查看独立重新打开模型的复核，导出筛选结果并保留原始总指标。"],
-            "boundary": "演示使用小型自编 IFC 与示意规则，不是正式监管规则库或审批结论。几何假设、缺失值与未知单位会保留，交给人工复核。",
-            "evidence": [(IFC + "blob/main/README.md", "检查、单位处理与补全说明"), (IFC + "blob/main/src/ifcsg_precheck/report.py", "报告实现"), (IFC + "actions", "检查与变异验证")],
+            "boundary": "静态报告回放使用小型自编 IFC 与示意规则，不处理访客文件，也不是正式监管规则库或审批结论。几何假设、缺失值与未知单位会保留，交给人工复核。",
+            "evidence": [(IFC_SOURCE + "docs/REPORT_REVIEW.md", "固定源码的流程、复现与边界"), (IFC_SOURCE + "src/ifcsg_precheck/report.py", "报告实现"), (IFC_SOURCE + "scripts/verify_report_demo.py", "独立 typed STEP 读取复核"), ("https://github.com/LUOaini1213/ifcsg-precheck/actions/runs/38215169532", "对应源码的检查与变异验证")],
             "demo_label": "打开报告流程", "demo_url": "https://luoaini1213.github.io/ifcsg-precheck/",
             "strip": [("读取", "数值 / 类型 / 单位"), ("检查", "归一化依据"), ("补全", "typed 写入 / 暂缓"), ("重开", "独立读取复核")],
         },
@@ -139,8 +141,8 @@ FACTS = {
         'zh': [('2/4 → 4/4', '首次故障对照 · 合成任务完工数'), ('2 次事件', '录制演练中的确认状态转换'), ('0 次模型调用', '本例由 HiGHS 与 SimPy 计算')],
     },
     'ifc-review': {
-        'en': [('250 mm → 0.25 m', 'Existing explicit unit override, preserved'), ('9 writes', 'Traceable fills in the authored fixture'), ('1 deferred', 'Unknown unit kept for review')],
-        'zh': [('250 mm → 0.25 m', '既有显式单位覆盖被保留'), ('9 次写入', '自编示例中可追溯的补全'), ('1 项暂缓', '未知单位保留待复核')],
+        'en': [('250 mm → 0.25 m', 'Normalized evidence; original 250 mm property retained'), ('9 writes', 'Traceable fills in the authored fixture'), ('1 deferred', 'Unknown unit kept for review')],
+        'zh': [('250 mm → 0.25 m', '归一化结果；原 250 mm 属性被保留'), ('9 次写入', '自编示例中可追溯的补全'), ('1 项暂缓', '未知单位保留待复核')],
     },
     'driving': {
         'en': [('1 clip · ~8 s', 'Single front camera · Argoverse 2'), ('309,957', 'Gaussians in the published export'), ('9,918,624 bytes', 'Exact decoded scene size')],
