@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Wenjie Luo - Agent Application Engineer - CV</title>
+<link rel="stylesheet" href="cv.css">
+<style>
+  @page { margin: 10mm 13mm 9mm; }
+  body { font-size: 9.3pt; line-height: 1.33; }
+  h1 { letter-spacing: 0; }
+  h2 { text-transform: uppercase; letter-spacing: .3px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Wenjie Luo</h1>
+  <div class="role">Agent Application Engineer | Graduating Jan 2027</div>
+  <div class="contact">Singapore | +65 8084 8140 | +86 183 1949 6086 | e1576499@u.nus.edu<br>
+    <a href="https://github.com/LUOaini1213">github.com/LUOaini1213</a> | <a href="https://luoaini1213.github.io">luoaini1213.github.io</a> (demos, source and evaluation reports)</div>
+</header>
+
+<h2>Profile</h2>
+<ul>
+  <li>Build Python and TypeScript agent applications with deterministic tools and human approval; turn business workflows into APIs, state transitions, execution traces and automated acceptance tests.</li>
+  <li>Also work on GPU computing and inference-performance attribution, backed by single-variable controlled comparisons and reproducible runs.</li>
+</ul>
+
+<h2>Education</h2>
+<div class="row"><span class="t">National University of Singapore<span class="sub"> | MSc Civil Engineering (Transportation)</span></span><span class="d">Aug 2025 - Jan 2027</span></div>
+<div class="note">Coursework incl. ML Foundations (CEE5901QA), Advanced AI for CEE (CEE5901QB), intelligent transport and simulation.</div>
+<div class="row"><span class="t">Chang'an University<span class="sub"> | BEng Transportation Engineering</span></span><span class="d">Sep 2021 - Jun 2025</span></div>
+<div class="note">GPA 3.16/5.0; approximately top 15% of the cohort.</div>
+
+<h2>Projects</h2>
+<div class="row"><span class="t">Civil Buddy<span class="sub"> | Agent Runtime and Tools (open-source flagship)</span></span><span class="d">Jul 2026 - Present</span></div>
+<ul>
+  <li>Built session scheduling, a tool engine, policy checks and recovery for 66 role workflows; high-risk writes require human confirmation and failures keep audit records.</li>
+  <li>Linked packing, confirmation and visualization; passed 128 deterministic evaluations. Shadow tests compare predefined steps with tool calling, including a keyless policy fallback.</li>
+</ul>
+<div class="row"><span class="t">Glass Box<span class="sub"> | Agent Observability Middleware (TypeScript / Fastify)</span></span><span class="d">Aug 2026 - Present</span></div>
+<ul>
+  <li>Built observability on the official starter: parent-child span waterfalls show tools, tokens, estimated costs and retries, with trace queries and OTLP/JSON export; the local durable queue passes 503, timeout and forced-restart recovery tests.</li>
+  <li>Keyless replay and policy tests cover 22 bypass attempts and 11 allowed cases; Node 22/24 CI runs 150 tests in 21 files, type checks, builds and smoke tests.</li>
+</ul>
+<div class="row"><span class="t">EDA Copilot<span class="sub"> | Traceable Engineering Q&amp;A (RAG)</span></span><span class="d">Sep 2026</span></div>
+<ul>
+  <li>Ran OpenROAD's nangate45/gcd example from RTL to GDSII; indexed reports, logs and docs into 1,215 chunks with source line references; built BM25, TF-IDF and hybrid retrieval.</li>
+  <li>On self-authored offline tests, BM25 and hybrid both reached Hit@5 of 22/23; guardrails stopped all 12 should-ask cases with correct reason codes, versus none when disabled.</li>
+</ul>
+<div class="row"><span class="t">Counterask<span class="sub"> | Conversational WebMCP Storefront</span></span><span class="d">Sep 2026</span></div>
+<ul>
+  <li>Serverless single-page store with 11 imperative tools and a declarative checkout the agent can fill but only the user can submit; Hit@10 of 0.999 on 800 queries; 61 hand-written cases and 4,000 fuzzed sentences run in npm test.</li>
+</ul>
+<div class="row"><span class="t">fp16x3 / vLLM<span class="sub"> | GPU Computing and Inference Performance</span></span><span class="d">Sep 2026</span></div>
+<ul>
+  <li>fp16x3 splits operands into fp16 hi/lo pairs with Triton split kernels and compensated GEMMs to keep fp32-level accuracy on tensor cores; 2.875× median speedup across three independent T4 sessions, all 117 accuracy checks passed.</li>
+  <li>Traced a ~10× vLLM throughput collapse on a GTX 1650 to an fp16 GEMM small-M cliff (single-variable T4 counter-test); filed issues with PyTorch and vLLM.</li>
+</ul>
+
+<h2>Experience</h2>
+<div class="row"><span class="t">Far East Facade<span class="sub"> | Project Engineer, Engineering Department</span></span><span class="d">Jun 2026 - Present</span></div>
+<ul>
+  <li>Built a Python workflow to extract delivery batches and test results from supplier emails, supporting delivery plans for 15 material types.</li>
+</ul>
+<div class="row"><span class="t">Caixun Technology<span class="sub"> | Product Intern</span></span><span class="d">Jun 2025 - Aug 2025</span></div>
+<ul>
+  <li>Independently wrote 3 PRDs and prototyped 5 core pages in Axure; proposals were scheduled for development. Tracked fixes and retesting, helping resolve over 10 issues.</li>
+</ul>
+
+<h2>Skills</h2>
+<div class="skills">
+  <div><b>Development:</b> Python, TypeScript, React, Fastify/FastAPI, SQL, Git, CI</div>
+  <div><b>Agents:</b> tool calling, session scheduling, human approval, tracing/OTLP, policy checks, recovery, RAG and retrieval evaluation</div>
+  <div><b>Performance:</b> Triton, CUDA, PyTorch, vLLM, controlled experiments. <b>Languages:</b> Chinese (native), English (working)</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>罗文杰 - Agent应用研发工程师 - 简历</title>
+<link rel="stylesheet" href="cv.css">
+</head>
+<body>
+<header>
+  <h1>罗文杰</h1>
+  <div class="role">Agent 应用研发工程师 | 2027 届（2027.01 毕业）</div>
+  <div class="contact">+65 8084 8140 | +86 183 1949 6086 | e1576499@u.nus.edu<br>
+    <a href="https://github.com/LUOaini1213">github.com/LUOaini1213</a> | <a href="https://luoaini1213.github.io">luoaini1213.github.io</a>（项目演示、源码与评测报告）</div>
+</header>
+
+<h2>核心优势</h2>
+<ul>
+  <li>用 Python 与 TypeScript 开发 Agent 应用：确定性工具算数、人工确认把关，可观测性与评测接入 CI；把需求落成接口、状态流转与验收用例。</li>
+  <li>做过 GPU 计算与推理性能归因，结论用单变量受控对照和可复跑实验支撑。</li>
+</ul>
+
+<h2>教育背景</h2>
+<div class="row"><span class="t">新加坡国立大学（NUS）<span class="sub"> | 土木工程硕士 · 运输与城市交通</span></span><span class="d">2025.08 - 2027.01</span></div>
+<div class="note">相关课程：机器学习基础（CEE5901QA）、高级 AI 方法（CEE5901QB）、智能交通与仿真</div>
+<div class="row"><span class="t">长安大学<span class="sub"> | 交通运输学士 · 211 · 卓越工程师班</span></span><span class="d">2021.09 - 2025.06</span></div>
+<div class="note">GPA 3.16/5.0，专业排名约前 15%</div>
+
+<h2>项目经历</h2>
+<div class="row"><span class="t">Civil Buddy<span class="sub"> | Agent 运行时与工具编排（开源主项目）</span></span><span class="d">2026.07 - 至今</span></div>
+<ul>
+  <li>实现会话调度、工具引擎、策略校验与恢复模块，支持 66 岗标准作业流程；高风险写入先经人工确认，失败路径保留审计记录。</li>
+  <li>串联装箱计算、人工确认与出图，128 次确定性评测全部通过；影子评测比较预设步骤与工具调用，无密钥时策略回退。</li>
+</ul>
+<div class="row"><span class="t">Glass Box<span class="sub"> | Agent 可观测中间件（TypeScript / Fastify）</span></span><span class="d">2026.08 - 至今</span></div>
+<ul>
+  <li>在官方 starter 上构建可观测层：父子 span 瀑布展示工具执行、token、估算成本与重试链，提供 trace 查询和 OTLP / JSON 导出；本地持久队列通过 503、超时与强制重启恢复测试。</li>
+  <li>无密钥回放与策略校验覆盖 22 条绕过、11 条合法放行；21 个文件共 150 个用例，Node 22/24 CI 执行类型检查、测试、构建与冒烟。</li>
+</ul>
+<div class="row"><span class="t">EDA Copilot<span class="sub"> | 可追溯工程问答（RAG）</span></span><span class="d">2026.09</span></div>
+<ul>
+  <li>跑通 OpenROAD nangate45/gcd 的 RTL→GDSII 流程，把报告、日志与脚本文档切成 1,215 个带行号出处的检索块；实现 BM25、TF-IDF 与混合检索。</li>
+  <li>离线评测 BM25 与混合检索 Hit@5 均为 22/23；12 条停问用例全部正确拦截并给出原因码，关闭护栏后 12 条均强行作答。</li>
+</ul>
+<div class="row"><span class="t">Counterask<span class="sub"> | WebMCP 对话式商店</span></span><span class="d">2026.09</span></div>
+<ul>
+  <li>单页无服务器店面：11 个命令式工具加声明式结账表单，Agent 能填写、下单键只有用户能按；800 句查询 Hit@10 0.999，61 条手写用例与 4,000 句模糊测试进 npm test。</li>
+</ul>
+<div class="row"><span class="t">fp16x3 / vLLM<span class="sub"> | GPU 计算与推理性能</span></span><span class="d">2026.09</span></div>
+<ul>
+  <li>fp16x3：操作数拆成 fp16 hi / lo，经 Triton 拆分核与补偿 GEMM 在张量核上保持 fp32 级精度；三次独立 T4 复测中位加速 2.875×，117 次精度检查全部通过。</li>
+  <li>把 vLLM 在 GTX 1650 上约 10× 的吞吐塌陷归因到 fp16 GEMM 小 M 路径（T4 单变量反证），已向 PyTorch、vLLM 提交 issue。</li>
+</ul>
+
+<h2>实习经历</h2>
+<div class="row"><span class="t">新加坡远东幕墙（Far East Facade）<span class="sub"> | 工程部 · 项目工程师</span></span><span class="d">2026.06 - 至今</span></div>
+<ul>
+  <li>用 Python 解析供应商发运与检测邮件，提取到货批次和检测结论，支撑 15 种材料的到场计划与节点跟进。</li>
+</ul>
+<div class="row"><span class="t">彩讯科技<span class="sub"> | 产品实习生</span></span><span class="d">2025.06 - 2025.08</span></div>
+<ul>
+  <li>独立撰写 3 份 PRD，用 Axure 完成 5 个核心页面原型，方案进入开发排期；跟踪缺陷修复与复验，推动解决 10 余项问题。</li>
+</ul>
+
+<h2>技能</h2>
+<div class="skills">
+  <div><b>开发：</b>Python、TypeScript、React、Fastify / FastAPI、SQL、Git、CI</div>
+  <div><b>Agent：</b>工具调用、会话调度、人工确认、链路追踪 / OTLP、策略校验、失败恢复、RAG 与检索评测</div>
+  <div><b>性能：</b>Triton、CUDA、PyTorch、vLLM、受控对照实验；中文母语，英文为工作语言</div>
+</div>
+</body>
+</html>

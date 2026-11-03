@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>罗文杰 - 供应链与项目管理 - 简历</title>
+<link rel="stylesheet" href="cv.css">
+<style>body { font-size: 10.2pt; line-height: 1.5; } h2 { margin-top: 8pt; }</style>
+</head>
+<body>
+<header>
+  <h1>罗文杰</h1>
+  <div class="role">供应链与项目管理 | 2027 届（2027.01 毕业）</div>
+  <div class="contact">+65 8084 8140 | +86 183 1949 6086 | e1576499@u.nus.edu<br>
+    <a href="https://github.com/LUOaini1213">github.com/LUOaini1213</a> | <a href="https://luoaini1213.github.io">luoaini1213.github.io</a>（项目演示与报告）</div>
+</header>
+
+<h2>核心优势</h2>
+<ul>
+  <li>供应商协同、进出口单证与 KD 项目进度三段经历：围绕送检、发运、到货与安装节点做计划衔接和信息核对。</li>
+  <li>能把重复核对写成 Python 脚本，把排程与车辆问题建成线性 / 整数规划模型，用求解器和仿真比较方案。</li>
+</ul>
+
+<h2>教育背景</h2>
+<div class="row"><span class="t">新加坡国立大学（NUS）<span class="sub"> | 土木工程硕士 · 运输与城市交通</span></span><span class="d">2025.08 - 2027.01</span></div>
+<div class="note">相关课程：交通规划、智能交通与仿真、机器学习基础（CEE5901QA）</div>
+<div class="row"><span class="t">长安大学<span class="sub"> | 交通运输学士 · 211 · 卓越工程师班</span></span><span class="d">2021.09 - 2025.06</span></div>
+<div class="note">GPA 3.16/5.0，专业排名约前 15%；班级团支部书记，获校优秀团员</div>
+
+<h2>实习经历</h2>
+<div class="row"><span class="t">新加坡远东幕墙（Far East Facade）<span class="sub"> | 工程部 · 项目工程师</span></span><span class="d">2026.06 - 至今</span></div>
+<ul>
+  <li>协调 15 种幕墙材料与 5 家供应商的送检及到场计划，在总包周会上对齐材料交付和安装节点。</li>
+  <li>辅助项目经理参与分包价格、设备与人力条款商谈；编制月报，用 Python 解析供应商邮件、跟踪材料状态。</li>
+</ul>
+<div class="row"><span class="t">奇瑞汽车股份有限公司（奇瑞国际）<span class="sub"> | 产品实习生</span></span><span class="d">2026.05 - 2026.06</span></div>
+<ul>
+  <li>维护 KD（散件组装）项目甘特图，对齐研发、量产与物流节点，跟进样车及量产件的发运、到货和生产排期。</li>
+  <li>制作进口资质申报材料，协助出口合规检查，跟进出口运输、物流与报关环节。</li>
+</ul>
+<div class="row"><span class="t">Expeditors（广州）<span class="sub"> | 供应链助理</span></span><span class="d">2024.12 - 2025.04</span></div>
+<ul>
+  <li>协调承运商、客户及报关行，同步运输与通关信息，独立编制和审核报关单。</li>
+  <li>用 Excel VLOOKUP 与数据透视表优化表格流程，单证处理效率约提升 30%；把报关单必查字段与常见错项整理成统一复核清单。</li>
+</ul>
+
+<h2>项目经历</h2>
+<div class="row"><span class="t">Civil Buddy<span class="sub"> | 装箱与拼柜流程工具（开源）</span></span><span class="d">2026.07 - 至今</span></div>
+<ul>
+  <li>串联物料输入、装箱计算、人工确认和拼柜出图，由确定性工具计算坐标与柜数，形成可核对的装箱方案。</li>
+  <li>编写装箱岗 PRD 及验收表，128 次确定性评测全部通过；记录拒绝原因和失败恢复步骤，支持问题回溯。</li>
+</ul>
+<div class="row"><span class="t">制造滚动规划<span class="sub"> | 设备故障后的重排程</span></span><span class="d">2026.10</span></div>
+<ul>
+  <li>设备故障时冻结已完成工序、保留在制品的原设备与剩余工时；HiGHS 生成候选排程，SimPy 从同一快照续算原排程作对照，人工确认后才推进。</li>
+  <li>合成场景首次故障对照：候选排程完工 4/4、原排程 2/4；求解失败或超时不发布提案，过期确认不能应用到新快照。</li>
+</ul>
+<div class="row"><span class="t">LP / MIP 从零实现<span class="sub"> | 运筹优化</span></span><span class="d">2026.09</span></div>
+<ul>
+  <li>手写两阶段单纯形、分支定界与 Gomory 割，逐实例与 HiGHS 交叉验证。最少车辆数问题：指派型写法只需 1 个节点，big-M 写法需 21–31 个；生产计划中收紧 big-M，节点数 19 → 5、最优值不变。</li>
+</ul>
+<div class="row"><span class="t">精益建造<span class="sub"> | 课程项目</span></span><span class="d">2026.02 - 2026.03</span></div>
+<ul>
+  <li>分析 3 个模板施工循环录像，绘制流向图和班组平衡表，识别等待 297 秒（约占循环 46%）；采用小批量、布局优化与班组再平衡，推算循环由约 10 分钟缩至 6 分 40 秒。</li>
+</ul>
+
+<h2>技能</h2>
+<div class="skills">
+  <div><b>供应链协同：</b>材料计划、供应商送检、发运与到货跟踪、进出口单证与报关、KD 项目进度协调</div>
+  <div><b>计划与优化：</b>线性 / 整数规划（HiGHS）、SimPy 仿真、甘特图、流程分析与时间动作研究</div>
+  <div><b>工具：</b>Excel（VLOOKUP、数据透视表）、Python、SQL；中文母语，英文为工作语言</div>
+</div>
+</body>
+</html>
