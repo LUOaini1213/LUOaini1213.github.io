@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>罗文杰 - Agent应用研发工程师 - 简历</title>
+<link rel="stylesheet" href="cv2.css">
+</head>
+<body>
+<div class="header">
+  <div class="info">
+    <div class="name">罗文杰<span class="en">Wenjie Luo</span></div>
+    <div class="target">求职意向：Agent 应用研发工程师<span class="sep">|</span>2027 届（2027.01 毕业）</div>
+    <div class="contact">
+      <div>+65 8084 8140<span class="sep">|</span>+86 183 1949 6086<span class="sep">|</span>e1576499@u.nus.edu<span class="sep">|</span>新加坡</div>
+      <div><a href="https://github.com/LUOaini1213">github.com/LUOaini1213</a><span class="sep">|</span><a href="https://luoaini1213.github.io">luoaini1213.github.io</a>（项目演示、源码与评测报告）</div>
+    </div>
+  </div>
+</div>
+
+<h2>核心优势</h2>
+<div class="summary"><ul>
+  <li><span class="k">Agent 工程化：</span>确定性工具算数、人工确认把关、链路可观测，评测与冒烟测试接入 CI。</li>
+  <li><span class="k">可复现：</span>用交叉验证、模糊测试与单变量对照说话，负结果和适用边界照实写进仓库。</li>
+  <li><span class="k">性能与底层：</span>写过 Triton / CUDA 核，分析 cuBLAS GEMM 行为，向 PyTorch、vLLM 提交过 issue。</li>
+</ul></div>
+
+<h2>教育背景</h2>
+<div class="entry">
+  <div class="row"><span class="t">新加坡国立大学（NUS）<span class="sub"> | 土木工程硕士 · 运输与城市交通</span></span><span class="d">2025.08 - 2027.01</span></div>
+  <div class="note">相关课程：机器学习基础（CEE5901QA）、高级 AI 方法（CEE5901QB）、智能交通与仿真</div>
+</div>
+<div class="entry">
+  <div class="row"><span class="t">长安大学<span class="sub"> | 交通运输学士 · 211 · 卓越工程师班</span></span><span class="d">2021.09 - 2025.06</span></div>
+  <div class="note">GPA 3.16/5.0，专业排名约前 15%；相关课程：Python 程序设计、大学计算机（90）</div>
+</div>
+
+<h2>项目经历</h2>
+<div class="entry">
+  <div class="row"><span class="t">Civil Buddy<span class="sub"> | Agent 运行时与工具编排（开源主项目）</span><span class="tag">Python</span><span class="tag">FastAPI</span><span class="tag">MCP</span></span><span class="d">2026.07 - 至今</span></div>
+  <ul>
+    <li><span class="k">运行时：</span>会话调度、工具引擎、策略校验与恢复模块，支撑 66 岗流程；高风险写入先人工确认。</li>
+    <li><span class="k">策略与部署：</span>无 Key 剧本覆盖放行 → 越权被拒 → 故障重试降级 → 成本超限熔断；Rust 工作台 + MCP 入口、FastAPI 网关、Docker Compose 部署。</li>
+    <li><span class="k">评测：</span>装箱评测 128 次 <span class="m">128/128</span> 跑通（57 次判定装不下并交回人工）；CI 每次提交跑离线切片与双臂影子评测。</li>
+  </ul>
+</div>
+<div class="entry">
+  <div class="row"><span class="t">Glass Box<span class="sub"> | Agent 可观测中间件（TechJam 2026，基于官方 starter）</span><span class="tag">TypeScript</span><span class="tag">Fastify</span><span class="tag">OTel</span></span><span class="d">2026.08 - 至今</span></div>
+  <ul>
+    <li><span class="k">Trace：</span>每次 Run 转成 OpenTelemetry GenAI 语义的 span 瀑布（工具、token、成本、重试），失败步骤一键跳转。</li>
+    <li><span class="k">可靠性：</span>OTLP 导出按批次检查点、重试与重启重放；Node 22/24 矩阵 CI 跑类型检查、测试、构建与回放 / OTLP 冒烟；密钥脱敏。</li>
+  </ul>
+</div>
+<div class="entry">
+  <div class="row"><span class="t">EDA Copilot<span class="sub"> | 可追溯工程问答（RAG + 停问护栏）</span></span><span class="d">2026.09</span></div>
+  <ul>
+    <li>跑通 OpenROAD RTL→GDSII 流程并切成 1,215 块、出处到行；23 题 Hit@5 达 <span class="m">22/23</span>；7 类原因码停问 12/12 全对，关护栏后 12/12 强答。</li>
+  </ul>
+</div>
+<div class="entry">
+  <div class="row"><span class="t">RecAgent<span class="sub"> | 自主跑 MLE 循环的 Agent（TechJam 2026）</span></span><span class="d">2026.09</span></div>
+  <ul>
+    <li>Agent 自主循环 inspect → feature → train → eval → reflect；官方协议 test 0.6015 对 FM 基线 0.5946，23 轮迭代、纯 CPU 约 3.5 小时，<span class="m">0 次</span>人工改代码。</li>
+  </ul>
+</div>
+<div class="entry">
+  <div class="row"><span class="t">Counterask<span class="sub"> | WebMCP 对话式商店</span></span><span class="d">2026.09</span></div>
+  <ul>
+    <li>11 个命令式工具 + 声明式结账（只有用户能下单）；61 条手写用例与 4,000 句模糊测试进 npm test。</li>
+  </ul>
+</div>
+<div class="entry">
+  <div class="row"><span class="t">GPU 与推理性能<span class="sub"> | fp16x3 · vLLM 归因 · CUDA 对照</span><span class="tag">Triton</span><span class="tag">CUDA</span><span class="tag">cuBLAS</span></span><span class="d">2026.09</span></div>
+  <ul>
+    <li><span class="k">fp16x3：</span>Triton 融合核把操作数拆成 fp16 hi/lo，K 扩三倍的 cuBLAS GEMM 累加交叉项，保持 fp32 级精度；三次独立 T4 会话中位加速 <span class="m">2.875×</span>，117/117 精度检查通过。</li>
+    <li><span class="k">归因：</span>GTX 1650 上 vLLM 变慢定位到 cuBLAS fp16 GEMM 小 M 断崖（带宽 99.5 → 4.3 GiB/s），T4 对照 0.83× 不复现，已向 PyTorch、vLLM 提 issue。</li>
+  </ul>
+</div>
+
+<h2>实习经历</h2>
+<div class="entry">
+  <div class="row"><span class="t">新加坡远东幕墙（Far East Facade）<span class="sub"> | 工程部 · 项目工程师</span></span><span class="d">2026.06 - 至今</span></div>
+  <ul>
+    <li>用 Python 解析供应商发运与检测邮件，提取到货批次与检测结论，支撑 15 种材料的到场计划与节点跟进。</li>
+  </ul>
+</div>
+<div class="entry">
+  <div class="row"><span class="t">彩讯科技<span class="sub"> | 产品实习生</span></span><span class="d">2025.06 - 2025.08</span></div>
+  <ul>
+    <li>独立撰写 3 份 PRD、用 Axure 完成 5 个核心页面原型并进入开发排期；跟踪缺陷修复与复验，推动解决 10 余项问题。</li>
+  </ul>
+</div>
+
+<h2>技能</h2>
+<div class="skills">
+  <span class="label">语言与框架</span><span>Python、TypeScript、SQL；FastAPI、Fastify、React；Git、CI</span>
+  <span class="label">Agent</span><span>工具调用、会话调度、人工确认、策略校验、失败恢复、OpenTelemetry / OTLP、RAG</span>
+  <span class="label">测试与评测</span><span>交叉验证、模糊测试、影子评测、消融与受控对照、bootstrap 置信区间</span>
+  <span class="label">GPU 与性能</span><span>Triton、CUDA、PyTorch、vLLM、cuBLAS；中文母语，英文为工作语言</span>
+</div>
+</body>
+</html>
