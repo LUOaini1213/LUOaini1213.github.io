@@ -52,12 +52,12 @@
 <div class="row"><span class="t">Civil Buddy<span class="sub"> | Packing and Container Planning (open source)</span></span><span class="d">Jul 2026 - Present</span></div>
 <ul>
   <li>Built a workflow from material input to packing, human approval and container plans; deterministic tools calculate coordinates and container counts.</li>
-  <li>Wrote the packing PRD and acceptance checklist; all 128 deterministic evaluations passed, with refusal reasons and recovery steps recorded.</li>
+  <li>Wrote the packing PRD and acceptance checklist; 128/128 evaluation runs completed, 57 judged not to fit and handed back to a person; refusal reasons and recovery steps recorded.</li>
 </ul>
 <div class="row"><span class="t">Manufacturing Rolling Replanning<span class="sub"> | Rescheduling after Machine Failure</span></span><span class="d">Oct 2026</span></div>
 <ul>
   <li>On a breakdown, completed operations are frozen and work in progress keeps its machine and remaining time; HiGHS proposes a new schedule, SimPy replays the original from the same snapshot, and a person confirms before execution advances.</li>
-  <li>In the synthetic first-failure comparison the candidate completes 4/4 jobs versus 2/4; solver failures publish no proposal and stale confirmations cannot apply to a newer snapshot.</li>
+  <li>In the synthetic first-failure comparison the candidate completes 4/4 jobs versus 2/4; after a second breakdown, in-process machines and completed operations are still preserved.</li>
 </ul>
 <div class="row"><span class="t">LP / MIP from Scratch<span class="sub"> | Operations Research</span></span><span class="d">Sep 2026</span></div>
 <ul>

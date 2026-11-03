@@ -26,15 +26,15 @@
 <div class="note">GPA 3.16/5.0，专业排名约前 15%</div>
 
 <h2>项目经历</h2>
-<div class="row"><span class="t">Civil Buddy<span class="sub"> | Agent 运行时与工具编排（开源主项目）</span></span><span class="d">2026.07 - 至今</span></div>
+<div class="row"><span class="t">Civil Buddy<span class="sub"> | Agent 运行时与工具编排（Rust 工作台 + MCP、Python、FastAPI）</span></span><span class="d">2026.07 - 至今</span></div>
 <ul>
-  <li>实现会话调度、工具引擎、策略校验与恢复模块，支持 66 岗标准作业流程；高风险写入先经人工确认，失败路径保留审计记录。</li>
-  <li>串联装箱计算、人工确认与出图，128 次确定性评测全部通过；影子评测比较预设步骤与工具调用，无密钥时策略回退。</li>
+  <li>实现会话调度、工具引擎、策略校验与恢复模块，支持 66 岗标准作业流程；高风险写入先经人工确认；策略引擎覆盖越权拒绝、工具故障重试降级与成本超限熔断。</li>
+  <li>串联装箱计算、人工确认与出图，128 次评测 128/128 跑通（57 次判定装不下并交回人工）；影子评测比较预设步骤与工具调用，无密钥时走 policy_fallback。</li>
 </ul>
 <div class="row"><span class="t">Glass Box<span class="sub"> | Agent 可观测中间件（TypeScript / Fastify）</span></span><span class="d">2026.08 - 至今</span></div>
 <ul>
-  <li>在官方 starter 上构建可观测层：父子 span 瀑布展示工具执行、token、估算成本与重试链，提供 trace 查询和 OTLP / JSON 导出；本地持久队列通过 503、超时与强制重启恢复测试。</li>
-  <li>无密钥回放与策略校验覆盖 22 条绕过、11 条合法放行；21 个文件共 150 个用例，Node 22/24 CI 执行类型检查、测试、构建与冒烟。</li>
+  <li>在官方 starter 上构建可观测层：父子 span 瀑布展示工具执行、token、估算成本与重试链，提供 trace 查询和 OTLP / JSON 导出；本地持久队列通过 503、超时与进程被杀后的恢复测试。</li>
+  <li>密钥外泄策略在运行前门禁与运行中两处拦截；Node 22/24 矩阵 CI 跑类型检查、测试、构建，以及完成 / 失败 / 拒绝三类回放冒烟与 OTLP 恢复冒烟。</li>
 </ul>
 <div class="row"><span class="t">EDA Copilot<span class="sub"> | 可追溯工程问答（RAG）</span></span><span class="d">2026.09</span></div>
 <ul>
@@ -48,7 +48,7 @@
 <div class="row"><span class="t">fp16x3 / vLLM<span class="sub"> | GPU 计算与推理性能</span></span><span class="d">2026.09</span></div>
 <ul>
   <li>fp16x3：操作数拆成 fp16 hi / lo，经 Triton 拆分核与补偿 GEMM 在张量核上保持 fp32 级精度；三次独立 T4 复测中位加速 2.875×，117 次精度检查全部通过。</li>
-  <li>把 vLLM 在 GTX 1650 上约 10× 的吞吐塌陷归因到 fp16 GEMM 小 M 路径（T4 单变量反证），已向 PyTorch、vLLM 提交 issue。</li>
+  <li>把 GTX 1650 上 vLLM 的吞吐塌陷归因到 cuBLAS fp16 GEMM 小 M 断崖：M=1→2 带宽 99.5 → 4.3 GiB/s，同为 sm_75 但有 Tensor Core 的 T4 上不复现（0.83×）；已向 PyTorch、vLLM 提交 issue。</li>
 </ul>
 
 <h2>实习经历</h2>

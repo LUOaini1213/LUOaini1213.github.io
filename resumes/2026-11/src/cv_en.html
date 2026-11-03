@@ -54,7 +54,7 @@
 <div class="row"><span class="t">Civil Buddy<span class="sub"> | Engineering Agent Workspace (open-source flagship)</span></span><span class="d">Jul 2026 - Present</span></div>
 <ul>
   <li>Workspace with 66 role skills; packing flow: material input → tool-computed container counts and coordinates → human confirmation → 3D load plan. The model never writes the numbers.</li>
-  <li>Wrote the packing PRD and acceptance checklist (refusal reasons, recovery, cost limits); passed all 128 deterministic packing evaluations (16 concurrent × 8 rounds).</li>
+  <li>Wrote the packing PRD and acceptance checklist (refusal reasons, recovery, cost limits); all 128 evaluation runs completed, 57 judged not to fit and handed back to a person.</li>
 </ul>
 <div class="row"><span class="t">Counterask<span class="sub"> | Conversational WebMCP Storefront</span></span><span class="d">Sep 2026</span></div>
 <ul>
@@ -63,7 +63,7 @@
 </ul>
 <div class="row"><span class="t">Glass Box<span class="sub"> | Agent Observability Middleware (TechJam 2026)</span></span><span class="d">Sep 2026</span></div>
 <ul>
-  <li>Turns each agent run into an OpenTelemetry GenAI span waterfall that pinpoints failing steps; shows OTLP delivery status, passes 503, timeout and forced-restart recovery tests, and redacts secrets before persistence.</li>
+  <li>Turns each agent run into an OpenTelemetry GenAI span waterfall that pinpoints failing steps; shows OTLP delivery status, passes 503, timeout and killed-process recovery tests, and redacts secrets before persistence.</li>
 </ul>
 <div class="row"><span class="t">Keeta Review Analysis<span class="sub"> | Cross-market Customer Feedback</span></span><span class="d">2026</span></div>
 <ul>
@@ -75,7 +75,7 @@
 </ul>
 <div class="row"><span class="t">More<span class="sub"> | Evaluation and Inference Performance</span></span><span class="d">2026</span></div>
 <ul>
-  <li>LLM-judge study auditing reference-answer, position and phrasing effects with whole-question resampling; traced a ~10× vLLM throughput collapse on a GTX 1650 to an fp16 GEMM small-M cliff and filed issues with PyTorch and vLLM.</li>
+  <li>LLM-judge study auditing reference-answer, position and phrasing effects; traced a vLLM throughput collapse on a GTX 1650 to a cuBLAS fp16 GEMM small-M cliff (99.5 → 4.3 GiB/s; absent on T4) and filed issues with PyTorch and vLLM.</li>
 </ul>
 
 <h2>Skills</h2>

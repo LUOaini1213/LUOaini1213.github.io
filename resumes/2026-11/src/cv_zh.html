@@ -48,7 +48,7 @@
 <div class="row"><span class="t">Civil Buddy<span class="sub"> | 工程 Agent 工作台（开源主项目）</span></span><span class="d">2026.07 - 至今</span></div>
 <ul>
   <li>66 岗 skill 的土木工作台；装箱岗：物料输入 → 工具算柜数与坐标 → 人工确认 → 拼柜出 3D 图，模型不写数字。</li>
-  <li>编写装箱 PRD 与验收表（拒绝原因、失败恢复、成本上限）；128 次确定性装箱评测（16 并发 × 8 轮）全部通过。</li>
+  <li>编写装箱 PRD 与验收表（拒绝原因、失败恢复、成本上限）；128 次装箱评测（16 并发 × 8 轮）128/128 跑通，其中 57 次判定装不下并交回人工改方案。</li>
 </ul>
 <div class="row"><span class="t">Counterask<span class="sub"> | WebMCP 对话式商店</span></span><span class="d">2026.09</span></div>
 <ul>
@@ -57,7 +57,7 @@
 </ul>
 <div class="row"><span class="t">Glass Box<span class="sub"> | Agent 可观测中间件（TechJam 2026）</span></span><span class="d">2026.09</span></div>
 <ul>
-  <li>把每次 Agent 运行转成 OpenTelemetry GenAI 语义的 span 瀑布，失败步骤可直接定位；展示 OTLP 投递状态，通过 503、超时与强制重启的恢复测试；落盘前对密钥脱敏。</li>
+  <li>把每次 Agent 运行转成 OpenTelemetry GenAI 语义的 span 瀑布，失败步骤可直接定位；展示 OTLP 投递状态，通过 503、超时与进程被杀后的恢复测试；落盘前对密钥脱敏。</li>
 </ul>
 <div class="row"><span class="t">Keeta 评论分析<span class="sub"> | 跨市场客户反馈</span></span><span class="d">2026</span></div>
 <ul>
@@ -69,7 +69,7 @@
 </ul>
 <div class="row"><span class="t">更多项目<span class="sub"> | 评测与推理性能</span></span><span class="d">2026</span></div>
 <ul>
-  <li>LLM 评委实验：审计参考答案、位置偏差与表达方式对判分的影响，做整题重采样敏感性分析；vLLM 在 GTX 1650 上约 10× 吞吐塌陷归因到 fp16 GEMM 小 M 路径，已向 PyTorch / vLLM 提交 issue。</li>
+  <li>LLM 评委实验：审计参考答案、位置偏差与表达方式对判分的影响；vLLM 吞吐塌陷归因到 cuBLAS fp16 GEMM 小 M 断崖（带宽 99.5 → 4.3 GiB/s，T4 对照不复现），已向 PyTorch / vLLM 提 issue。</li>
 </ul>
 
 <h2>技能</h2>
